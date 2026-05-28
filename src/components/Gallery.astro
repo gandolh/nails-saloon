@@ -1,0 +1,53 @@
+---
+import { gallery } from "../content/gallery";
+import { site } from "../content/site";
+---
+
+<section
+  id="galerie"
+  class="section bg-[var(--color-surface-container-low)]"
+>
+  <div class="container-page">
+    <div class="reveal max-w-2xl">
+      <span class="label-md uppercase text-[var(--color-secondary)]">
+        Portofoliu
+      </span>
+      <h2 class="heading-lg mt-3">Galerie</h2>
+      <span class="gold-divider"></span>
+      <p class="mt-4 text-[var(--color-on-surface-variant)]">
+        Câteva dintre lucrările mele recente — fiecare unghie este o mică operă
+        de artă, croită pe stilul tău.
+      </p>
+    </div>
+
+    <div
+      class="mt-12 columns-2 md:columns-3 gap-4 [column-fill:_balance]"
+    >
+      {
+        gallery.map((img, i) => (
+          <figure
+            class="reveal mb-4 break-inside-avoid rounded-[1rem] overflow-hidden bg-[var(--color-surface-container)]"
+          >
+            <img
+              src={img.src}
+              alt={img.alt}
+              loading={i < 3 ? "eager" : "lazy"}
+              class="w-full h-auto block transition-transform duration-500 hover:scale-[1.02]"
+            />
+          </figure>
+        ))
+      }
+    </div>
+
+    <div class="mt-12 text-center">
+      <a
+        href={site.social.instagram}
+        target="_blank"
+        rel="noopener"
+        class="btn btn-secondary"
+      >
+        Urmărește-mă pe Instagram
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,114 @@
+---
+import { site } from "../content/site";
+
+const year = 2026;
+const links = [
+  { href: "#acasa", label: "Acasă" },
+  { href: "#servicii", label: "Servicii" },
+  { href: "#galerie", label: "Galerie" },
+  { href: "#contact", label: "Contact" },
+];
+---
+
+<footer
+  class="bg-[var(--color-inverse-surface)] text-[var(--color-inverse-on-surface)] mt-12"
+>
+  <div class="container-page py-16 grid gap-12 md:grid-cols-3">
+    <div>
+      <span class="wordmark text-3xl">Ana Saloon</span>
+      <p class="mt-4 text-sm opacity-80 max-w-xs">
+        Salon de manichiură în {site.city}, dedicat fiecărei cliente în parte.
+      </p>
+    </div>
+
+    <nav class="flex flex-col gap-3">
+      <span class="label-md opacity-60 uppercase tracking-wider">Navigare</span>
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class="text-sm opacity-90 hover:opacity-100 hover:underline underline-offset-4"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex flex-col gap-3">
+      <span class="label-md opacity-60 uppercase tracking-wider">Contact</span>
+      <a href={`tel:+${site.phoneE164}`} class="text-sm opacity-90 hover:opacity-100"
+        >{site.phone}</a
+      >
+      <a href={`mailto:${site.email}`} class="text-sm opacity-90 hover:opacity-100"
+        >{site.email}</a
+      >
+      <p class="text-sm opacity-90">
+        {site.address}, {site.city}
+      </p>
+
+      <div class="flex items-center gap-4 mt-4">
+        <a
+          href={site.social.instagram}
+          aria-label="Instagram"
+          target="_blank"
+          rel="noopener"
+          class="opacity-80 hover:opacity-100"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a
+          href={site.social.facebook}
+          aria-label="Facebook"
+          target="_blank"
+          rel="noopener"
+          class="opacity-80 hover:opacity-100"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+          </svg>
+        </a>
+        <a
+          href={`https://wa.me/${site.whatsappE164}`}
+          aria-label="WhatsApp"
+          target="_blank"
+          rel="noopener"
+          class="opacity-80 hover:opacity-100"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M3 21l1.65-3.8A8.5 8.5 0 1 1 7.8 19.35L3 21z"/>
+            <path d="M8.5 8.5c0 4 3 7 7 7l1.5-2-2.5-1-1 1c-1 0-3-2-3-3l1-1-1-2.5z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="border-t border-white/10 py-6 text-xs opacity-60"
+  >
+    <div
+      class="container-page flex flex-col md:flex-row items-center justify-between gap-4"
+    >
+      <p>© {year} {site.name}. Toate drepturile rezervate.</p>
+      <div class="flex items-center gap-4">
+        <a
+          href="https://anpc.ro/ce-este-sal/"
+          target="_blank"
+          rel="noopener"
+          class="hover:opacity-100">ANPC SAL</a
+        >
+        <a
+          href="https://ec.europa.eu/consumers/odr"
+          target="_blank"
+          rel="noopener"
+          class="hover:opacity-100">ANPC SOL</a
+        >
+      </div>
+    </div>
+  </div>
+</footer>

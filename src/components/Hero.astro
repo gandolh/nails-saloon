@@ -1,0 +1,75 @@
+---
+import { site } from "../content/site";
+---
+
+<section
+  id="acasa"
+  class="relative pt-28 md:pt-32 pb-16 md:pb-24 overflow-hidden"
+>
+  <div
+    class="container-page grid md:grid-cols-2 gap-12 md:gap-16 items-center"
+  >
+    <div class="reveal order-2 md:order-1">
+      <span class="label-md uppercase text-[var(--color-secondary)]">
+        Salon de manichiură · {site.city}
+      </span>
+      <h1 class="heading-xl mt-4 text-[var(--color-on-surface)]">
+        {site.tagline}
+      </h1>
+      <p
+        class="mt-6 text-lg text-[var(--color-on-surface-variant)] max-w-md leading-relaxed"
+      >
+        {site.description}
+      </p>
+
+      <div class="mt-8 flex flex-wrap items-center gap-4">
+        <a href="#programari" class="btn btn-primary">Programează-te acum</a>
+        <a
+          href="#servicii"
+          class="text-sm font-semibold underline underline-offset-4 text-[var(--color-on-surface)] hover:text-[var(--color-blush-deep)]"
+        >
+          Vezi serviciile →
+        </a>
+      </div>
+
+      <div
+        class="mt-10 flex items-center gap-3 text-sm text-[var(--color-on-surface-variant)]"
+      >
+        <div class="flex items-center gap-0.5 text-[var(--color-gold)]">
+          {Array.from({ length: 5 }).map(() => (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2l2.9 6.9L22 10l-5.5 4.9L18 22l-6-3.5L6 22l1.5-7.1L2 10l7.1-1.1z"
+              />
+            </svg>
+          ))}
+        </div>
+        <span>
+          <strong class="text-[var(--color-on-surface)]"
+            >{site.stats.rating}</strong
+          > pe Google · Peste {site.stats.clients} cliente mulțumite
+        </span>
+      </div>
+    </div>
+
+    <div class="reveal order-1 md:order-2 relative">
+      <div
+        class="aspect-[4/5] w-full rounded-[1rem] overflow-hidden bg-[var(--color-surface-container)]"
+      >
+        <img
+          src="/images/hero.svg"
+          alt="Detaliu cu unghii manichiurate în salon"
+          class="w-full h-full object-cover"
+          width="800"
+          height="1000"
+        />
+      </div>
+      <!-- Decorative gold accent -->
+      <div
+        class="hidden md:block absolute -bottom-4 -left-4 w-20 h-20 rounded-full"
+        style="background: radial-gradient(circle at 30% 30%, #C9A961 0%, #C9A961 60%, transparent 70%); opacity: 0.35;"
+      >
+      </div>
+    </div>
+  </div>
+</section>

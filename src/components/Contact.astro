@@ -1,0 +1,107 @@
+---
+import { site } from "../content/site";
+
+const mapsQuery = encodeURIComponent(
+  `${site.address}, ${site.city}, ${site.county}, ${site.country}`,
+);
+const mapsEmbed = `https://www.google.com/maps?q=${site.geo.lat},${site.geo.lng}&z=14&output=embed`;
+const mapsLink = `https://www.google.com/maps?q=${mapsQuery}`;
+---
+
+<section id="contact" class="section">
+  <div class="container-page">
+    <div class="reveal max-w-2xl">
+      <span class="label-md uppercase text-[var(--color-secondary)]">
+        Vino la mine
+      </span>
+      <h2 class="heading-lg mt-3">Contact</h2>
+      <span class="gold-divider"></span>
+    </div>
+
+    <div class="mt-12 grid md:grid-cols-2 gap-10 md:gap-16">
+      <div class="reveal space-y-8">
+        <div>
+          <p class="label-md uppercase text-[var(--color-on-surface-variant)]">
+            Adresă
+          </p>
+          <p
+            class="mt-2 font-display text-xl text-[var(--color-on-surface)] leading-snug"
+            style="font-family: 'Playfair Display', Georgia, serif;"
+          >
+            {site.address}<br />{site.city}, {site.county}
+          </p>
+          <a
+            href={mapsLink}
+            target="_blank"
+            rel="noopener"
+            class="inline-block mt-3 label-md uppercase text-[var(--color-blush-deep)] hover:underline"
+          >
+            Vezi pe hartă →
+          </a>
+        </div>
+
+        <div>
+          <p class="label-md uppercase text-[var(--color-on-surface-variant)]">
+            Telefon · WhatsApp
+          </p>
+          <a
+            href={`tel:+${site.phoneE164}`}
+            class="mt-2 inline-block font-display text-xl text-[var(--color-on-surface)] hover:text-[var(--color-blush-deep)]"
+            style="font-family: 'Playfair Display', Georgia, serif;"
+          >
+            {site.phone}
+          </a>
+        </div>
+
+        <div>
+          <p class="label-md uppercase text-[var(--color-on-surface-variant)]">
+            Email
+          </p>
+          <a
+            href={`mailto:${site.email}`}
+            class="mt-2 inline-block font-display text-xl text-[var(--color-on-surface)] hover:text-[var(--color-blush-deep)]"
+            style="font-family: 'Playfair Display', Georgia, serif;"
+          >
+            {site.email}
+          </a>
+        </div>
+
+        <div>
+          <p class="label-md uppercase text-[var(--color-on-surface-variant)]">
+            Program
+          </p>
+          <ul
+            class="mt-3 space-y-2 divide-y divide-[var(--color-outline-variant)]"
+          >
+            {
+              site.hours.map((h) => (
+                <li class="flex justify-between gap-4 pt-2 first:pt-0">
+                  <span class="text-[var(--color-on-surface-variant)]">
+                    {h.day}
+                  </span>
+                  <span class="text-[var(--color-on-surface)] font-semibold">
+                    {h.value}
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div
+          class="aspect-[4/3] w-full rounded-[1rem] overflow-hidden border border-[var(--color-outline-variant)]"
+        >
+          <iframe
+            src={mapsEmbed}
+            title={`Locația ${site.name} pe hartă`}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            class="w-full h-full"
+            style="border: 0;"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

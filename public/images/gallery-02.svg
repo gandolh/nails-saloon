@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <defs>
+    <linearGradient id="g" gradientTransform="rotate(135)">
+      <stop offset="0%" stop-color="#FBF7F2"/>
+      <stop offset="100%" stop-color="#F4D6D0"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#g)"/>
+  <g opacity="0.45" font-family="Playfair Display, Georgia, serif" fill="#241914">
+    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-size="48" font-style="italic">Galerie 2</text>
+  </g>
+</svg>

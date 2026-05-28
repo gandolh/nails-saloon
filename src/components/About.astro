@@ -1,0 +1,76 @@
+---
+import { site } from "../content/site";
+---
+
+<section
+  id="despre"
+  class="section bg-[var(--color-surface-container-low)]"
+>
+  <div class="container-page grid md:grid-cols-2 gap-12 md:gap-20 items-center">
+    <div class="reveal order-2 md:order-1">
+      <div
+        class="aspect-[4/5] w-full max-w-md mx-auto md:mx-0 rounded-[1rem] overflow-hidden bg-[var(--color-surface-container)]"
+      >
+        <img
+          src="/images/ana-portrait.svg"
+          alt="Portret al Anei, deținătoarea salonului"
+          class="w-full h-full object-cover"
+          width="800"
+          height="1000"
+          loading="lazy"
+        />
+      </div>
+    </div>
+
+    <div class="reveal order-1 md:order-2">
+      <span class="label-md uppercase text-[var(--color-secondary)]">
+        Despre mine
+      </span>
+      <h2 class="heading-lg mt-3">Bună, sunt Ana</h2>
+      <span class="gold-divider"></span>
+
+      <div
+        class="mt-6 space-y-4 text-[var(--color-on-surface-variant)] leading-relaxed"
+      >
+        <p>
+          De peste {site.stats.years} ani îmi dedic timpul artei manichiurii,
+          îngrijind unghii și transformând fiecare programare într-o pauză de
+          răsfăț pentru cliente.
+        </p>
+        <p>
+          Lucrez cu produse premium, în condiții de igienă impecabile, și pun
+          accent pe detalii și pe relația personală cu fiecare clientă.
+        </p>
+        <p>
+          Te aștept în salonul meu din {site.city} pentru o experiență relaxantă
+          și unghii care să te facă să zâmbești de fiecare dată când le privești.
+        </p>
+      </div>
+
+      <div class="mt-10 grid grid-cols-3 gap-4 max-w-md">
+        <div class="text-center">
+          <p class="heading-md text-[var(--color-on-surface)]">
+            {site.stats.years}
+          </p>
+          <p class="label-md uppercase text-[var(--color-on-surface-variant)] mt-1">
+            ani exp.
+          </p>
+        </div>
+        <div class="text-center">
+          <p class="heading-md text-[var(--color-on-surface)]">
+            {site.stats.clients}
+          </p>
+          <p class="label-md uppercase text-[var(--color-on-surface-variant)] mt-1">
+            cliente
+          </p>
+        </div>
+        <div class="text-center">
+          <p class="heading-md text-[var(--color-on-surface)]">100%</p>
+          <p class="label-md uppercase text-[var(--color-on-surface-variant)] mt-1">
+            premium
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

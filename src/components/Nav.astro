@@ -1,0 +1,62 @@
+---
+import MobileMenu from "./MobileMenu.tsx";
+
+const links = [
+  { href: "#despre", label: "Despre" },
+  { href: "#servicii", label: "Servicii" },
+  { href: "#galerie", label: "Galerie" },
+  { href: "#contact", label: "Contact" },
+];
+---
+
+<header
+  id="site-nav"
+  class="fixed top-0 inset-x-0 z-40 transition-colors duration-300"
+  data-scrolled="false"
+>
+  <div class="container-page flex items-center justify-between py-4">
+    <a href="#acasa" class="wordmark text-2xl md:text-3xl">Ana Saloon</a>
+
+    <nav class="hidden md:flex items-center gap-8">
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class="label-md text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a href="#programari" class="hidden md:inline-flex btn btn-primary"
+        >Programează-te</a
+      >
+      <MobileMenu client:load />
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  (function () {
+    const nav = document.getElementById("site-nav");
+    if (!nav) return;
+    function update() {
+      const scrolled = window.scrollY > 8;
+      nav.dataset.scrolled = scrolled ? "true" : "false";
+    }
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+  })();
+</script>
+
+<style>
+  #site-nav[data-scrolled="true"] {
+    background-color: rgba(255, 248, 246, 0.85);
+    backdrop-filter: saturate(140%) blur(8px);
+    -webkit-backdrop-filter: saturate(140%) blur(8px);
+    border-bottom: 1px solid var(--color-outline-variant);
+  }
+</style>
