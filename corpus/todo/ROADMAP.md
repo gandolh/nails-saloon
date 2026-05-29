@@ -25,52 +25,54 @@ Acolo unde e cazul, e notat cu „(pereche cu B-x)".
 ### A1. Site (Astro) — conținut & conversie
 - [ ] **Prețuri pe serviciu** („de la X lei") în `src/content/services.ts` + UI.
   (Valorile reale le dă omul — B7; agentul pregătește structura + afișarea.)
-- [ ] **Secțiune igienizare/sterilizare** (autoclav, instrumentar, dezinfecție) —
-  componentă nouă + text RO. Semnal de încredere important în RO.
-- [ ] **FAQ** (durată gel, cum mă programez, produse, anulare, plată) — componentă
-  + conținut, cu `FAQPage` JSON-LD pentru SEO.
-- [ ] **Galerie înainte/după** — structură în `src/content/gallery.ts` + UI
-  (folosește placeholder-ele până vin pozele reale — B8).
-- [ ] **Voucher cadou** — secțiune/mențiune (leagă de secțiunea de loialitate).
-- [ ] **Feed/embed Instagram** — doar dacă se poate fără cookie-uri terțe (altfel
-  rămâne link); respectă postura din `LEGAL.md` (fără banner de cookie-uri).
+> **Status A1: DONE** (în afară de prețuri/IG, care erau deja prezente). Vezi
+> commit-ul „site conversion + trust content (Part A1)".
+- [x] **Secțiune igienizare/sterilizare** — `src/components/Sterilization.astro`
+  (#igiena: autoclav, consumabile unică folosință, dezinfecție).
+- [x] **FAQ** — `src/components/Faq.astro` + `src/content/faq.ts` (6 întrebări,
+  accordion `<details>`, `FAQPage` JSON-LD validat în build).
+- [x] **Galerie înainte/după** — `beforeAfter` în `src/content/gallery.ts` +
+  subsecțiune în `Gallery.astro` (placeholder-e până vin pozele reale — B7).
+- [x] **Voucher cadou** — mențiune adăugată în `Loyalty.astro`.
+- [~] **Prețuri pe serviciu** — DEJA prezente în `Services.astro` (nimic de făcut).
+- [~] **Link Instagram** — DEJA prezent (CTA în galerie + iconițe footer).
+- [ ] **Feed/embed Instagram** — rămâne link (un embed ar aduce cookie-uri terțe;
+  contra posturii din `LEGAL.md`). Lăsat intenționat needeschis.
 
 ### A2. Serviciul de bots — cod care duce scaffold-ul spre „gata de producție"
-Toate au mock-uri; agentul scrie impl-ul real **în spatele aceleiași interfețe**
-și îl ține testabil. (Pornirea live e B1–B5.)
-- [ ] **db pe SQLite** — implementează interfața `Db` peste SQLite (`node:sqlite`
-  sau `better-sqlite3`), inclusiv migrațiile și `purgeExpired`. Înlocuiește
-  in-memory în spatele `config.mockMode`. (`core/db.ts`)
-- [ ] **`isCalendarFull` real** — acum întoarce mereu `false` (`core/db.ts:86`);
-  logica de sloturi libere pe baza programărilor.
-- [ ] **Server HTTP / webhook** — `server.ts:77 TODO(real-impl)`: dacă `!mockMode`,
-  `assertSecretsForLive`, deschide portul pe `config.basePath`, montează
-  routerul de webhook (GET handshake + POST cu verificare semnătură).
-- [ ] **Sender real WhatsApp Cloud API** — în spatele `WhatsAppSender`
-  (mesaj în fereastra 24h + `sendTemplate`). (pereche cu B1)
-- [ ] **Sender real Meta Messaging** — `MetaMessagingSender.sendReply` +
-  `setIceBreakers` (Messenger / IG Messaging). (pereche cu B2)
-- [ ] **ContentPublisher real** — pipeline IG create→poll→publish, FB Page,
-  TikTok Content Posting. (`scheduler/index.ts:138`) (pereche cu B3)
-- [ ] **MarketingClient real** — preset → params Meta Marketing API, campanie
-  `PAUSED`, `special_ad_categories: []`, deep-link Ads Manager în notificare.
-  (`campaigns/index.ts:95,117,191`) (pereche cu B4)
-- [ ] **Notifier real** — canalul de notificare către om (email/WhatsApp) pentru
-  aprobarea campaniilor + alerte de eșec la publicare (`scheduler/index.ts:160`).
-- [ ] **Idempotență** confirmări/remindere — flag-uri `reminderSentAt` /
-  `confirmationSentAt` ca să nu se retrimită (`whatsapp/jobs.ts:71,100`).
-- [ ] **Sursă config pentru linkul WhatsApp** din responses — acum e placeholder
-  hardcodat (`responses/replies.ts:15`); ia-l din `config`/site.
-- [ ] **Scheduler bazat pe timere reale** — variantă cu systemd-timer/cron în
-  spatele aceleiași interfețe `Scheduler` (acum e trigger manual, determinist).
-- [ ] **`.env.example` ↔ `config.ts`** — păstrează-le sincronizate când apar
-  variabile noi din task-urile de mai sus.
-- [ ] **CI** (opțional) — workflow care rulează `npm run check` pe `marketing/bots/`.
+Impl real **în spatele acelorași interfețe înghețate**; mock mode rămâne
+default-ul, căile reale se construiesc doar la `BOTS_MOCK_MODE=false`.
+
+> **Status A2: DONE.** Vezi commit-ul „bots real-impl behind frozen interfaces
+> (Part A2)". `npm run check` verde (66 teste). Pornirea live rămâne B1–B5.
+- [x] **db pe SQLite** — `core/db-sqlite.ts` (`node:sqlite`, zero deps), schemă +
+  `purgeExpired`; teste în `db-sqlite.test.ts`.
+- [x] **`isCalendarFull` real** — programări confirmate vs. capacitatea unui scaun.
+- [x] **Server HTTP / webhook** — `core/webhook-http.ts` (GET handshake + POST cu
+  semnătură verificată + parser inbound); pornit din `server.ts` în live.
+- [x] **Sender real WhatsApp Cloud API** — `core/senders-live.ts`. (pereche cu B1)
+- [x] **Sender real Meta Messaging** — `sendReply` + `setIceBreakers`. (cu B2)
+- [x] **ContentPublisher real** — IG create→poll→publish, FB Page, TikTok. (cu B3)
+- [x] **MarketingClient real** — campanie `PAUSED`, `special_ad_categories: []`;
+  refuză orice non-PAUSED. (cu B4) *(ad set/creative rămân TODO la wiring live)*
+- [x] **Notifier real** — schelet; transportul (email/WhatsApp) e alegere B5/om.
+- [x] **Idempotență** — `reminderSentAt`/`confirmationSentAt` (câmpuri opționale
+  pe `Appointment`); nu se retrimit.
+- [x] **Linkul WhatsApp din config** — `SALON_WHATSAPP_E164` / `config`.
+- [x] **Scheduler pe timere reale** — `SchedulerControl.start()` (interval/job).
+- [x] **`.env.example` ↔ `config.ts`** — sincronizat (`SALON_WHATSAPP_E164`,
+  `PUBLISH_SPACING_MS`).
+- [ ] **CI** (opțional) — NEdeschis intenționat: repo-ul nu are încă `.github/`
+  workflows; adăugarea CI e o decizie de infra (mai degrabă B8). Gate-ul local
+  e `npm run check`.
 
 ### A3. Documentație & igienă
 - [ ] **Actualizează `/confidentialitate`** când un bot intră live cu un nou
   flux/împuternicit (Meta/TikTok), conform `LEGAL.md` + `COMPLIANCE.md #11`.
-  (Agentul scrie textul; omul confirmă datele firmei.)
+  *(Amânat corect: boții NU sunt live — mock mode. Pagina deja menționează
+  WhatsApp/Meta ca împuternicit + transfer SUA. A adăuga acum „răspunsuri
+  automate" sau TikTok ar descrie o prelucrare care nu are loc încă — inexact
+  pentru o pagină GDPR. Se face la pornirea live, pereche cu B1/B2/B3.)*
 - [ ] La fiecare bot care ajunge live, **bifează** elementele din
   `marketing/bots/<bot>/todo.md` și mută în corpus ce devine „decizie".
 
