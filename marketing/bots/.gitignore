@@ -1,0 +1,4 @@
+# Runtime state (SQLite db + assets). Never commit client data.
+data/
+*.sqlite
+*.sqlite-journal
