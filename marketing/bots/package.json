@@ -11,7 +11,7 @@
     "dev": "node --env-file=.env --experimental-strip-types --watch src/server.ts",
     "start": "node --env-file=.env --experimental-strip-types src/server.ts",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test src/**/*.test.ts",
+    "test": "bash -c 'shopt -s globstar; node --experimental-strip-types --test src/**/*.test.ts'",
     "lint": "tsc --noEmit",
     "check": "npm run typecheck && npm test"
   },

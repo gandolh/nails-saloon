@@ -26,6 +26,13 @@ export interface SchedulerControl extends Scheduler {
   runJob(name: string): Promise<void>;
   /** Run every registered job once (smoke test). */
   runAll(): Promise<void>;
+  /**
+   * Start real timers (one per job at its registered cadence) for live mode.
+   * Returns a stop() that clears them all. A job that throws is caught + logged
+   * via `onError` so one bad run never kills the loop. No-op in tests (they
+   * drive jobs explicitly via runJob/runAll instead).
+   */
+  start(onError?: (name: string, err: unknown) => void): () => void;
 }
 
 export function createScheduler(): SchedulerControl {
@@ -45,6 +52,18 @@ export function createScheduler(): SchedulerControl {
     },
     async runAll() {
       for (const { job } of jobs.values()) await job();
+    },
+    start(onError) {
+      const timers: ReturnType<typeof setInterval>[] = [];
+      for (const [name, { everyMs, job }] of jobs) {
+        const tick = (): void => {
+          void job().catch((err) => onError?.(name, err));
+        };
+        timers.push(setInterval(tick, everyMs));
+      }
+      return () => {
+        for (const t of timers) clearInterval(t);
+      };
     },
   };
 }

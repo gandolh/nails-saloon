@@ -45,6 +45,16 @@ export interface Config {
   /** SQLite file path on the VPS. */
   dbPath: string;
 
+  /** Salon WhatsApp number (E.164 without '+'), the single booking path. */
+  salonWhatsAppE164: string;
+
+  /**
+   * Minimum gap between two post publishes in one run (ms) — human-spaced
+   * cadence (COMPLIANCE #5). Defaults to 0 in mock mode so tests run instantly;
+   * a real value (e.g. 90000) is used in production via env.
+   */
+  publishSpacingMs: number;
+
   /** Secrets — only required when mockMode is false. */
   secrets: {
     metaAppSecret: string | undefined;
@@ -101,6 +111,12 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
     },
 
     dbPath: env.DB_PATH ?? "./data/bots.sqlite",
+
+    // Mirrors the site's whatsappE164; placeholder until the owner provides it.
+    salonWhatsAppE164: env.SALON_WHATSAPP_E164 ?? "40700000000",
+
+    // 0 in mock mode (instant tests); 90s default live. Override via env.
+    publishSpacingMs: int(env.PUBLISH_SPACING_MS, bool(env.BOTS_MOCK_MODE, true) ? 0 : 90_000),
 
     secrets: {
       metaAppSecret: env.META_APP_SECRET,

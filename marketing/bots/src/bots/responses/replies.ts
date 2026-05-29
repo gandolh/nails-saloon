@@ -8,13 +8,14 @@
  */
 
 /**
- * Single booking path = the salon's WhatsApp link. Mirrors the site's
- * `site.whatsappE164` ("40700000000", E.164 without '+'). Kept as a local const
- * so the bots package stays standalone (it must not be pulled into the Astro
- * build). When the real number lands on the site, update it here too.
- * TODO(impl): source this from config/site instead of a hardcoded placeholder.
+ * Single booking path = the salon's WhatsApp link. Sourced from the
+ * `SALON_WHATSAPP_E164` env var (same value as `config.salonWhatsAppE164` and
+ * the site's `site.whatsappE164`), falling back to the placeholder. Read at
+ * module load so the deployed service uses the real number without touching the
+ * reply copy; the default keeps tests deterministic. E.164 without '+'.
  */
-export const WHATSAPP_E164 = "40700000000";
+export const WHATSAPP_E164 =
+  (typeof process !== "undefined" ? process.env.SALON_WHATSAPP_E164 : undefined) ?? "40700000000";
 
 /** The one booking CTA every path funnels to (single booking path). */
 export const WHATSAPP_BOOKING_URL = `https://wa.me/${WHATSAPP_E164}`;
