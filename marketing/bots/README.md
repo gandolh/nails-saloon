@@ -8,10 +8,19 @@ all via official platform APIs. No engagement automation. See
 > Separate package from the Astro site (this is a long-running Node server; the
 > site is static). It is **not** part of `astro build`.
 
-## Status: scaffold (Phase 1 done)
+## Status: scaffold complete (Phases 1–3 done)
 
-Frozen `core/` contracts + stub bots. **Mock mode only** — no real API calls, no
-tokens, no spend. Phase 2 fills in the bots; Phase 3 integrates.
+Frozen `core/` contracts + all four bots scaffolded + shared test harness, built
+by parallel agents and integrated. **Mock mode only** — no real API calls, no
+tokens, no spend. Each bot is a typed, tested stub with `// TODO(impl):` markers
+where live API wiring goes (a separate, later task).
+
+- `npm run typecheck` — clean (strict).
+- `npm test` — 47 tests pass across all bots.
+- Boots with all four bots enabled: 6 jobs registered, no collisions.
+
+Remaining (post-scaffold, not in this pass): swap in-memory db → SQLite and mock
+senders → real API clients behind `config.mockMode`; open the HTTP server.
 
 ## Stack
 

@@ -12,7 +12,8 @@
     "start": "node --env-file=.env --experimental-strip-types src/server.ts",
     "typecheck": "tsc --noEmit",
     "test": "node --experimental-strip-types --test src/**/*.test.ts",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "check": "npm run typecheck && npm test"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
