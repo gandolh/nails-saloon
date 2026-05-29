@@ -1,18 +1,25 @@
 # Roadmap — ce a mai rămas de făcut
 
+> Pentru o orientare rapidă la reluarea lucrului, citește întâi
+> [../STATUS.md](../STATUS.md). **Partea A (cod de agent) e DONE** — vezi marcajele
+> de mai jos. Mai rămân: **Partea C** (cablarea finală live, blocată pe acțiunile
+> de om) și **Partea B** (acțiuni pur de om).
+
 Listă unificată a lucrurilor deschise pe tot proiectul (site + serviciul de
-bots), la **29 mai 2026**. Împărțită în două:
+bots), la **29 mai 2026**. Împărțită în trei:
 
 - **Partea A — poate fi făcută de un agent**: cod / conținut / config pe care un
   agent îl poate scrie și **verifica local** (typecheck, teste, build) fără
   secrete reale, fără bani, fără decizii din lumea reală.
+- **Partea C — cablarea finală live**: cod mic, dar care se poate scrie/testa
+  corect **doar după** ce omul creează conturile (B1–B5), pentru că trebuie rulat
+  pe ceva real. Fiecare item e „pereche" cu un pas B.
 - **Partea B — trebuie făcută de un om**: orice cere credențiale, cheltuială,
   semnături legale, date reale ale firmei, deținerea conturilor sau judecată de
   business. Un agent **nu** poate (și nu trebuie să) facă aceste lucruri.
 
-Multe sarcini de tip „cablare reală" au o **față A și o față B**: agentul scrie
-codul + testele cu mock-uri; omul aduce token-ul/credențialul și aprobă pornirea.
-Acolo unde e cazul, e notat cu „(pereche cu B-x)".
+Fluxul de activare a unui bot e mereu: **B (omul creează contul/credențialul) →
+C (agentul finalizează codul dependent de cont și îl testează) → pornire live**.
 
 > Referințe: deciziile în [../MARKETING.md](../MARKETING.md) și [../LEGAL.md](../LEGAL.md);
 > regulile boților în `marketing/bots/COMPLIANCE.md`; planurile detaliate în
@@ -75,6 +82,31 @@ default-ul, căile reale se construiesc doar la `BOTS_MOCK_MODE=false`.
   pentru o pagină GDPR. Se face la pornirea live, pereche cu B1/B2/B3.)*
 - [ ] La fiecare bot care ajunge live, **bifează** elementele din
   `marketing/bots/<bot>/todo.md` și mută în corpus ce devine „decizie".
+
+---
+
+## Partea C — cablarea finală live (cod, dar blocat pe acțiunile de om)
+
+Cod mic, marcat în sursă cu `// TODO(impl):` (caută șirul în
+`marketing/bots/src`). NU se poate scrie/testa corect fără contul real aferent —
+se face **după** pasul B din pereche, ca parte a activării fiecărui bot.
+
+- [ ] **C1 — WhatsApp (pereche B1):** în `whatsapp/handler.ts` persistă programarea
+  „requested" + notifică Ana pentru confirmare; trimite template utility/away în
+  afara ferestrei de 24h. Testabil după ce există numărul + template-urile aprobate.
+- [ ] **C2 — Responses (pereche B2):** validează pe contul real fluxul
+  `sendReply` / `setIceBreakers` (codul există în `senders-live.ts`; necesită
+  Pagina + permisiuni Messaging).
+- [ ] **C3 — Scheduler (pereche B3):** alertă la eșec de publicare + retry
+  (`scheduler/index.ts`); validează pipeline-ul real de publicare IG/FB/TikTok.
+- [ ] **C4 — Campaigns (pereche B4):** în `senders-live.ts` `createPausedCampaign`,
+  partea de **ad set + creative + ad** (geo/buget/optimizare + ID creativ); +
+  deep-link Ads Manager în notificare. Necesită cont de reclame real.
+- [ ] **C5 — Notifier (pereche B5):** alege canalul (email/WhatsApp către Ana) și
+  trimite efectiv (acum doar loghează). Decizia de canal e a omului.
+- [ ] **C6 — Confidențialitate (pereche B1/B2/B3):** actualizează
+  `/confidentialitate` cu fluxurile/împuterniciții reali când boții devin live
+  (vezi A3 — amânat intenționat cât timp e mock).
 
 ---
 
