@@ -194,6 +194,8 @@ export const createBot = (deps: CoreDeps): BotModule => {
     db: deps.db,
     logger: log,
     caps,
+    // Human-spaced cadence from config: 0 in mock mode (instant), 90s live.
+    minSpacingMs: deps.config.publishSpacingMs,
   });
 
   return {

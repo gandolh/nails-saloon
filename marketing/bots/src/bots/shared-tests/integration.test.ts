@@ -24,8 +24,14 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 
-import { buildApp } from "../../server.ts";
-import { loadConfig } from "../../core/index.ts";
+import { buildApp, type App } from "../../server.ts";
+import { loadConfig, type SentLog } from "../../core/index.ts";
+
+/** In mock mode sentLog is always present; narrow it for the assertions. */
+function mustLog(app: App): SentLog {
+  assert.ok(app.sentLog, "mock-mode app must expose sentLog");
+  return app.sentLog;
+}
 import {
   JOB_PREPARE_DRAFTS,
   JOB_AUTOPAUSE_FULL,
@@ -55,13 +61,14 @@ function fullEnv(over: NodeJS.ProcessEnv = {}): NodeJS.ProcessEnv {
 test("inbound WhatsApp 'Programare' dispatched through the assembled router replies + hands off to a human", async () => {
   const app = buildApp(loadConfig(fullEnv()));
 
+  const log = mustLog(app);
   await app.router.dispatch(fakeWhatsAppMessage({ text: "Programare", fromId: "40755000111" }));
 
   // The whatsapp booking flow intentionally sends TWO messages: the booking
   // prompt AND a human hand-off, so the user is never trapped in the bot
   // (COMPLIANCE #14 — always route to a real human). See whatsapp/handler.ts.
-  assert.equal(app.sentLog.whatsappMessages.length, 2, "booking prompt + human hand-off");
-  for (const reply of app.sentLog.whatsappMessages) {
+  assert.equal(log.whatsappMessages.length, 2, "booking prompt + human hand-off");
+  for (const reply of log.whatsappMessages) {
     assert.equal(reply.platform, "whatsapp");
     assert.equal(reply.kind, "service", "in-window reply must be a free-form service message");
     assert.ok(reply.text.length > 0, "reply has on-brand RO text");
@@ -70,6 +77,7 @@ test("inbound WhatsApp 'Programare' dispatched through the assembled router repl
 
 test("WhatsApp STOP records an opt-out in the shared db and acknowledges exactly once", async () => {
   const app = buildApp(loadConfig(fullEnv()));
+  const log = mustLog(app);
   const from = "40755000222";
 
   await app.router.dispatch(fakeWhatsAppMessage({ text: "STOP", fromId: from }));
@@ -81,7 +89,7 @@ test("WhatsApp STOP records an opt-out in the shared db and acknowledges exactly
     "STOP recorded an opt-out in the shared db",
   );
   // Exactly one warm acknowledgement — never a burst.
-  assert.equal(app.sentLog.whatsappMessages.length, 1, "STOP sends exactly one acknowledgement");
+  assert.equal(log.whatsappMessages.length, 1, "STOP sends exactly one acknowledgement");
 
   // NOTE on semantics (intentional, documented in whatsapp/handler.ts): the
   // WhatsApp bot still answers a LATER user-initiated message from an opted-out
@@ -95,18 +103,19 @@ test("responses bot: an opted-out IG contact is then fully silenced on the NEXT 
   // This is the divergent contract from the WhatsApp bot, and it only holds if
   // the responses handler + the shared db are wired together via buildApp.
   const app = buildApp(loadConfig(fullEnv()));
+  const log = mustLog(app);
   const from = "ig_user_777";
 
   // STOP -> one acknowledgement + opt-out recorded.
   await app.router.dispatch(fakeInstagramMessage({ text: "STOP", fromId: from }));
   assert.equal(await app.deps.db.isOptedOut("instagram", from), true, "opt-out recorded");
-  const afterStop = app.sentLog.metaReplies.length;
+  const afterStop = log.metaReplies.length;
   assert.equal(afterStop, 1, "STOP acknowledged once");
 
   // A later message from the same opted-out contact gets NO reply at all.
   await app.router.dispatch(fakeInstagramMessage({ text: "Programare", fromId: from }));
   assert.equal(
-    app.sentLog.metaReplies.length,
+    log.metaReplies.length,
     afterStop,
     "opted-out IG contact receives no further automated replies",
   );
@@ -124,9 +133,10 @@ test("campaigns prepare-drafts job (via scheduler) only ever produces PAUSED dra
     "prepare-drafts job is registered in the assembled scheduler",
   );
 
+  const log = mustLog(app);
   await app.scheduler.runJob(JOB_PREPARE_DRAFTS);
 
-  const drafts = app.sentLog.campaignDrafts;
+  const drafts = log.campaignDrafts;
   assert.ok(drafts.length >= 1, "at least one draft prepared");
   for (const d of drafts) {
     assert.equal(d.status, "PAUSED", `draft ${d.presetKey} must be PAUSED — never ACTIVE`);
@@ -134,7 +144,7 @@ test("campaigns prepare-drafts job (via scheduler) only ever produces PAUSED dra
   }
   // Every prepared draft pairs with a human-approval notification.
   assert.equal(
-    app.sentLog.notifications.length,
+    log.notifications.length,
     drafts.length,
     "one approval notification per prepared draft",
   );
@@ -144,9 +154,10 @@ test("campaigns budget guard clamps an over-cap preset under integration (tiny c
   // Set the daily cap BELOW the smallest preset ask (boost-best-reel = 3000 bani).
   const app = buildApp(loadConfig(fullEnv({ ADS_DAILY_CAP_MINOR: "1000" })));
 
+  const log = mustLog(app);
   await app.scheduler.runJob(JOB_PREPARE_DRAFTS);
 
-  const drafts = app.sentLog.campaignDrafts;
+  const drafts = log.campaignDrafts;
   assert.ok(drafts.length >= 1, "drafts were prepared");
   for (const d of drafts) {
     assert.ok(
@@ -177,6 +188,7 @@ test("spend kill-switch removes the campaigns bot from the assembled graph", () 
 
 test("scheduler publish-runner (via scheduler) publishes a due post to all targets and marks it published", async () => {
   const app = buildApp(loadConfig(fullEnv()));
+  const log = mustLog(app);
 
   assert.ok(
     app.scheduler.jobNames().includes(PUBLISH_RUNNER_JOB),
@@ -196,7 +208,7 @@ test("scheduler publish-runner (via scheduler) publishes a due post to all targe
   await app.scheduler.runJob(PUBLISH_RUNNER_JOB);
 
   // The mock publisher recorded one publish per target.
-  const targetsPublished = app.sentLog.published
+  const targetsPublished = log.published
     .filter((p) => p.post.id === post.id)
     .map((p) => p.target)
     .sort();

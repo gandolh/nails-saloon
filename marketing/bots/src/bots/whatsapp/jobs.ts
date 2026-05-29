@@ -64,17 +64,26 @@ export function makeReminderJob(deps: JobDeps): () => Promise<void> {
     let sent = 0;
     for (const appt of due) {
       if (appt.status !== "confirmed") continue;
+      // Idempotency: never send a second reminder for the same appointment.
+      if (appt.reminderSentAt) {
+        log.debug("reminder skipped (already sent)", { to: redact(appt.phoneE164) });
+        continue;
+      }
       if (await db.isOptedOut(PLATFORM, appt.phoneE164)) {
         log.debug("reminder skipped (opted out)", { to: redact(appt.phoneE164) });
         continue;
       }
-      // TODO(impl): check a persisted `reminderSentAt` flag for idempotency.
       const res = await senders.whatsapp.sendTemplate(appt.phoneE164, TEMPLATES.reminder, {
         nume: appt.clientName,
         ora: formatRoTime(appt.startsAt),
       });
-      if (res.ok) sent++;
-      else log.warn("reminder send failed", { to: redact(appt.phoneE164) });
+      if (res.ok) {
+        sent++;
+        // Persist the flag so a re-run (or overlapping window) won't resend.
+        await db.upsertAppointment({ ...appt, reminderSentAt: now().toISOString() });
+      } else {
+        log.warn("reminder send failed", { to: redact(appt.phoneE164) });
+      }
     }
     log.info("reminder job ran", { due: due.length, sent });
   };
@@ -96,15 +105,19 @@ export function makeConfirmationJob(deps: JobDeps): () => Promise<void> {
     let sent = 0;
     for (const appt of upcoming) {
       if (appt.status !== "confirmed") continue;
+      // Idempotency: only send a confirmation once per appointment.
+      if (appt.confirmationSentAt) continue;
       if (await db.isOptedOut(PLATFORM, appt.phoneE164)) continue;
-      // TODO(impl): only send if `confirmationSentAt` is unset (avoid resending).
       const res = await senders.whatsapp.sendTemplate(appt.phoneE164, TEMPLATES.confirmation, {
         nume: appt.clientName,
         serviciu: SERVICE_LABELS[appt.service],
         data: formatRoDate(appt.startsAt),
         ora: formatRoTime(appt.startsAt),
       });
-      if (res.ok) sent++;
+      if (res.ok) {
+        sent++;
+        await db.upsertAppointment({ ...appt, confirmationSentAt: now().toISOString() });
+      }
     }
     log.info("confirmation job ran", { scanned: upcoming.length, sent });
   };

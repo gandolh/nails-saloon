@@ -48,3 +48,8 @@ export * from "./db.ts";
 export * from "./senders.ts";
 export * from "./webhook.ts";
 export * from "./scheduler.ts";
+
+// Real-impl modules (constructed only outside mock mode by server.ts).
+export { createSqliteDb } from "./db-sqlite.ts";
+export { createLiveSenders } from "./senders-live.ts";
+export { startWebhookServer, parseMetaInbound } from "./webhook-http.ts";

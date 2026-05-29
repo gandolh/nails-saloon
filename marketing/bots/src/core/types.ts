@@ -42,6 +42,10 @@ export interface Appointment {
   createdAt: string;
   /** Last appointment drives the 12-month retention clock. */
   lastInteractionAt: string;
+  /** ISO timestamp the reminder was sent — set for idempotency (don't resend). */
+  reminderSentAt?: string;
+  /** ISO timestamp the confirmation was sent — set for idempotency. */
+  confirmationSentAt?: string;
 }
 
 /** A lead captured from an ad / form before it becomes an appointment. */
