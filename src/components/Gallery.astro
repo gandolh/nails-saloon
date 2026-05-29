@@ -1,5 +1,5 @@
 ---
-import { gallery } from "../content/gallery";
+import { gallery, beforeAfter } from "../content/gallery";
 import { site } from "../content/site";
 ---
 
@@ -20,8 +20,49 @@ import { site } from "../content/site";
       </p>
     </div>
 
+    <!-- Before / after transformations -->
+    <div class="mt-12">
+      <h3 class="heading-md reveal">Înainte & după</h3>
+      <div class="mt-6 grid gap-6 md:grid-cols-3">
+        {
+          beforeAfter.map((pair) => (
+            <figure class="reveal card !p-3">
+              <div class="grid grid-cols-2 gap-2">
+                <div class="relative rounded-[0.75rem] overflow-hidden bg-[var(--color-surface-container)]">
+                  <img
+                    src={pair.before.src}
+                    alt={pair.before.alt}
+                    loading="lazy"
+                    class="w-full h-auto block"
+                  />
+                  <span class="absolute top-2 left-2 label-md uppercase tracking-wider bg-white/85 text-[var(--color-on-surface)] rounded-full px-2 py-0.5 text-xs">
+                    Înainte
+                  </span>
+                </div>
+                <div class="relative rounded-[0.75rem] overflow-hidden bg-[var(--color-surface-container)]">
+                  <img
+                    src={pair.after.src}
+                    alt={pair.after.alt}
+                    loading="lazy"
+                    class="w-full h-auto block"
+                  />
+                  <span class="absolute top-2 left-2 label-md uppercase tracking-wider bg-[var(--color-gold)] text-white rounded-full px-2 py-0.5 text-xs">
+                    După
+                  </span>
+                </div>
+              </div>
+              <figcaption class="mt-3 text-center text-sm text-[var(--color-on-surface-variant)]">
+                {pair.caption}
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+
+    <h3 class="heading-md reveal mt-16">Lucrări recente</h3>
     <div
-      class="mt-12 columns-2 md:columns-3 gap-4 [column-fill:_balance]"
+      class="mt-6 columns-2 md:columns-3 gap-4 [column-fill:_balance]"
     >
       {
         gallery.map((img, i) => (
