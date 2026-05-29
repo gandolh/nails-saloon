@@ -90,18 +90,76 @@ const mapsLink = `https://www.google.com/maps?q=${mapsQuery}`;
       </div>
 
       <div class="reveal">
+        <!--
+          Consent-gated map: the Google Maps iframe is NOT loaded on page load,
+          so Google sets no cookies and receives no visitor IP until the user
+          explicitly clicks "Încarcă harta". This keeps the site free of
+          non-essential third-party cookies (no cookie banner required).
+        -->
         <div
-          class="aspect-[4/3] w-full rounded-[1rem] overflow-hidden border border-[var(--color-outline-variant)]"
+          id="map-shell"
+          class="relative aspect-[4/3] w-full rounded-[1rem] overflow-hidden border border-[var(--color-outline-variant)] bg-[var(--color-surface-container)]"
+          data-map-embed={mapsEmbed}
+          data-map-title={`Locația ${site.name} pe hartă`}
         >
-          <iframe
-            src={mapsEmbed}
-            title={`Locația ${site.name} pe hartă`}
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            class="w-full h-full"
-            style="border: 0;"></iframe>
+          <div
+            id="map-placeholder"
+            class="absolute inset-0 flex flex-col items-center justify-center gap-4 text-center px-6"
+          >
+            <svg
+              width="40"
+              height="40"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              class="text-[var(--color-primary)]"
+              aria-hidden="true"
+            >
+              <path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <p class="text-sm text-[var(--color-on-surface-variant)] max-w-xs">
+              Harta este furnizată de Google. La încărcare, Google poate seta
+              cookie-uri. Vezi
+              <a href="/cookie-uri/" class="underline underline-offset-2"
+                >Politica de cookie-uri</a
+              >.
+            </p>
+            <button id="map-load" type="button" class="btn btn-primary">
+              Încarcă harta
+            </button>
+            <a
+              href={mapsLink}
+              target="_blank"
+              rel="noopener"
+              class="label-md uppercase text-[var(--color-blush-deep)] hover:underline"
+            >
+              Sau deschide în Google Maps →
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <script is:inline>
+    (function () {
+      const btn = document.getElementById("map-load");
+      const shell = document.getElementById("map-shell");
+      const placeholder = document.getElementById("map-placeholder");
+      if (!btn || !shell || !placeholder) return;
+      btn.addEventListener("click", function () {
+        const iframe = document.createElement("iframe");
+        iframe.src = shell.dataset.mapEmbed;
+        iframe.title = shell.dataset.mapTitle;
+        iframe.loading = "lazy";
+        iframe.referrerPolicy = "no-referrer-when-downgrade";
+        iframe.className = "w-full h-full";
+        iframe.style.border = "0";
+        placeholder.remove();
+        shell.appendChild(iframe);
+      });
+    })();
+  </script>
 </section>

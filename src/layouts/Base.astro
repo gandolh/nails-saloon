@@ -1,4 +1,24 @@
 ---
+// Self-hosted fonts (no Google Fonts CDN — GDPR: avoids transmitting visitor
+// IPs to Google). latin + latin-ext subsets cover Romanian diacritics.
+import "@fontsource/manrope/latin-400.css";
+import "@fontsource/manrope/latin-ext-400.css";
+import "@fontsource/manrope/latin-500.css";
+import "@fontsource/manrope/latin-ext-500.css";
+import "@fontsource/manrope/latin-600.css";
+import "@fontsource/manrope/latin-ext-600.css";
+import "@fontsource/manrope/latin-700.css";
+import "@fontsource/manrope/latin-ext-700.css";
+import "@fontsource/playfair-display/latin-400.css";
+import "@fontsource/playfair-display/latin-ext-400.css";
+import "@fontsource/playfair-display/latin-500.css";
+import "@fontsource/playfair-display/latin-ext-500.css";
+import "@fontsource/playfair-display/latin-500-italic.css";
+import "@fontsource/playfair-display/latin-ext-500-italic.css";
+import "@fontsource/playfair-display/latin-600.css";
+import "@fontsource/playfair-display/latin-ext-600.css";
+import "@fontsource/playfair-display/latin-700.css";
+import "@fontsource/playfair-display/latin-ext-700.css";
 import "../styles/global.css";
 import { site } from "../content/site";
 
@@ -42,13 +62,7 @@ const canonical = "https://anasaloon.ro/";
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content="/images/og-image.svg" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Fonts are self-hosted via @fontsource (imported in the frontmatter) -->
 
     <!-- JSON-LD: LocalBusiness / BeautySalon -->
     <script

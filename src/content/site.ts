@@ -15,6 +15,24 @@ export const site = {
   address: "Str. Exemplu nr. X",
   postalCode: "210000",
 
+  // Legal / business identification (Legea 365/2002 art. 5) — MOCK placeholders.
+  // Owner provides real data later. For a PFA, set form: "PFA", legalName e.g.
+  // "Ana Exemplu PFA", and regNumber to the ONRC F-number (e.g. "F18/123/2024").
+  // For an SRL, keep form: "SRL", set the J-number and capital social.
+  legal: {
+    form: "SRL" as "SRL" | "PFA" | "II", // tip entitate
+    legalName: "Ana Saloon S.R.L.", // denumirea exactă din actul constitutiv
+    cui: "RO00000000", // CUI / CIF de la ANAF
+    regNumber: "J18/000/2024", // nr. Registrul Comerțului (J… pentru SRL, F… pentru PFA)
+    shareCapital: "200 RON", // capital social (doar SRL; gol pentru PFA)
+    // Data Protection Officer / responsabil date — optional for a micro business.
+    dpoEmail: "contact@anasaloon.ro",
+    // Last review date of the legal documents (update when content changes).
+    documentsUpdated: "29 mai 2026",
+    // Retention chosen per the legal audit (see ana_saloon_legal memory).
+    dataRetention: "12 luni de la ultima programare (30 de zile pentru solicitările care nu se finalizează)",
+  },
+
   // Hours
   hours: [
     { day: "Luni – Vineri", value: "09:00 – 19:00" },

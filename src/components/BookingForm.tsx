@@ -3,6 +3,7 @@ import { useState, type SyntheticEvent } from "react";
 type Props = {
   whatsappE164: string;
   formspreeEndpoint: string;
+  privacyUrl?: string;
 };
 
 const serviceOptions = [
@@ -15,6 +16,7 @@ const serviceOptions = [
 export default function BookingForm({
   whatsappE164,
   formspreeEndpoint,
+  privacyUrl = "/confidentialitate/",
 }: Props) {
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
@@ -32,14 +34,10 @@ export default function BookingForm({
     const date = String(data.get("date") || "").trim();
     const time = String(data.get("time") || "").trim();
     const message = String(data.get("message") || "").trim();
-    const consent = data.get("consent");
+    const marketing = data.get("marketing") ? "Da" : "Nu";
 
     if (!name || !phone || !service || !date) {
       setError("Te rog completează câmpurile obligatorii.");
-      return;
-    }
-    if (!consent) {
-      setError("Te rog acceptă prelucrarea datelor pentru a continua.");
       return;
     }
 
@@ -51,6 +49,7 @@ export default function BookingForm({
       `Serviciu: ${service}`,
       `Data: ${date}${time ? ` la ${time}` : ""}`,
       message ? `Mesaj: ${message}` : null,
+      `Accept oferte/noutăți: ${marketing}`,
     ].filter(Boolean);
     const waText = encodeURIComponent(lines.join("\n"));
     const waUrl = `https://wa.me/${whatsappE164}?text=${waText}`;
@@ -196,13 +195,11 @@ export default function BookingForm({
       <label className="flex items-start gap-3 text-sm text-[var(--color-on-surface-variant)]">
         <input
           type="checkbox"
-          name="consent"
-          required
+          name="marketing"
           className="mt-1 w-4 h-4 accent-[var(--color-blush-deep)]"
         />
         <span>
-          Sunt de acord cu prelucrarea datelor pentru a fi contactată pentru
-          programare.
+          (Opțional) Doresc să primesc oferte și noutăți pe WhatsApp sau email.
         </span>
       </label>
 
@@ -223,8 +220,17 @@ export default function BookingForm({
         {submitting ? "Se trimite…" : "Trimite cererea pe WhatsApp"}
       </button>
 
-      <p className="text-xs text-[var(--color-on-surface-variant)]">
-        Datele tale sunt folosite doar pentru a te contacta pentru programare.
+      <p className="text-xs text-[var(--color-on-surface-variant)] leading-relaxed">
+        Datele transmise (nume, telefon) sunt folosite exclusiv pentru a-ți
+        confirma programarea, în temeiul art. 6 alin. (1) lit. (b) GDPR (măsuri
+        precontractuale la cererea ta). Detalii în{" "}
+        <a
+          href={privacyUrl}
+          className="underline underline-offset-2 hover:text-[var(--color-on-surface)]"
+        >
+          Politica de confidențialitate
+        </a>
+        .
       </p>
     </form>
   );
