@@ -38,20 +38,26 @@ postări). Referința deciziilor: [corpus/MARKETING.md](../MARKETING.md).
   Reguli: `marketing/bots/COMPLIANCE.md`.
 - [x] **Scaffold serviciu bots construit** (Faza 1–3, multi-agent): `core/`
   înghețat, 4 boți (whatsapp/responses/scheduler/campaigns) + harness teste,
-  siguranța banilor în cod. `npm run check` verde (typecheck + 55 teste).
-- [x] **Verificat fără credențiale**: boot în mock mode, kill-switches OK,
-  gardă fail-fast pe secrete, test de integrare pe graful real.
+  siguranța banilor în cod.
+- [x] **Impl real în spatele interfețelor** (Part A2): SQLite (`db-sqlite.ts`),
+  sender-e reale (`senders-live.ts`), server HTTP webhook (`webhook-http.ts`),
+  idempotență remindere/confirmări, scheduler pe timere reale, link WhatsApp din
+  config. `npm run check` verde (typecheck strict + **66 teste, 0 fail**).
+- [x] **Verificat fără credențiale**: boot mock (boții OFF implicit), kill-switches,
+  gardă fail-fast pe secrete, teste de integrare pe graful real + SQLite + webhook.
 
-> ⚠️ Serviciul rulează **doar în mock mode** — niciun apel real / token /
-> cheltuială. Cablarea reală (sender-e, SQLite, server HTTP) + acțiunile de om
-> sunt în **lista de acțiuni**: [corpus/todo/ROADMAP.md](./ROADMAP.md).
+> Serviciul rulează **end-to-end în mock mode**; **NU e activat live**. Ce mai
+> rămâne (trecerea finală de cablare live + acțiunile de om) și punctul de
+> reluare sunt în [corpus/STATUS.md](../STATUS.md) și
+> [corpus/todo/ROADMAP.md](./ROADMAP.md).
 
-## Backlog — conținut & conversie (din auditul competitiv, opțional)
+## Site — conținut & conversie — DONE (29 mai 2026, Part A1)
 
-> Mutat și extins în lista unificată [corpus/todo/ROADMAP.md](./ROADMAP.md)
-> (împărțită pe „ce poate face un agent" vs „ce trebuie făcut de om").
-
-- [ ] Prețuri vizibile pe serviciu (chiar „de la X lei").
-- [ ] Secțiune **igienizare/sterilizare** (autoclav, instrumente, dezinfecție) — semnal de încredere important în RO.
-- [ ] **FAQ** (durată gel, cum mă programez, produse folosite, anulare, plată).
-- [ ] Galerie **înainte/după**; profil echipă; feed Instagram; voucher cadou.
+- [x] **Secțiune igienizare/sterilizare** (`Sterilization.astro`, #igiena).
+- [x] **FAQ** + `FAQPage` JSON-LD (`Faq.astro` + `content/faq.ts`).
+- [x] **Galerie înainte/după** (`beforeAfter` în `content/gallery.ts` + `Gallery.astro`).
+- [x] **Voucher cadou** (mențiune în `Loyalty.astro`).
+- [x] **Prețuri pe serviciu** — erau deja prezente (`Services.astro`).
+- [x] **Link Instagram** — era deja prezent (CTA galerie + footer).
+- [ ] *Needeschis intenționat:* embed feed Instagram (ar aduce cookie-uri terțe,
+  contra posturii din `LEGAL.md`); profil echipă (salon cu o singură persoană).

@@ -38,13 +38,14 @@ Boții folosesc **doar API-uri oficiale** și acționează **doar la inițiativa
 utilizatorului** (un mesaj/comentariu/formular venit de la el). Regulile dure:
 `marketing/bots/COMPLIANCE.md`.
 
-## 3. Arhitectura serviciului de automatizare (construit — scaffold)
+## 3. Arhitectura serviciului de automatizare (construit)
 
 Pachet separat de site-ul static (`marketing/bots/`, `ana-saloon-bots`): server
 Node de lungă durată, **în afara** `astro build`. Node ≥22, ESM, TypeScript 6
 strict, fără pas de build (rulează `.ts` cu `--experimental-strip-types`).
 
-**Construit prin 3 faze (1 agent fundație → 5 agenți paraleli → 1 integrare):**
+**Construit prin 3 faze (1 agent fundație → 5 agenți paraleli → 1 integrare),**
+**apoi o trecere de impl real în spatele acelorași interfețe înghețate:**
 
 - `src/core/` — **contracte înghețate**: `config` (env, kill-switches per-bot,
   `ADS_SPEND_ENABLED`, plafoane buget, retenție), `types`, `logger` (+ `redact`
@@ -66,28 +67,42 @@ strict, fără pas de build (rulează `.ts` cu `--experimental-strip-types`).
     când agenda e plină. **Niciodată** nu creează campanie ACTIVE.
   - **shared-tests** — fixtures + fake clock + generator de evenimente + smoke.
 
+**Stratul de impl real (construit, în afara mock mode):** `db-sqlite.ts` (Db pe
+`node:sqlite`, zero deps, + `isCalendarFull` real), `senders-live.ts` (clienți
+reali WhatsApp Cloud / Meta Messaging / Content Publishing IG+FB+TikTok /
+Marketing API / Notifier, în spatele acelorași interfețe), `webhook-http.ts`
+(server HTTP: handshake GET + POST cu semnătură verificată + parser inbound).
+`server.ts` comută pe SQLite + sender-e reale când `BOTS_MOCK_MODE=false` și
+pornește serverul webhook + scheduler pe timere reale, cu oprire grațioasă.
+
 **Siguranța banilor (vizibilă în cod):** statusul e hard-codat „PAUSED" +
 `assertPaused`; bugetul peste plafon e **clamp-uit și logat** (niciodată trimis
-silențios); `enabled()` la campaigns cere ȘI flagul de bot ȘI `adsSpendEnabled`.
+silențios); `enabled()` la campaigns cere ȘI flagul de bot ȘI `adsSpendEnabled`;
+`MarketingClient` real refuză orice campanie non-PAUSED.
 
-**Verificat:** `npm run check` (typecheck strict + **55 teste, 0 fail**); boot
+**Verificat:** `npm run check` (typecheck strict + **66 teste, 0 fail**); boot
 fără credențiale (implicit toți boții OFF, mock mode); garda `assertSecretsForLive`
-dă eroare rapidă dacă mock mode e oprit fără secrete. Un test de integrare
-conduce graful real `buildApp` (router + scheduler) și verifică comportamentul.
+dă eroare rapidă dacă mock mode e oprit fără secrete. Teste de integrare conduc
+graful real `buildApp` (router + scheduler) + teste pentru SQLite și parserul
+webhook.
 
-## 4. Ce NU e încă făcut (rămâne scaffold)
+## 4. Ce mai rămas (stadiu live)
 
-Totul rulează **doar în mock mode** — niciun apel real, niciun token, zero
-cheltuială. Lipsesc, marcate cu `// TODO(impl):` în cod:
+Serviciul rulează **end-to-end în mock mode**; **nu e activat live** (niciun apel
+real / token / cheltuială până la `BOTS_MOCK_MODE=false` cu secrete reale).
 
-- implementările reale ale celor 4 `senders` (WhatsApp Cloud API, Meta
-  Messaging, Content Publishing, Marketing API) + TikTok;
-- `db` pe **SQLite** (acum e in-memory) și `isCalendarFull` real (acum → false);
-- **serverul HTTP** (webhook) în spatele nginx/Caddy pe VPS;
-- idempotența remindere/confirmări (`reminderSentAt`/`confirmationSentAt`);
-- aprobarea/template-urile reale + DPA-uri (acțiuni de om).
+Mai rămâne o **trecere finală de cablare live**, posibilă doar **după** ce omul
+creează conturile (se testează pe ceva real). Marcată în cod cu `// TODO(impl):`:
+- în `senders-live.ts` `createPausedCampaign`: ad set + creative + ad (necesită
+  cont de reclame + ID creativ real);
+- `Notifier`: alegerea canalului (email/WhatsApp) + trimiterea efectivă;
+- `whatsapp/handler.ts`: persistă programarea „requested" + notifică Ana;
+  template utility/away în afara ferestrei de 24h;
+- `scheduler/index.ts`: alertă la eșec de publicare + retry.
 
-Lista de acțiuni, împărțită pe **agent vs om**: `corpus/todo/ROADMAP.md`.
+Plus acțiunile pur de om (conturi, token-uri, aprobare template-uri/buget, DPA).
+Lista completă, împărțită pe **agent vs om**: `corpus/todo/ROADMAP.md`. Punct de
+reluare rapid: `corpus/STATUS.md`.
 
 ## 5. Costuri (cadru)
 
