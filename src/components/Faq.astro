@@ -1,0 +1,67 @@
+---
+import { faq } from "../content/faq";
+
+// FAQPage structured data — helps the FAQ surface as rich results in search.
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
+---
+
+<section id="intrebari" class="section">
+  <div class="container-page">
+    <div class="reveal max-w-2xl">
+      <span class="label-md uppercase text-[var(--color-secondary)]">
+        Întrebări frecvente
+      </span>
+      <h2 class="heading-lg mt-3">Răspunsuri rapide</h2>
+      <span class="gold-divider"></span>
+      <p class="mt-4 text-[var(--color-on-surface-variant)]">
+        Ai o nelămurire? Mai jos găsești cele mai frecvente întrebări. Pentru
+        orice altceva, scrie-mi pe WhatsApp.
+      </p>
+    </div>
+
+    <div class="mt-10 max-w-3xl space-y-3">
+      {
+        faq.map((item) => (
+          <details class="reveal group card !p-0 overflow-hidden">
+            <summary
+              class="cursor-pointer list-none flex items-center justify-between gap-4 px-6 py-5 font-medium text-[var(--color-on-surface)]"
+            >
+              <span>{item.q}</span>
+              <svg
+                class="flex-shrink-0 transition-transform duration-300 group-open:rotate-45 text-[var(--color-gold)]"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                aria-hidden="true"
+              >
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+            </summary>
+            <p class="px-6 pb-5 -mt-1 text-[var(--color-on-surface-variant)] leading-relaxed">
+              {item.a}
+            </p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(faqJsonLd)}
+  />
+</section>

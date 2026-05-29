@@ -5,7 +5,7 @@ const links = [
   { href: "#despre", label: "Despre" },
   { href: "#servicii", label: "Servicii" },
   { href: "#galerie", label: "Galerie" },
-  { href: "#testimoniale", label: "Testimoniale" },
+  { href: "#intrebari", label: "Întrebări" },
   { href: "#contact", label: "Contact" },
 ];
 
