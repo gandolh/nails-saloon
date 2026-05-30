@@ -72,7 +72,14 @@ cp src/content/site.local.example.ts src/content/site.local.ts
 > Note: these values are still baked into the published HTML — that's expected
 > for a contact page. This setup keeps them out of the repo, not off the live site.
 
-Images in `public/images/` are SVG placeholders. Drop in real JPG/WebP photos with the same filenames, then update extensions in `src/content/gallery.ts` and the `<img src>` in `Hero.astro` / `About.astro`.
+### Real photos (kept out of Git)
+
+Real photos live in the **git-ignored** `public/images/real/` directory and are
+never committed; the SVG placeholders in `public/images/` stay tracked as a
+fallback. Which directory the site loads from is controlled by a single
+constant — see [`src/content/images.ts`](src/content/images.ts). Default is the
+mockups; set `IMAGE_SOURCE = "real"` (or the `PUBLIC_IMAGE_SOURCE` env var) once
+real photos are in place. See [`public/images/real/README.md`](public/images/real/README.md).
 
 ## Design system
 

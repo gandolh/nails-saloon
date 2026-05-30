@@ -21,6 +21,7 @@ import "@fontsource/playfair-display/latin-700.css";
 import "@fontsource/playfair-display/latin-ext-700.css";
 import "../styles/global.css";
 import { site } from "../content/site";
+import { img } from "../content/images";
 
 interface Props {
   title?: string;
@@ -33,6 +34,10 @@ const {
 } = Astro.props;
 
 const canonical = "https://anasaloon.ro/";
+
+// Root-relative for meta tags; absolute (canonical + path) for JSON-LD.
+const ogImage = img("og-image");
+const ogImageAbsolute = `${canonical}${ogImage.replace(/^\//, "")}`;
 ---
 
 <!doctype html>
@@ -53,14 +58,14 @@ const canonical = "https://anasaloon.ro/";
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/images/og-image.svg" />
+    <meta property="og:image" content={ogImage} />
     <meta property="og:url" content={canonical} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="/images/og-image.svg" />
+    <meta name="twitter:image" content={ogImage} />
 
     <!-- Fonts are self-hosted via @fontsource (imported in the frontmatter) -->
 
@@ -73,7 +78,7 @@ const canonical = "https://anasaloon.ro/";
         "@type": "BeautySalon",
         name: site.name,
         description: site.description,
-        image: `${canonical}images/og-image.svg`,
+        image: ogImageAbsolute,
         url: canonical,
         telephone: `+${site.phoneE164}`,
         address: {

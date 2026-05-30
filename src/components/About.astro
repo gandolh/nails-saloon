@@ -1,5 +1,6 @@
 ---
 import { site } from "../content/site";
+import { img } from "../content/images";
 ---
 
 <section
@@ -12,7 +13,7 @@ import { site } from "../content/site";
         class="aspect-[4/5] w-full max-w-md mx-auto md:mx-0 rounded-[1rem] overflow-hidden bg-[var(--color-surface-container)]"
       >
         <img
-          src="/images/ana-portrait.svg"
+          src={img("ana-portrait")}
           alt="Portret al Anei, deținătoarea salonului"
           class="w-full h-full object-cover"
           width="800"
