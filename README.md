@@ -53,15 +53,24 @@ server {
 }
 ```
 
-## Replacing placeholders
+## Real personal/business data (kept out of Git)
 
-Before going live, replace these in `src/content/site.ts`:
+The real phone, address, CUI, social handles, Formspree ID, and salon
+coordinates live in a **git-ignored** file so they never reach GitHub.
+`src/content/site.ts` holds only public placeholders; the local file is
+deep-merged on top of them at build time.
 
-- `phone` / `phoneE164` / `whatsappE164` — real number
-- `email`, `address`, `postalCode`
-- `social.instagram` / `facebook` / `tiktok` — real handles
-- `geo.lat` / `geo.lng` — exact salon coordinates
-- `formspreeEndpoint` — create a free form at https://formspree.io and paste the URL
+```bash
+cp src/content/site.local.example.ts src/content/site.local.ts
+# then edit src/content/site.local.ts with the real values
+```
+
+- `site.local.ts` is git-ignored — every field is optional, only override what you need.
+- If it's absent (fresh clone / CI), the build still succeeds using the placeholders.
+- `formspreeEndpoint` — create a free form at https://formspree.io and paste the URL.
+
+> Note: these values are still baked into the published HTML — that's expected
+> for a contact page. This setup keeps them out of the repo, not off the live site.
 
 Images in `public/images/` are SVG placeholders. Drop in real JPG/WebP photos with the same filenames, then update extensions in `src/content/gallery.ts` and the `<img src>` in `Hero.astro` / `About.astro`.
 
