@@ -1,5 +1,6 @@
 ---
 import { site } from "../content/site";
+import { withBase } from "../content/url";
 
 const year = 2026;
 const links = [
@@ -31,7 +32,7 @@ const legalLinks = [
       {
         links.map((link) => (
           <a
-            href={link.href}
+            href={withBase(link.href)}
             class="text-sm opacity-90 hover:opacity-100 hover:underline underline-offset-4"
           >
             {link.label}
@@ -45,7 +46,7 @@ const legalLinks = [
       {
         legalLinks.map((link) => (
           <a
-            href={link.href}
+            href={withBase(link.href)}
             class="text-sm opacity-90 hover:opacity-100 hover:underline underline-offset-4"
           >
             {link.label}

@@ -6,6 +6,9 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
+  // Served under a sub-path on a shared VPS (e.g. http://HOST/saloon).
+  // Override at build time with PUBLIC_BASE=/saloon; defaults to "/" for local dev.
+  base: process.env.PUBLIC_BASE ?? '/',
   integrations: [react()],
 
   vite: {

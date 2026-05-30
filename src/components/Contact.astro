@@ -1,5 +1,6 @@
 ---
 import { site } from "../content/site";
+import { withBase } from "../content/url";
 
 const mapsQuery = encodeURIComponent(
   `${site.address}, ${site.city}, ${site.county}, ${site.country}`,
@@ -122,7 +123,7 @@ const mapsLink = `https://www.google.com/maps?q=${mapsQuery}`;
             <p class="text-sm text-[var(--color-on-surface-variant)] max-w-xs">
               Harta este furnizată de Google. La încărcare, Google poate seta
               cookie-uri. Vezi
-              <a href="/cookie-uri/" class="underline underline-offset-2"
+              <a href={withBase("/cookie-uri/")} class="underline underline-offset-2"
                 >Politica de cookie-uri</a
               >.
             </p>

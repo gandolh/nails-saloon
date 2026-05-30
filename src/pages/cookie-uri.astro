@@ -1,6 +1,7 @@
 ---
 import LegalLayout from "../layouts/LegalLayout.astro";
 import { site } from "../content/site";
+import { withBase } from "../content/url";
 ---
 
 <LegalLayout title="Politica de cookie-uri">
@@ -38,7 +39,7 @@ import { site } from "../content/site";
 
   <h2>3. Conținut de la terți (harta Google Maps)</h2>
   <p>
-    Secțiunea de <a href="/#contact">Contact</a> poate include o hartă Google
+    Secțiunea de <a href={withBase("/#contact")}>Contact</a> poate include o hartă Google
     Maps. Pentru a-ți proteja confidențialitatea,
     <strong>harta nu se încarcă automat</strong>. Ea apare ca o imagine, iar
     conținutul de la Google se încarcă doar dacă apeși tu pe „Încarcă harta".
@@ -61,7 +62,7 @@ import { site } from "../content/site";
   <h2>5. Mai multe informații</h2>
   <p>
     Pentru modul în care prelucrăm datele cu caracter personal, consultă
-    <a href="/confidentialitate/">Politica de confidențialitate</a>. Pentru
+    <a href={withBase("/confidentialitate/")}>Politica de confidențialitate</a>. Pentru
     întrebări, scrie-ne la
     <a href={`mailto:${site.legal.dpoEmail}`}>{site.legal.dpoEmail}</a>.
   </p>

@@ -153,3 +153,6 @@ vite.config.ts.timestamp-*
 
 # Astro
 .astro/
+
+scripts/deploy.sh
+scripts/Caddyfile

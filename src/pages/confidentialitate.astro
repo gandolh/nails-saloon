@@ -1,6 +1,7 @@
 ---
 import LegalLayout from "../layouts/LegalLayout.astro";
 import { site } from "../content/site";
+import { withBase } from "../content/url";
 
 const operator = site.legal.legalName;
 ---
@@ -68,7 +69,7 @@ const operator = site.legal.legalName;
       >Nu colectăm date sensibile și nu îți cerem CNP, date de card sau alte
       informații financiare prin acest site.</strong
     > Nu folosim cookie-uri de analiză sau de marketing (vezi
-    <a href="/cookie-uri/">Politica de cookie-uri</a>).
+    <a href={withBase("/cookie-uri/")}>Politica de cookie-uri</a>).
   </p>
 
   <h2>3. În ce scop și pe ce temei juridic</h2>

@@ -11,6 +11,8 @@
 // Real photos are published on the live site; this only keeps them out of Git.
 // See public/images/real/README.md.
 
+import { withBase } from "./url";
+
 export type ImageSource = "mock" | "real";
 
 // Default = mockups. Override at build time without editing code:
@@ -31,7 +33,9 @@ const EXT: Record<ImageSource, string> = {
 //   img("gallery-01")  → …
 export function img(name: string): string {
   const ext = EXT[IMAGE_SOURCE];
-  return IMAGE_SOURCE === "real"
-    ? `/images/real/${name}.${ext}`
-    : `/images/${name}.${ext}`;
+  const path =
+    IMAGE_SOURCE === "real"
+      ? `/images/real/${name}.${ext}`
+      : `/images/${name}.${ext}`;
+  return withBase(path);
 }

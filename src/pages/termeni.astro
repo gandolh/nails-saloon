@@ -1,6 +1,7 @@
 ---
 import LegalLayout from "../layouts/LegalLayout.astro";
 import { site } from "../content/site";
+import { withBase } from "../content/url";
 ---
 
 <LegalLayout title="Termeni și condiții">
@@ -42,7 +43,7 @@ import { site } from "../content/site";
   <h2>2. Serviciile oferite</h2>
   <p>
     {site.name} oferă servicii de manichiură și îngrijire a unghiilor, descrise în
-    secțiunea <a href="/#servicii">Servicii</a>. Prețurile afișate sunt
+    secțiunea <a href={withBase("/#servicii")}>Servicii</a>. Prețurile afișate sunt
     orientative și pot varia în funcție de complexitatea lucrării; prețul final
     îți este comunicat înainte de începerea serviciului.
   </p>
@@ -110,8 +111,8 @@ import { site } from "../content/site";
   <h2>8. Protecția datelor</h2>
   <p>
     Prelucrarea datelor cu caracter personal este descrisă în
-    <a href="/confidentialitate/">Politica de confidențialitate</a>, iar
-    utilizarea cookie-urilor în <a href="/cookie-uri/">Politica de cookie-uri</a>.
+    <a href={withBase("/confidentialitate/")}>Politica de confidențialitate</a>, iar
+    utilizarea cookie-urilor în <a href={withBase("/cookie-uri/")}>Politica de cookie-uri</a>.
   </p>
 
   <h2>9. Soluționarea litigiilor</h2>

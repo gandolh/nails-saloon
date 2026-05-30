@@ -22,6 +22,7 @@ import "@fontsource/playfair-display/latin-ext-700.css";
 import "../styles/global.css";
 import { site } from "../content/site";
 import { img } from "../content/images";
+import { withBase } from "../content/url";
 
 interface Props {
   title?: string;
@@ -46,7 +47,7 @@ const ogImageAbsolute = `${canonical}${ogImage.replace(/^\//, "")}`;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#fff8f6" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
     <link rel="canonical" href={canonical} />
 
     <title>{title}</title>

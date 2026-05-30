@@ -1,6 +1,7 @@
 ---
 import BookingForm from "./BookingForm.tsx";
 import { site } from "../content/site";
+import { withBase } from "../content/url";
 ---
 
 <section
@@ -39,7 +40,7 @@ import { site } from "../content/site";
           </li>
           <li>
             Detalii complete în <a
-              href="/termeni/"
+              href={withBase("/termeni/")}
               class="underline underline-offset-2 hover:text-[var(--color-on-surface)]"
               >Termeni și condiții</a
             >.
@@ -94,7 +95,7 @@ import { site } from "../content/site";
         client:load
         whatsappE164={site.whatsappE164}
         formspreeEndpoint={site.formspreeEndpoint}
-        privacyUrl="/confidentialitate/"
+        privacyUrl={withBase("/confidentialitate/")}
       />
     </div>
   </div>
