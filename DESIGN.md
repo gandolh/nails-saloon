@@ -47,9 +47,12 @@ side-stripe borders, no glassmorphism.
 Two families on a contrast axis (serif display + humanist sans), self-hosted
 via Fontsource (no external font requests).
 
-- **Display:** `"Playfair Display", Georgia, serif` — `--font-display`.
-  Headings h1–h4, wordmark (italic 500), `.heading-xl/lg/md`. Weight 500–600,
-  `line-height: 1.1`, `letter-spacing: -0.01em` to `-0.02em`.
+- **Display:** `"Fraunces Variable", Georgia, serif` — `--font-display`. A warm,
+  soft-serif variable face (chosen over Playfair, a reflex-reject Didone, to read
+  hand-made/intimate rather than fashion-masthead). Headings h1–h4, wordmark
+  (italic 500), `.heading-xl/lg/md`. `font-optical-sizing: auto` +
+  `font-variation-settings: "SOFT" 30, "opsz" <size>` to round the terminals;
+  weight 440–500, `line-height: 1.08–1.2`, `letter-spacing: -0.005em` to `-0.015em`.
 - **Body:** `"Manrope", system-ui, sans-serif` — `--font-body`. Body, labels,
   buttons. Base 16px / `line-height: 1.5`.
 - **Scale:** fluid via `clamp()`. `heading-xl` `clamp(2.5rem, 6vw, 3.5rem)`,
@@ -60,10 +63,11 @@ via Fontsource (no external font requests).
 
 Use `text-wrap: balance` on h1–h3 and `pretty` on long prose. No all-caps body.
 
-> **Known tell to watch:** the uppercase tracked eyebrow currently sits above
-> most sections (e.g. Hero's "Manichiură personalizată · lângă Târgu-Jiu").
-> One named kicker as brand voice is fine; an eyebrow on *every* section is the
-> AI scaffold. Vary the section cadence when polishing.
+> **Section cadence:** section headings stand on their own (display heading +
+> gold divider), with no uppercase eyebrow above them — the inconsistent
+> per-section eyebrow scaffold was removed. `.label-md uppercase` is reserved
+> for *in-card* sub-labels (e.g. a service subtitle, the "Bun de știut" panel
+> label, contact field labels), not as a kicker above section titles.
 
 ## Spacing & Layout
 
@@ -88,22 +92,46 @@ Use `text-wrap: balance` on h1–h3 and `pretty` on long prose. No all-caps body
 - **`.btn` / `.btn-primary` / `.btn-secondary`** — pill, uppercase 0.875rem
   Manrope 600, `letter-spacing: 0.05em`. Primary = blush fill → blush-deep
   hover. Secondary = transparent with 1.5px blush border → blush fill on hover.
+- **`.btn-whatsapp`** — solid WhatsApp green (`--color-whatsapp` `#118040`,
+  white text = 5.02:1 AA) for the primary booking action. The single strongest
+  CTA on the page; green is the recognizable "message me" cue and marks every
+  WhatsApp action site-wide (Booking panel, Contact, mobile sticky FAB).
+- **`.btn-on-blush`** — solid brand-primary fill for CTAs placed on a blush
+  surface (e.g. the Loyalty panel) where `.btn-primary`'s blush would vanish.
 - **`.card`** — white surface, `--radius-lg`, 2rem padding, soft shadow. Use
   sparingly; never nest cards.
 - **`.input` / `textarea.input`** — pill (textarea = `--radius-lg`), low
   surface fill, outline-variant border, **gold focus border**.
 - **`.gold-divider`** — 48×1.5px gold rule, the signature accent flourish.
-- **`.wordmark`** — italic Playfair, the brand mark.
+- **`.wordmark`** — italic Fraunces, the brand mark.
 - **`.reveal`** — scroll-in reveal, opt-in via `.js-reveal` so content is
   visible without JS; reduced-motion collapses it to no transition.
+- **`MobileBookingBar`** (`#mobile-booking-bar`, `md:hidden`, `z-30`) — sticky
+  bottom WhatsApp CTA for phones (the nav booking button is hidden on mobile).
+  Safe-area aware. No-JS default visible; the inline script (`.js-fab`) only
+  refines *when* to hide it: while the mobile menu is open, while Booking /
+  Contact / Footer are on screen (their own WhatsApp CTA would be redundant),
+  and until the user scrolls past the hero. Reduced-motion fades instead of
+  sliding.
 
 ## Motion
 
 Quiet and purposeful. Reveal-on-scroll (opacity + 8px translateY, 600ms
-`ease-out`) is the main motion language; button/link state transitions are
-200ms `ease-out`. No bounce, no elastic, no scroll-jacking. Every animation has
-a `prefers-reduced-motion: reduce` path (already in global.css). Reveals
-enhance an already-visible default — never gate content visibility on them.
+`cubic-bezier(0.22, 1, 0.36, 1)` / ease-out-quint) is the main motion language;
+button/link state transitions are 200ms `ease-out`. No bounce, no elastic, no
+scroll-jacking. Every animation has a `prefers-reduced-motion: reduce` path
+(already in global.css). Reveals enhance an already-visible default — never
+gate content visibility on them.
+
+**Reveal failsafe (Base.astro).** Because a JS-capable client that never
+scrolls — a headless renderer, a link-preview / social-card bot, a backgrounded
+tab where IntersectionObserver is throttled — would otherwise leave below-fold
+`.reveal`s stuck at `opacity:0` and capture a blank page, the script (a) reveals
+anything in the first viewport synchronously at load, and (b) force-reveals
+everything still hidden after a 2.5s timeout regardless of scroll. The failsafe
+snaps in with no transition (`.reveal-now`) since it's a correction, not an
+entrance. No-JS clients are unaffected: `js-reveal` is never added, so the CSS
+default keeps all content visible.
 
 ## Iconography & Imagery
 

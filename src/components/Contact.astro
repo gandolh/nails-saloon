@@ -5,10 +5,7 @@ import { site, waLink } from "../content/site";
 <section id="contact" class="section">
   <div class="container-page">
     <div class="reveal max-w-2xl">
-      <span class="label-md uppercase text-[var(--color-secondary)]">
-        Vino la mine
-      </span>
-      <h2 class="heading-lg mt-3">Contact</h2>
+      <h2 class="heading-lg">Contact</h2>
       <span class="gold-divider"></span>
     </div>
 
@@ -21,7 +18,6 @@ import { site, waLink } from "../content/site";
           <a
             href={`tel:+${site.phoneE164}`}
             class="mt-2 inline-block font-display text-xl text-[var(--color-on-surface)] hover:text-[var(--color-blush-deep)]"
-            style="font-family: 'Playfair Display', Georgia, serif;"
           >
             {site.phone}
           </a>
@@ -33,7 +29,6 @@ import { site, waLink } from "../content/site";
           </p>
           <p
             class="mt-2 font-display text-xl text-[var(--color-on-surface)] leading-snug"
-            style="font-family: 'Playfair Display', Georgia, serif;"
           >
             {site.city}, {site.county}
           </p>
@@ -49,7 +44,6 @@ import { site, waLink } from "../content/site";
           <a
             href={`mailto:${site.email}`}
             class="mt-2 inline-block font-display text-xl text-[var(--color-on-surface)] hover:text-[var(--color-blush-deep)]"
-            style="font-family: 'Playfair Display', Georgia, serif;"
           >
             {site.email}
           </a>
@@ -88,7 +82,7 @@ import { site, waLink } from "../content/site";
             href={waLink()}
             target="_blank"
             rel="noopener"
-            class="btn btn-primary"
+            class="btn btn-whatsapp"
           >
             Scrie-mi pe WhatsApp
           </a>

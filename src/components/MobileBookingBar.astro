@@ -1,0 +1,184 @@
+---
+import { site, waLink } from "../content/site";
+---
+
+{/*
+  Sticky bottom WhatsApp CTA, mobile only. The audience books almost entirely
+  from phones, yet the nav booking button is hidden on mobile — without this,
+  there is no one-tap path to the success action at most scroll positions.
+
+  No-JS / crawler default: visible (it's core functionality, never gated on JS).
+  The inline script only *refines* when to hide it: while the fullscreen mobile
+  menu is open, and while the Booking section or Footer is on screen (where a
+  full WhatsApp CTA already lives, so the bar would be redundant). It also waits
+  until the user has scrolled past the hero before sliding in, so it doesn't
+  cover the hero's own CTA on first paint.
+*/}
+<div id="mobile-booking-bar" class="md:hidden" data-state="shown">
+  <div class="mbb__inner">
+    <a
+      href={waLink()}
+      target="_blank"
+      rel="noopener"
+      class="btn-whatsapp mbb__cta"
+      aria-label={`Scrie-mi pe WhatsApp la ${site.phone}`}
+    >
+      <svg
+        class="mbb__icon"
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.6"
+        aria-hidden="true"
+      >
+        <path d="M3 21l1.65-3.8A8.5 8.5 0 1 1 7.8 19.35L3 21z" />
+        <path d="M8.5 8.5c0 4 3 7 7 7l1.5-2-2.5-1-1 1c-1 0-3-2-3-3l1-1-1-2.5z" />
+      </svg>
+      <span>Scrie-mi pe WhatsApp</span>
+    </a>
+  </div>
+</div>
+
+<style>
+  #mobile-booking-bar {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 30; /* above content, below Nav (40) and the menu/banner (50) */
+    padding: 0.75rem 1rem;
+    /* Clear the home indicator / rounded corners on notched phones. */
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+    /* A soft fade so the CTA reads against busy gallery photos behind it. */
+    background: linear-gradient(
+      to top,
+      var(--color-surface) 55%,
+      color-mix(in srgb, var(--color-surface) 70%, transparent) 80%,
+      transparent
+    );
+    pointer-events: none; /* only the button itself is interactive */
+  }
+
+  .mbb__inner {
+    max-width: 30rem;
+    margin-inline: auto;
+  }
+
+  .mbb__cta {
+    width: 100%;
+    pointer-events: auto;
+    /* Inherits .btn-whatsapp fill/shadow; this sets the pill shape + sizing
+       independent of the .btn utility so it works standalone. */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    min-height: 52px; /* well over the 44px tap-target floor */
+    border-radius: var(--radius-full);
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+  }
+
+  .mbb__icon {
+    flex: none;
+  }
+
+  /* JS-refined behaviour: once the script adds .js-fab, the bar can slide out
+     of view. Without JS this rule never applies, so the bar stays visible. */
+  :global(.js-fab) #mobile-booking-bar {
+    transition:
+      transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 320ms ease-out;
+  }
+
+  :global(.js-fab) #mobile-booking-bar[data-state="hidden"] {
+    transform: translateY(120%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js-fab) #mobile-booking-bar {
+      transition: opacity 200ms ease-out;
+    }
+    :global(.js-fab) #mobile-booking-bar[data-state="hidden"] {
+      transform: none;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const bar = document.getElementById("mobile-booking-bar");
+    if (!bar) return;
+
+    // Opt into the JS-refined hide behaviour. Until this runs, CSS keeps the
+    // bar visible (no-JS / crawler safe).
+    document.documentElement.classList.add("js-fab");
+
+    // Start hidden so it doesn't cover the hero CTA on first paint; the scroll
+    // handler reveals it once the user moves past the hero.
+    bar.dataset.state = "hidden";
+
+    // Sections where a full WhatsApp CTA already exists — suppress the bar
+    // there to avoid a redundant, overlapping control.
+    const suppressors = ["#programari", "footer"]
+      .map((sel) => document.querySelector(sel))
+      .filter(Boolean);
+
+    let suppressedBySection = false;
+    let menuOpen = false;
+    let pastHero = false;
+
+    function apply() {
+      const shouldHide = menuOpen || suppressedBySection || !pastHero;
+      bar.dataset.state = shouldHide ? "hidden" : "shown";
+    }
+
+    // Reveal only after scrolling past roughly the first viewport (the hero).
+    function onScroll() {
+      pastHero = window.scrollY > window.innerHeight * 0.6;
+      apply();
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    // Hide whenever the Booking section or footer is on screen.
+    if ("IntersectionObserver" in window && suppressors.length) {
+      const visible = new Set();
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) visible.add(e.target);
+            else visible.delete(e.target);
+          });
+          suppressedBySection = visible.size > 0;
+          apply();
+        },
+        // A negative bottom margin would let a section whose top is at the
+        // viewport top (but bottom past the line) read as "not visible"; plain
+        // intersection is what we want — hide as soon as any of it shows.
+        { threshold: 0 },
+      );
+      suppressors.forEach((el) => io.observe(el));
+    }
+
+    // Hide while the fullscreen mobile menu is open. The menu locks body
+    // scroll via overflow:hidden, so watch that as the signal.
+    const mo = new MutationObserver(() => {
+      const open = document.body.style.overflow === "hidden";
+      if (open !== menuOpen) {
+        menuOpen = open;
+        apply();
+      }
+    });
+    mo.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["style"],
+    });
+  })();
+</script>

@@ -4,23 +4,12 @@ export type Testimonial = {
   rating: number;
 };
 
-export const testimonials: Testimonial[] = [
-  {
-    quote:
-      "Ana e o profesionistă desăvârșită. De fiecare dată plec cu unghii perfecte și un zâmbet pe față.",
-    author: "Andreea M.",
-    rating: 5,
-  },
-  {
-    quote:
-      "Atmosferă caldă, atenție la detalii și unghii care chiar durează 3 săptămâni. Recomand cu drag!",
-    author: "Maria P.",
-    rating: 5,
-  },
-  {
-    quote:
-      "Cea mai bună manichiuristă din Târgu-Jiu. Ana ascultă ce vrei și livrează exact asta, și încă ceva în plus.",
-    author: "Ioana R.",
-    rating: 5,
-  },
-];
+// The Testimonials section is currently NOT rendered (commented out in
+// src/pages/index.astro). It was hidden because it shipped invented quotes
+// labelled "Exemplu" — advertising fake proof reads worse than no proof.
+//
+// To bring it back: replace the array below with REAL client reviews (e.g.
+// Instagram DMs, Google reviews — with the client's first name + initial), then
+// un-comment <Testimonials /> in index.astro. The component no longer adds any
+// "example"/"illustrative" labelling, so only add entries that are genuine.
+export const testimonials: Testimonial[] = [];

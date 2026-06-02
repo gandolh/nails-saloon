@@ -1,16 +1,15 @@
 ---
 import { testimonials } from "../content/testimonials";
+// Only render when there are real reviews to show. Empty = render nothing, so
+// the section never reappears as an empty shell if it's re-enabled too early.
 ---
 
+{testimonials.length > 0 && (
 <section id="testimoniale" class="section">
   <div class="container-page">
     <div class="reveal max-w-2xl mx-auto text-center">
       <h2 class="heading-lg">Ce spun clientele mele</h2>
       <span class="gold-divider"></span>
-      <p class="mt-4 text-sm text-[var(--color-on-surface-variant)]">
-        (Exemple ilustrative. Secțiunea va fi completată cu păreri reale ale
-        clientelor.)
-      </p>
     </div>
 
     <div class="mt-12 grid gap-6 md:grid-cols-3">
@@ -34,21 +33,13 @@ import { testimonials } from "../content/testimonials";
             </div>
             <blockquote
               class="mt-5 font-display italic text-lg leading-relaxed text-[var(--color-on-surface)]"
-              style="font-family: 'Playfair Display', Georgia, serif;"
             >
               “{t.quote}”
             </blockquote>
             <figcaption
-              class="mt-6 pt-6 border-t border-[var(--color-outline-variant)] flex items-center justify-between"
+              class="mt-6 pt-6 border-t border-[var(--color-outline-variant)] font-semibold text-[var(--color-on-surface)]"
             >
-              <span class="font-semibold text-[var(--color-on-surface)]">
-                {t.author}
-              </span>
-              <span
-                class="label-md uppercase text-[var(--color-on-surface-variant)]"
-              >
-                Exemplu
-              </span>
+              {t.author}
             </figcaption>
           </figure>
         ))
@@ -56,3 +47,4 @@ import { testimonials } from "../content/testimonials";
     </div>
   </div>
 </section>
+)}

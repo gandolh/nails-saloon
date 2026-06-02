@@ -9,16 +9,11 @@ import "@fontsource/manrope/latin-600.css";
 import "@fontsource/manrope/latin-ext-600.css";
 import "@fontsource/manrope/latin-700.css";
 import "@fontsource/manrope/latin-ext-700.css";
-import "@fontsource/playfair-display/latin-400.css";
-import "@fontsource/playfair-display/latin-ext-400.css";
-import "@fontsource/playfair-display/latin-500.css";
-import "@fontsource/playfair-display/latin-ext-500.css";
-import "@fontsource/playfair-display/latin-500-italic.css";
-import "@fontsource/playfair-display/latin-ext-500-italic.css";
-import "@fontsource/playfair-display/latin-600.css";
-import "@fontsource/playfair-display/latin-ext-600.css";
-import "@fontsource/playfair-display/latin-700.css";
-import "@fontsource/playfair-display/latin-ext-700.css";
+// Fraunces — variable display face (opsz axis + weight 100–900) covering the
+// roman and italic styles we use. One variable file per style, and latin-ext
+// carries the Romanian diacritics.
+import "@fontsource-variable/fraunces/opsz.css";
+import "@fontsource-variable/fraunces/opsz-italic.css";
 import "../styles/global.css";
 import { site } from "../content/site";
 import { img } from "../content/images";
@@ -130,6 +125,15 @@ const ogImageAbsolute = `${canonical}${ogImage.replace(/^\//, "")}`;
       // Scroll-triggered fade-in. Only hide-then-reveal when JS + observer are
       // available; otherwise the CSS default leaves all .reveal content visible
       // (no-JS, crawlers, link-preview bots). Honour reduced-motion too.
+      //
+      // CRITICAL failsafe: a JS-capable client that never scrolls — a headless
+      // renderer, a link-preview / social-card bot, or a backgrounded tab where
+      // IntersectionObserver is throttled — would otherwise leave every
+      // not-yet-seen .reveal stuck at opacity:0 and capture a blank page. So we
+      // (a) reveal anything already in the first viewport synchronously, and
+      // (b) force-reveal everything after a short timeout regardless of scroll.
+      // The reveal is then only ever a progressive enhancement on top of an
+      // already-visible default; it can never hide content.
       (function () {
         const prefersReduced =
           typeof matchMedia === "function" &&
@@ -137,20 +141,61 @@ const ogImageAbsolute = `${canonical}${ogImage.replace(/^\//, "")}`;
         if (typeof IntersectionObserver === "undefined" || prefersReduced) {
           return; // leave content visible, skip animation entirely
         }
+
         // Gate the hidden initial state on JS being present.
         document.documentElement.classList.add("js-reveal");
+        const reveals = Array.prototype.slice.call(
+          document.querySelectorAll(".reveal"),
+        );
+
+        function show(el) {
+          el.classList.add("is-visible");
+        }
+
         const io = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
+          function (entries) {
+            entries.forEach(function (entry) {
               if (entry.isIntersecting) {
-                entry.target.classList.add("is-visible");
+                show(entry.target);
                 io.unobserve(entry.target);
               }
             });
           },
           { rootMargin: "-40px 0px" },
         );
-        document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+        reveals.forEach(function (el) {
+          io.observe(el);
+        });
+
+        // (a) Reveal whatever is already on screen at load, without waiting for
+        // a scroll or even the observer's first async callback.
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        reveals.forEach(function (el) {
+          if (el.getBoundingClientRect().top < vh) {
+            show(el);
+            io.unobserve(el);
+          }
+        });
+
+        // (b) Hard failsafe: after a short grace period, reveal everything that
+        // is still hidden, whether or not the client ever scrolled. Real users
+        // will have triggered the on-scroll reveals long before this fires; it
+        // exists purely so the page can never be captured blank. These snap in
+        // with no transition (.reveal-now) since they're a correction, not an
+        // entrance.
+        function revealAll() {
+          reveals.forEach(function (el) {
+            if (!el.classList.contains("is-visible")) {
+              el.classList.add("reveal-now");
+              show(el);
+            }
+          });
+          io.disconnect();
+        }
+        // 2.5s comfortably exceeds a normal "time to first scroll" (so engaged
+        // users still get the on-scroll animation) while staying short enough
+        // that headless/preview captures don't grab a blank page.
+        window.setTimeout(revealAll, 2500);
       })();
     </script>
   </body>

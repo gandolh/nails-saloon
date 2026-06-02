@@ -120,7 +120,6 @@ export default function MobileMenu() {
                 href={link.href}
                 onClick={() => setOpen(false)}
                 className="font-display text-4xl text-[var(--color-on-surface)] hover:text-[var(--color-blush-deep)] transition-colors"
-                style={{ fontFamily: "Playfair Display, Georgia, serif" }}
               >
                 {link.label}
               </a>
