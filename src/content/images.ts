@@ -21,21 +21,33 @@ const envSource = import.meta.env.PUBLIC_IMAGE_SOURCE as string | undefined;
 export const IMAGE_SOURCE: ImageSource = envSource === "real" ? "real" : "mock";
 
 // File extension used for each source. Placeholders are SVG; real photos are
-// expected as WebP (change here if you drop in .jpg/.avif instead).
+// the salon's JPEGs (change here if you drop in .webp/.avif instead).
 const EXT: Record<ImageSource, string> = {
   mock: "svg",
-  real: "webp",
+  real: "jpeg",
 };
 
-// Resolve a logical image name to its public URL for the active source.
-//   img("hero")        → "/images/hero.svg"        (mock)
-//                      → "/images/real/hero.webp"  (real)
-//   img("gallery-01")  → …
+// Logical names that actually have a real photo in public/images/real/.
+// When IMAGE_SOURCE = "real", only these resolve to the real file; every other
+// name falls back to its committed SVG mock so nothing 404s. Add a name here
+// once you drop the matching real file in (e.g. "hero", "gallery-07").
+const HAS_REAL = new Set<string>([
+  "ana-portrait",
+  "gallery-01",
+  "gallery-02",
+  "gallery-03",
+  "gallery-04",
+  "gallery-05",
+  "gallery-06",
+]);
+
+// Resolve a logical image name to its public URL.
+//   img("gallery-01") → "/images/real/gallery-01.jpeg"  (real source, has photo)
+//   img("hero")       → "/images/hero.svg"              (real source, no photo → mock fallback)
+//                     → "/images/hero.svg"              (mock source)
 export function img(name: string): string {
-  const ext = EXT[IMAGE_SOURCE];
-  const path =
-    IMAGE_SOURCE === "real"
-      ? `/images/real/${name}.${ext}`
-      : `/images/${name}.${ext}`;
-  return withBase(path);
+  if (IMAGE_SOURCE === "real" && HAS_REAL.has(name)) {
+    return withBase(`/images/real/${name}.${EXT.real}`);
+  }
+  return withBase(`/images/${name}.${EXT.mock}`);
 }

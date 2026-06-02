@@ -287,11 +287,20 @@ function deploy(cfg: Config, opts: { build: boolean }) {
   console.log(`\n${c.bold}=== Deploy: build + upload ===${c.reset}\n`);
 
   if (opts.build) {
-    step(`Building (PUBLIC_BASE=${cfg.basePath}) ...`);
-    run("npm", ["run", "build"], {
-      cwd: PROJECT_ROOT,
-      // Inject the sub-path base for this build only.
-    });
+    step(`Building (PUBLIC_BASE=${cfg.basePath}, real photos) ...`);
+    // Production ships the salon's real photos, not the SVG mockups. Names
+    // without a real file still fall back to mocks (see src/content/images.ts).
+    const prevSrc = process.env.PUBLIC_IMAGE_SOURCE;
+    process.env.PUBLIC_IMAGE_SOURCE = "real";
+    try {
+      run("npm", ["run", "build"], {
+        cwd: PROJECT_ROOT,
+        // Inject the sub-path base for this build only.
+      });
+    } finally {
+      if (prevSrc === undefined) delete process.env.PUBLIC_IMAGE_SOURCE;
+      else process.env.PUBLIC_IMAGE_SOURCE = prevSrc;
+    }
   } else {
     warn("Skipping build (--no-build); uploading existing dist/.");
   }

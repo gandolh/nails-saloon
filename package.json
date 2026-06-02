@@ -7,9 +7,11 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "astro dev",
+    "dev": "PUBLIC_IMAGE_SOURCE=real astro dev",
+    "dev:mock": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
+    "preview": "PUBLIC_IMAGE_SOURCE=real astro preview",
+    "preview:mock": "astro preview",
     "astro": "astro",
     "deploy:pre": "node deploy/deploy.ts pre-deploy",
     "deploy:push": "node deploy/deploy.ts deploy",
