@@ -79,18 +79,6 @@ export function waLink(message?: string): string {
   return `https://wa.me/${site.whatsappE164}?text=${encodeURIComponent(text)}`;
 }
 
-// Placeholder sentinels that must NEVER reach a production build. If any of
-// these survive into `dist/`, the live site shows a fake phone number and a
-// fake CUI in the legal footer — which, on a Romanian small-business site,
-// reads as a scam and destroys the trust the page works to build.
-const PLACEHOLDERS = {
-  phone: "07XX XXX XXX",
-  phoneE164: "40700000000",
-  cui: "RO00000000",
-  regNumber: "J18/000/2024",
-  address: "Str. Exemplu nr. X",
-} as const;
-
 // The shape of the real-data file. Every field is optional, so the local file
 // only needs to specify what it overrides.
 export type SiteOverrides = {
@@ -122,33 +110,8 @@ export const site = {
   geo: { ...defaults.geo, ...overrides.geo },
 } as const;
 
-// Production data guard. `astro build` bakes these values into static HTML, so
-// a missing/incomplete `site.local.ts` would ship placeholders as if real — a
-// fake phone and a fake CUI in the legal footer, which on a Romanian
-// small-business site reads as a scam. Fail the build loudly instead.
-//
-// This lives in `site.ts` (not the Astro config) on purpose: Vite transforms
-// this module, so both `import.meta.glob` above and `import.meta.env.PROD` here
-// resolve correctly. `PROD` is true only for `astro build`; `astro dev` and the
-// mock workflow stay permissive so the placeholders remain usable locally.
-if (import.meta.env.PROD) {
-  const stillPlaceholder: string[] = [];
-  if (site.phone === PLACEHOLDERS.phone) stillPlaceholder.push("phone");
-  if (site.phoneE164 === PLACEHOLDERS.phoneE164)
-    stillPlaceholder.push("phoneE164");
-  if (site.whatsappE164 === PLACEHOLDERS.phoneE164)
-    stillPlaceholder.push("whatsappE164");
-  if (site.address === PLACEHOLDERS.address) stillPlaceholder.push("address");
-  if (site.legal.cui === PLACEHOLDERS.cui) stillPlaceholder.push("legal.cui");
-  if (site.legal.regNumber === PLACEHOLDERS.regNumber)
-    stillPlaceholder.push("legal.regNumber");
-
-  if (stillPlaceholder.length > 0) {
-    throw new Error(
-      `Production build blocked: real business data is missing. ` +
-        `These fields still hold placeholder values: ${stillPlaceholder.join(", ")}. ` +
-        `Fill them in src/content/site.local.ts (copy site.local.example.ts). ` +
-        `Shipping a fake phone/CUI to the live site reads as a scam.`,
-    );
-  }
-}
+// NOTE: the production data guard that previously lived here (failing the build
+// when `site.local.ts` still held template placeholders) was removed by request
+// to allow staging deploys with placeholder data. Remember to fill real values
+// in `site.local.ts` before the real production deploy — nothing now blocks a
+// fake phone / CUI from reaching the live site.

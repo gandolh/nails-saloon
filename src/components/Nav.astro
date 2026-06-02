@@ -12,7 +12,7 @@ const links = [
 
 <header
   id="site-nav"
-  class="fixed inset-x-0 z-40 transition-colors duration-300"
+  class="sticky md:fixed inset-x-0 z-40 transition-colors duration-300"
   data-scrolled="false"
 >
   <div class="container-page flex items-center justify-between py-4">
@@ -54,10 +54,18 @@ const links = [
 </script>
 
 <style>
-  /* Sits just below the fixed WIP banner; --wip-banner-h is published by the
-     banner's inline script and falls back to 0 if the banner isn't present. */
+  /* Mobile: sticky and in-flow — it follows the in-flow banner, then pins to
+     the top once scrolled past it (top: 0). Desktop: fixed, sitting just below
+     the fixed WIP banner via --wip-banner-h (published by the banner's inline
+     script; falls back to 0 if the banner isn't present). */
   #site-nav {
-    top: var(--wip-banner-h, 0px);
+    top: 0;
+  }
+
+  @media (min-width: 768px) {
+    #site-nav {
+      top: var(--wip-banner-h, 0px);
+    }
   }
 
   #site-nav[data-scrolled="true"] {

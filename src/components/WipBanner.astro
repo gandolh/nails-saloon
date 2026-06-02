@@ -16,14 +16,22 @@
 </div>
 
 <style>
+  /* Mobile: a normal in-flow banner at the very top that scrolls away with
+     the page. Desktop (>=768px): sticky/fixed above the Nav. */
   #wip-banner {
-    position: fixed;
-    top: 0;
+    position: static;
     inset-inline: 0;
-    z-index: 50; /* above the Nav (z-40) */
     background-color: var(--color-secondary-container);
     color: var(--color-on-secondary-container);
     border-bottom: 1px solid var(--color-gold);
+  }
+
+  @media (min-width: 768px) {
+    #wip-banner {
+      position: fixed;
+      top: 0;
+      z-index: 50; /* above the Nav (z-40) */
+    }
   }
 
   .wip-banner__inner {
@@ -54,17 +62,21 @@
 
 <script is:inline>
   // Publish the banner's real height as a CSS var so the fixed Nav (and the
-  // skip-link / scroll offsets) can sit just below it on every viewport.
+  // skip-link / scroll offsets) can sit just below it. Only on desktop
+  // (>=768px) where the banner is fixed; on mobile it's in-flow and scrolls
+  // away, so the Nav sits at top:0 (the var stays at its 0px fallback).
   (function () {
     const banner = document.getElementById("wip-banner");
     if (!banner) return;
+    const mq = window.matchMedia("(min-width: 768px)");
     function setHeight() {
       document.documentElement.style.setProperty(
         "--wip-banner-h",
-        banner.offsetHeight + "px",
+        mq.matches ? banner.offsetHeight + "px" : "0px",
       );
     }
     setHeight();
     window.addEventListener("resize", setHeight, { passive: true });
+    mq.addEventListener("change", setHeight);
   })();
 </script>

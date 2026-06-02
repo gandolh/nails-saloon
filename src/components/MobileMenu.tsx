@@ -86,18 +86,18 @@ export default function MobileMenu() {
       {open && (
         <div
           ref={dialogRef}
-          className="fixed inset-0 z-50 bg-[var(--color-surface-container-low)] flex flex-col"
+          className="mobile-menu fixed inset-0 z-50 flex flex-col"
           role="dialog"
           aria-modal="true"
           aria-label="Meniu de navigare"
         >
-          <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--color-outline-variant)]">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--color-gold)]/30">
             <span className="wordmark text-2xl">Unghii by Ana</span>
             <button
               type="button"
               aria-label="Închide meniul"
               onClick={() => setOpen(false)}
-              className="inline-flex items-center justify-center w-11 h-11 rounded-full hover:bg-[var(--color-surface-container-high)] transition-colors"
+              className="inline-flex items-center justify-center w-11 h-11 rounded-full text-[var(--color-on-surface)] hover:bg-[var(--color-surface-container-lowest)] transition-colors"
             >
               <svg
                 width="22"
@@ -114,12 +114,13 @@ export default function MobileMenu() {
             </button>
           </div>
           <nav className="flex-1 flex flex-col items-center justify-center gap-6 px-6">
-            {links.map((link) => (
+            {links.map((link, i) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="font-display text-4xl text-[var(--color-on-surface)] hover:text-[var(--color-blush-deep)] transition-colors"
+                className="mobile-menu__link font-display text-4xl text-[var(--color-on-surface)] hover:text-[var(--color-blush-deep)] transition-colors"
+                style={{ "--i": i } as React.CSSProperties}
               >
                 {link.label}
               </a>
@@ -127,7 +128,8 @@ export default function MobileMenu() {
             <a
               href="#programari"
               onClick={() => setOpen(false)}
-              className="btn btn-primary mt-6"
+              className="mobile-menu__link btn btn-primary mt-6"
+              style={{ "--i": links.length } as React.CSSProperties}
             >
               Programează-te
             </a>
