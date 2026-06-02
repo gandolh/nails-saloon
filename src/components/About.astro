@@ -47,22 +47,86 @@ import { img } from "../content/images";
         </p>
       </div>
 
+      <!-- Signature sign-off: the page's warmest moment, signed in Ana's own
+           hand. Uses the italic Fraunces wordmark face (the brand mark) + the
+           gold accent, so it reads as a personal signature, not a label. -->
+      <p
+        class="signature mt-6 text-[var(--color-primary)]"
+        aria-label="semnat, Ana"
+      >
+        <span aria-hidden="true">cu drag, Ana</span>
+      </p>
+
       <div class="mt-10 grid grid-cols-2 gap-4 max-w-sm">
         <div class="text-center">
           <p class="heading-md text-[var(--color-on-surface)]">
             {site.stats.years}
           </p>
           <p class="label-md uppercase text-[var(--color-on-surface-variant)] mt-1">
-            ani exp.
+            ani de experiență
           </p>
         </div>
         <div class="text-center">
-          <p class="heading-md text-[var(--color-on-surface)]">100%</p>
+          <p class="heading-md text-[var(--color-on-surface)]">1&nbsp;la&nbsp;1</p>
           <p class="label-md uppercase text-[var(--color-on-surface-variant)] mt-1">
-            premium
+            doar tu și Ana
           </p>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  /* The sign-off, in the italic Fraunces wordmark face — the brand's own
+     signature hand. A short gold rule grows in beneath it once the section
+     reveals, like the flourish under a handwritten name. The underline is
+     decorative only; the readable text carries the meaning. */
+  .signature {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-variation-settings: "SOFT" 40, "opsz" 40;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 1;
+    letter-spacing: -0.005em;
+    width: fit-content;
+  }
+
+  .signature span {
+    display: inline-block;
+    padding-bottom: 0.35rem;
+    background-image: linear-gradient(var(--color-gold), var(--color-gold));
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    /* Default (no-JS, crawlers): the flourish is fully drawn. Mirrors the
+       .reveal contract — never gate visible content on the animation. */
+    background-size: 100% 1.5px;
+  }
+
+  /* Only when JS enables the reveal system do we start the rule hidden and
+     draw it in once the About block scrolls into view. */
+  :global(.js-reveal) .signature span {
+    background-size: 0% 1.5px;
+    transition: background-size 900ms cubic-bezier(0.22, 1, 0.36, 1) 250ms;
+  }
+
+  :global(.js-reveal) .reveal.is-visible .signature span {
+    background-size: 100% 1.5px;
+  }
+
+  /* Failsafe force-reveal and reduced-motion both snap to the drawn rule with
+     no animation — consistent with the global reveal behaviour. */
+  :global(.js-reveal) .reveal.reveal-now .signature span {
+    transition: none;
+    background-size: 100% 1.5px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js-reveal) .signature span {
+      transition: none;
+      background-size: 100% 1.5px;
+    }
+  }
+</style>

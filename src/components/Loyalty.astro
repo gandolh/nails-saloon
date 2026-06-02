@@ -9,8 +9,7 @@
       <!-- Decorative gold motif -->
       <div
         aria-hidden="true"
-        class="absolute -top-12 -right-12 w-48 h-48 rounded-full opacity-30"
-        style="background: radial-gradient(circle, #C9A961 0%, transparent 65%);"
+        class="loyalty-gold-motif absolute -top-12 -right-12 w-48 h-48 rounded-full opacity-30"
       >
       </div>
 
@@ -29,7 +28,7 @@
             >
               5
             </div>
-            <p class="text-[var(--color-on-primary-container)] leading-relaxed">
+            <p class="text-[var(--color-on-surface)] leading-relaxed">
               La fiecare <strong>a 5-a programare</strong>, primești
               <strong>20% reducere</strong> la serviciul ales. Ne ținem evidența,
               tu te bucuri de unghii frumoase.
@@ -56,7 +55,7 @@
                 <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
               </svg>
             </div>
-            <p class="text-[var(--color-on-primary-container)] leading-relaxed">
+            <p class="text-[var(--color-on-surface)] leading-relaxed">
               <strong>Recomandă o prietenă</strong> și primiți amândouă
               <strong>10% reducere</strong> la următoarea vizită.
             </p>
@@ -81,7 +80,7 @@
                 <path d="M12 8S9 2 6.5 3.5 8 8 12 8zm0 0s3-6 5.5-4.5S16 8 12 8z"/>
               </svg>
             </div>
-            <p class="text-[var(--color-on-primary-container)] leading-relaxed">
+            <p class="text-[var(--color-on-surface)] leading-relaxed">
               <strong>Voucher cadou</strong>: surprinde pe cineva drag cu un
               card cadou pentru serviciile mele. Scrie-mi pe WhatsApp și
               îl pregătesc.
@@ -96,3 +95,14 @@
     </div>
   </div>
 </section>
+
+<style>
+  /* Decorative gold motif — brand gold token, not a hard-coded hex. */
+  .loyalty-gold-motif {
+    background: radial-gradient(
+      circle,
+      var(--color-gold) 0%,
+      transparent 65%
+    );
+  }
+</style>

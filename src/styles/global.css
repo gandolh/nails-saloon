@@ -83,10 +83,18 @@
   }
 
   html {
-    scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     /* Anchor jumps land below the fixed banner + nav, not under them. */
     scroll-padding-top: calc(var(--wip-banner-h, 0px) + 5rem);
+  }
+
+  /* Smooth anchor scrolling only for users who haven't asked for reduced
+     motion — this is the one motion path that otherwise escapes the
+     prefers-reduced-motion coverage applied everywhere else. */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
 
   body {

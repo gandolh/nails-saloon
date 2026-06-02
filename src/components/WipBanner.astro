@@ -1,16 +1,16 @@
 ---
-// Sticky top banner: the site is still under construction. Sits above the
-// fixed Nav. Sets the --wip-banner-h CSS var so the Nav can offset itself and
-// they never overlap. Purely presentational, Romanian-only (no EN — see
-// project memory).
+// Sticky top banner: a soft-launch invitation (not an "under construction"
+// apology — that levied a trust tax at first paint). Frames WhatsApp as the
+// booking channel. Sits above the fixed Nav and sets the --wip-banner-h CSS
+// var so the Nav can offset itself and they never overlap. Purely
+// presentational, Romanian-only (no EN — see project memory).
 ---
 
-<div id="wip-banner" role="status" aria-live="polite">
+<div id="wip-banner">
   <div class="container-page wip-banner__inner">
     <span class="wip-banner__dot" aria-hidden="true"></span>
     <span class="wip-banner__text">
-      Site în lucru: unele informații sunt provizorii. Pentru programări ne
-      poți scrie oricând pe WhatsApp.
+      Site în lucru. Pentru programări, scrie-mi oricând pe WhatsApp.
     </span>
   </div>
 </div>
@@ -49,25 +49,6 @@
     height: 0.5rem;
     border-radius: var(--radius-full);
     background-color: var(--color-gold);
-    animation: wip-pulse 1.8s ease-in-out infinite;
-  }
-
-  @keyframes wip-pulse {
-    0%,
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.4;
-      transform: scale(0.7);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .wip-banner__dot {
-      animation: none;
-    }
   }
 </style>
 

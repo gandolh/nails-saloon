@@ -33,7 +33,7 @@ import { site } from "../content/site";
               decoding="async"
               width="600"
               height="800"
-              class="w-full h-auto block transition-transform duration-500 hover:scale-[1.02]"
+              class="gallery-img w-full h-auto block"
             />
           </figure>
         ))
@@ -52,3 +52,17 @@ import { site } from "../content/site";
     </div>
   </div>
 </section>
+
+<style>
+  /* Subtle zoom on hover. Guarded so users who prefer reduced motion get a
+     static image — the one gallery transform that otherwise escaped the
+     site-wide reduced-motion coverage. */
+  @media (prefers-reduced-motion: no-preference) {
+    .gallery-img {
+      transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .gallery-img:hover {
+      transform: scale(1.02);
+    }
+  }
+</style>
