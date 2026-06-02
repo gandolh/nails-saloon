@@ -12,7 +12,7 @@ const links = [
 
 <header
   id="site-nav"
-  class="fixed top-0 inset-x-0 z-40 transition-colors duration-300"
+  class="fixed inset-x-0 z-40 transition-colors duration-300"
   data-scrolled="false"
 >
   <div class="container-page flex items-center justify-between py-4">
@@ -54,6 +54,12 @@ const links = [
 </script>
 
 <style>
+  /* Sits just below the fixed WIP banner; --wip-banner-h is published by the
+     banner's inline script and falls back to 0 if the banner isn't present. */
+  #site-nav {
+    top: var(--wip-banner-h, 0px);
+  }
+
   #site-nav[data-scrolled="true"] {
     background-color: rgba(255, 248, 246, 0.85);
     backdrop-filter: saturate(140%) blur(8px);

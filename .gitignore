@@ -154,5 +154,6 @@ vite.config.ts.timestamp-*
 # Astro
 .astro/
 
-scripts/deploy.sh
-scripts/Caddyfile
+# Node deploy tool: secrets live in deploy/.env (ignored via the dotenv rule
+# near the top). The Caddyfile is server-specific config, kept out of the repo.
+deploy/Caddyfile
