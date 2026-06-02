@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const links = [
   { href: "#acasa", label: "Acasă" },
@@ -11,6 +11,7 @@ const links = [
 
 export default function MobileMenu() {
   const [open, setOpen] = useState(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -19,13 +20,44 @@ export default function MobileMenu() {
     };
   }, [open]);
 
+  // When the dialog opens, move focus into it and trap Tab inside it so
+  // keyboard users can't reach the page behind the overlay. Esc still closes.
   useEffect(() => {
+    if (!open) return;
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    const focusable = () =>
+      Array.from(
+        dialog.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      );
+
+    focusable()[0]?.focus();
+
     function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") {
+        setOpen(false);
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const items = focusable();
+      if (items.length === 0) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     }
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
+
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
 
   return (
     <>
@@ -34,7 +66,7 @@ export default function MobileMenu() {
         aria-label="Deschide meniul"
         aria-expanded={open}
         onClick={() => setOpen(true)}
-        className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-full hover:bg-[var(--color-surface-container)] transition-colors"
+        className="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full hover:bg-[var(--color-surface-container)] transition-colors"
       >
         <svg
           width="22"
@@ -53,17 +85,19 @@ export default function MobileMenu() {
 
       {open && (
         <div
+          ref={dialogRef}
           className="fixed inset-0 z-50 bg-[var(--color-surface-container-low)] flex flex-col"
           role="dialog"
           aria-modal="true"
+          aria-label="Meniu de navigare"
         >
           <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--color-outline-variant)]">
-            <span className="wordmark text-2xl">Ana Saloon</span>
+            <span className="wordmark text-2xl">Unghii by Ana</span>
             <button
               type="button"
               aria-label="Închide meniul"
               onClick={() => setOpen(false)}
-              className="inline-flex items-center justify-center w-10 h-10 rounded-full hover:bg-[var(--color-surface-container-high)] transition-colors"
+              className="inline-flex items-center justify-center w-11 h-11 rounded-full hover:bg-[var(--color-surface-container-high)] transition-colors"
             >
               <svg
                 width="22"

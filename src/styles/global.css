@@ -47,6 +47,11 @@
   --color-blush: #f4d6d0;
   --color-blush-deep: #e8a6a0;
   --color-gold: #c9a961;
+  /* Darker gold for TEXT use. The accent --color-gold (#c9a961) only hits
+     ~2.25:1 on light surfaces and fails WCAG AA as text; this deepened shade
+     clears 4.5:1 on the cream/white surfaces while reading as the same gold.
+     Use --color-gold for non-text accents (dividers, icons, focus rings). */
+  --color-gold-ink: #806619;
   --color-cream: #fbf7f2;
 
   /* Typography */
@@ -169,6 +174,19 @@
     background-color: var(--color-blush);
   }
 
+  /* For CTAs placed ON a blush / primary-container surface (e.g. the Loyalty
+     panel), where .btn-primary's blush fill would vanish into the background.
+     Solid brand-primary fill on white text: ~5.9:1, clearly visible. */
+  .btn-on-blush {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+    box-shadow: 0 4px 16px -8px rgba(43, 31, 26, 0.18);
+  }
+
+  .btn-on-blush:hover {
+    background-color: var(--color-inverse-surface);
+  }
+
   /* Headings utilities */
   .heading-xl {
     font-family: var(--font-display);
@@ -249,15 +267,33 @@
     letter-spacing: -0.01em;
   }
 
-  /* Scroll-triggered reveal */
+  /* Scroll-triggered reveal. Hidden state is opt-in via .js-reveal, which the
+     inline script in Base.astro adds only when JS + IntersectionObserver are
+     available. Without JS (crawlers, link-preview bots, no-script users) the
+     content stays fully visible. */
   .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .js-reveal .reveal {
     opacity: 0;
     transform: translateY(8px);
     transition: opacity 600ms ease-out, transform 600ms ease-out;
   }
 
-  .reveal.is-visible {
+  .js-reveal .reveal.is-visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  /* Respect users who prefer reduced motion: show everything, no transition. */
+  @media (prefers-reduced-motion: reduce) {
+    .js-reveal .reveal,
+    .js-reveal .reveal.is-visible {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
   }
 }

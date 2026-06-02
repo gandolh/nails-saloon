@@ -7,7 +7,7 @@ export type Testimonial = {
 export const testimonials: Testimonial[] = [
   {
     quote:
-      "Ana e o profesionistă desăvârșită. De fiecare dată ies din salon cu unghii perfecte și un zâmbet pe față.",
+      "Ana e o profesionistă desăvârșită. De fiecare dată plec cu unghii perfecte și un zâmbet pe față.",
     author: "Andreea M.",
     rating: 5,
   },
@@ -19,7 +19,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     quote:
-      "Cel mai bun salon din Târgu-Jiu. Ana ascultă ce vrei și livrează exact asta — și încă ceva în plus.",
+      "Cea mai bună manichiuristă din Târgu-Jiu. Ana ascultă ce vrei și livrează exact asta, și încă ceva în plus.",
     author: "Ioana R.",
     rating: 5,
   },

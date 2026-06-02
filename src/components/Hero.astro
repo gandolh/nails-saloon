@@ -12,7 +12,7 @@ import { img } from "../content/images";
   >
     <div class="reveal order-2 md:order-1">
       <span class="label-md uppercase text-[var(--color-secondary)]">
-        Salon de manichiură · {site.city}
+        Manichiură personalizată · lângă Târgu-Jiu
       </span>
       <h1 class="heading-xl mt-4 text-[var(--color-on-surface)]">
         {site.tagline}
@@ -27,29 +27,10 @@ import { img } from "../content/images";
         <a href="#programari" class="btn btn-primary">Programează-te acum</a>
         <a
           href="#servicii"
-          class="text-sm font-semibold underline underline-offset-4 text-[var(--color-on-surface)] hover:text-[var(--color-blush-deep)]"
+          class="inline-flex items-center min-h-[44px] text-sm font-semibold underline underline-offset-4 text-[var(--color-on-surface)] hover:text-[var(--color-blush-deep)]"
         >
           Vezi serviciile →
         </a>
-      </div>
-
-      <div
-        class="mt-10 flex items-center gap-3 text-sm text-[var(--color-on-surface-variant)]"
-      >
-        <div class="flex items-center gap-0.5 text-[var(--color-gold)]">
-          {Array.from({ length: 5 }).map(() => (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M12 2l2.9 6.9L22 10l-5.5 4.9L18 22l-6-3.5L6 22l1.5-7.1L2 10l7.1-1.1z"
-              />
-            </svg>
-          ))}
-        </div>
-        <span>
-          <strong class="text-[var(--color-on-surface)]"
-            >{site.stats.rating}</strong
-          > pe Google · Peste {site.stats.clients} cliente mulțumite
-        </span>
       </div>
     </div>
 
@@ -59,7 +40,7 @@ import { img } from "../content/images";
       >
         <img
           src={img("hero")}
-          alt="Detaliu cu unghii manichiurate în salon"
+          alt="Detaliu cu unghii manichiurate de Ana"
           class="w-full h-full object-cover"
           width="800"
           height="1000"

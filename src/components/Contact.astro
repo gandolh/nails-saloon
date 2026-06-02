@@ -1,12 +1,5 @@
 ---
-import { site } from "../content/site";
-import { withBase } from "../content/url";
-
-const mapsQuery = encodeURIComponent(
-  `${site.address}, ${site.city}, ${site.county}, ${site.country}`,
-);
-const mapsEmbed = `https://www.google.com/maps?q=${site.geo.lat},${site.geo.lng}&z=14&output=embed`;
-const mapsLink = `https://www.google.com/maps?q=${mapsQuery}`;
+import { site, waLink } from "../content/site";
 ---
 
 <section id="contact" class="section">
@@ -23,26 +16,6 @@ const mapsLink = `https://www.google.com/maps?q=${mapsQuery}`;
       <div class="reveal space-y-8">
         <div>
           <p class="label-md uppercase text-[var(--color-on-surface-variant)]">
-            Adresă
-          </p>
-          <p
-            class="mt-2 font-display text-xl text-[var(--color-on-surface)] leading-snug"
-            style="font-family: 'Playfair Display', Georgia, serif;"
-          >
-            {site.address}<br />{site.city}, {site.county}
-          </p>
-          <a
-            href={mapsLink}
-            target="_blank"
-            rel="noopener"
-            class="inline-block mt-3 label-md uppercase text-[var(--color-blush-deep)] hover:underline"
-          >
-            Vezi pe hartă →
-          </a>
-        </div>
-
-        <div>
-          <p class="label-md uppercase text-[var(--color-on-surface-variant)]">
             Telefon · WhatsApp
           </p>
           <a
@@ -52,6 +25,21 @@ const mapsLink = `https://www.google.com/maps?q=${mapsQuery}`;
           >
             {site.phone}
           </a>
+        </div>
+
+        <div>
+          <p class="label-md uppercase text-[var(--color-on-surface-variant)]">
+            Zonă
+          </p>
+          <p
+            class="mt-2 font-display text-xl text-[var(--color-on-surface)] leading-snug"
+            style="font-family: 'Playfair Display', Georgia, serif;"
+          >
+            {site.city}, {site.county}
+          </p>
+          <p class="mt-2 text-sm text-[var(--color-on-surface-variant)] max-w-xs">
+            Îți comunic adresa exactă pe WhatsApp când stabilim programarea.
+          </p>
         </div>
 
         <div>
@@ -90,77 +78,25 @@ const mapsLink = `https://www.google.com/maps?q=${mapsQuery}`;
         </div>
       </div>
 
-      <div class="reveal">
-        <!--
-          Consent-gated map: the Google Maps iframe is NOT loaded on page load,
-          so Google sets no cookies and receives no visitor IP until the user
-          explicitly clicks "Încarcă harta". This keeps the site free of
-          non-essential third-party cookies (no cookie banner required).
-        -->
-        <div
-          id="map-shell"
-          class="relative aspect-[4/3] w-full rounded-[1rem] overflow-hidden border border-[var(--color-outline-variant)] bg-[var(--color-surface-container)]"
-          data-map-embed={mapsEmbed}
-          data-map-title={`Locația ${site.name} pe hartă`}
-        >
-          <div
-            id="map-placeholder"
-            class="absolute inset-0 flex flex-col items-center justify-center gap-4 text-center px-6"
+      <div class="reveal flex flex-col justify-center gap-6">
+        <p class="text-[var(--color-on-surface-variant)] leading-relaxed">
+          Cel mai simplu mod de a-ți face o programare este pe WhatsApp: îmi
+          scrii ce serviciu te interesează și stabilim împreună ziua și ora.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a
+            href={waLink()}
+            target="_blank"
+            rel="noopener"
+            class="btn btn-primary"
           >
-            <svg
-              width="40"
-              height="40"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              class="text-[var(--color-primary)]"
-              aria-hidden="true"
-            >
-              <path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"></path>
-              <circle cx="12" cy="10" r="3"></circle>
-            </svg>
-            <p class="text-sm text-[var(--color-on-surface-variant)] max-w-xs">
-              Harta este furnizată de Google. La încărcare, Google poate seta
-              cookie-uri. Vezi
-              <a href={withBase("/cookie-uri/")} class="underline underline-offset-2"
-                >Politica de cookie-uri</a
-              >.
-            </p>
-            <button id="map-load" type="button" class="btn btn-primary">
-              Încarcă harta
-            </button>
-            <a
-              href={mapsLink}
-              target="_blank"
-              rel="noopener"
-              class="label-md uppercase text-[var(--color-blush-deep)] hover:underline"
-            >
-              Sau deschide în Google Maps →
-            </a>
-          </div>
+            Scrie-mi pe WhatsApp
+          </a>
+          <a href={`tel:+${site.phoneE164}`} class="btn btn-secondary">
+            Sună-mă
+          </a>
         </div>
       </div>
     </div>
   </div>
-
-  <script is:inline>
-    (function () {
-      const btn = document.getElementById("map-load");
-      const shell = document.getElementById("map-shell");
-      const placeholder = document.getElementById("map-placeholder");
-      if (!btn || !shell || !placeholder) return;
-      btn.addEventListener("click", function () {
-        const iframe = document.createElement("iframe");
-        iframe.src = shell.dataset.mapEmbed;
-        iframe.title = shell.dataset.mapTitle;
-        iframe.loading = "lazy";
-        iframe.referrerPolicy = "no-referrer-when-downgrade";
-        iframe.className = "w-full h-full";
-        iframe.style.border = "0";
-        placeholder.remove();
-        shell.appendChild(iframe);
-      });
-    })();
-  </script>
 </section>

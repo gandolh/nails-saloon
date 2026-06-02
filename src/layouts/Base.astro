@@ -30,7 +30,7 @@ interface Props {
 }
 
 const {
-  title = `${site.name} — Salon de manichiură în ${site.city}`,
+  title = `${site.name} · Manichiură personalizată lângă Târgu-Jiu`,
   description = site.description,
 } = Astro.props;
 
@@ -127,14 +127,18 @@ const ogImageAbsolute = `${canonical}${ogImage.replace(/^\//, "")}`;
     <slot />
 
     <script is:inline>
-      // Scroll-triggered fade-in
+      // Scroll-triggered fade-in. Only hide-then-reveal when JS + observer are
+      // available; otherwise the CSS default leaves all .reveal content visible
+      // (no-JS, crawlers, link-preview bots). Honour reduced-motion too.
       (function () {
-        if (typeof IntersectionObserver === "undefined") {
-          document
-            .querySelectorAll(".reveal")
-            .forEach((el) => el.classList.add("is-visible"));
-          return;
+        const prefersReduced =
+          typeof matchMedia === "function" &&
+          matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (typeof IntersectionObserver === "undefined" || prefersReduced) {
+          return; // leave content visible, skip animation entirely
         }
+        // Gate the hidden initial state on JS being present.
+        document.documentElement.classList.add("js-reveal");
         const io = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {

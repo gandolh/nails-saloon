@@ -1,5 +1,5 @@
 // Public defaults — safe to commit. Real values (phone, address, CUI, social
-// handles, Formspree ID, geo) live in the git-ignored `site.local.ts`, which is
+// handles, geo) live in the git-ignored `site.local.ts`, which is
 // deep-merged on top of these at build time. See `site.local.example.ts`.
 //
 // Note: whatever ends up here is baked into the static HTML and is therefore
@@ -7,10 +7,10 @@
 // values out of the repo/GitHub history — not off the live page.
 
 const defaults = {
-  name: "Ana Saloon",
+  name: "Unghii by Ana",
   tagline: "Unghii care vorbesc despre tine",
   description:
-    "Salon de manichiură în Târgu-Jiu, dedicat fiecărei cliente în parte.",
+    "Manichiură personalizată lângă Târgu-Jiu, dedicată fiecărei cliente în parte.",
   city: "Târgu-Jiu",
   county: "Gorj",
   country: "România",
@@ -39,7 +39,8 @@ const defaults = {
     // Last review date of the legal documents (update when content changes).
     documentsUpdated: "29 mai 2026",
     // Retention chosen per the legal audit (see ana_saloon_legal memory).
-    dataRetention: "12 luni de la ultima programare (30 de zile pentru solicitările care nu se finalizează)",
+    dataRetention:
+      "12 luni de la ultima programare (30 de zile pentru solicitările care nu se finalizează)",
   },
 
   // Hours
@@ -58,9 +59,7 @@ const defaults = {
 
   // Stats (placeholder)
   stats: {
-    years: "5+",
-    clients: "500+",
-    rating: "5.0",
+    years: "3+",
   },
 
   // Map (Târgu-Jiu center coordinates as placeholder — overridden in site.local.ts)
@@ -68,10 +67,17 @@ const defaults = {
     lat: 45.0357,
     lng: 23.2748,
   },
-
-  // Formspree endpoint (placeholder — overridden in site.local.ts)
-  formspreeEndpoint: "https://formspree.io/f/REPLACE_ME",
 };
+
+// Pre-filled WhatsApp deep-link. A booked message is the site's success metric,
+// so every primary CTA opens WhatsApp with a friendly Romanian opener already
+// typed — the client just hits send (PRODUCT.md: "booking is one tap away").
+// Pass a service name to tailor the opener; omit for the generic greeting.
+export function waLink(message?: string): string {
+  const text =
+    message ?? "Bună, Ana! Aș dori o programare. Când ai un loc liber?";
+  return `https://wa.me/${site.whatsappE164}?text=${encodeURIComponent(text)}`;
+}
 
 // The shape of the real-data file. Every field is optional, so the local file
 // only needs to specify what it overrides.

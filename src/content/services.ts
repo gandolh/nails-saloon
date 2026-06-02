@@ -28,7 +28,7 @@ export const services: Service[] = [
     title: "Nail Art",
     subtitle: "Design-uri personalizate",
     description:
-      "French, babyboomer, ombre, pictură manuală — design-uri unice, adaptate stilului tău.",
+      "French, babyboomer, ombre, pictură manuală: design-uri unice, adaptate stilului tău.",
     price: "de la 20 lei / unghie",
   },
 ];

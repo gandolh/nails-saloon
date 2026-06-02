@@ -32,6 +32,7 @@ const EXT: Record<ImageSource, string> = {
 // name falls back to its committed SVG mock so nothing 404s. Add a name here
 // once you drop the matching real file in (e.g. "hero", "gallery-07").
 const HAS_REAL = new Set<string>([
+  "hero",
   "ana-portrait",
   "gallery-01",
   "gallery-02",

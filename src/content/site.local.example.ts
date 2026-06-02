@@ -1,6 +1,6 @@
 // TEMPLATE — copy this file to `site.local.ts` (same folder) and fill in the
 // REAL values. `site.local.ts` is git-ignored, so the real phone / address /
-// CUI / social handles / Formspree ID never reach GitHub.
+// CUI / social handles never reach GitHub.
 //
 //   cp src/content/site.local.example.ts src/content/site.local.ts
 //
@@ -40,12 +40,9 @@ export const siteOverrides: SiteOverrides = {
     tiktok: "https://tiktok.com/@...",
   },
 
-  // --- Geo (coordonatele reale ale salonului) -----------------------------
+  // --- Geo (coordonatele zonei, pentru date structurate) -----------------
   geo: {
     lat: 45.0357,
     lng: 23.2748,
   },
-
-  // --- Formspree (ID-ul real al formularului) -----------------------------
-  formspreeEndpoint: "https://formspree.io/f/REPLACE_ME",
 };

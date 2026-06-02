@@ -1,5 +1,5 @@
 ---
-import { gallery, beforeAfter } from "../content/gallery";
+import { gallery } from "../content/gallery";
 import { site } from "../content/site";
 ---
 
@@ -9,58 +9,15 @@ import { site } from "../content/site";
 >
   <div class="container-page">
     <div class="reveal max-w-2xl">
-      <span class="label-md uppercase text-[var(--color-secondary)]">
-        Portofoliu
-      </span>
-      <h2 class="heading-lg mt-3">Galerie</h2>
+      <h2 class="heading-lg">Galerie</h2>
       <span class="gold-divider"></span>
       <p class="mt-4 text-[var(--color-on-surface-variant)]">
-        Câteva dintre lucrările mele recente — fiecare unghie este o mică operă
+        Câteva dintre lucrările mele recente. Fiecare unghie este o mică operă
         de artă, croită pe stilul tău.
       </p>
     </div>
 
-    <!-- Before / after transformations -->
-    <div class="mt-12">
-      <h3 class="heading-md reveal">Înainte & după</h3>
-      <div class="mt-6 grid gap-6 md:grid-cols-3">
-        {
-          beforeAfter.map((pair) => (
-            <figure class="reveal card !p-3">
-              <div class="grid grid-cols-2 gap-2">
-                <div class="relative rounded-[0.75rem] overflow-hidden bg-[var(--color-surface-container)]">
-                  <img
-                    src={pair.before.src}
-                    alt={pair.before.alt}
-                    loading="lazy"
-                    class="w-full h-auto block"
-                  />
-                  <span class="absolute top-2 left-2 label-md uppercase tracking-wider bg-white/85 text-[var(--color-on-surface)] rounded-full px-2 py-0.5 text-xs">
-                    Înainte
-                  </span>
-                </div>
-                <div class="relative rounded-[0.75rem] overflow-hidden bg-[var(--color-surface-container)]">
-                  <img
-                    src={pair.after.src}
-                    alt={pair.after.alt}
-                    loading="lazy"
-                    class="w-full h-auto block"
-                  />
-                  <span class="absolute top-2 left-2 label-md uppercase tracking-wider bg-[var(--color-gold)] text-white rounded-full px-2 py-0.5 text-xs">
-                    După
-                  </span>
-                </div>
-              </div>
-              <figcaption class="mt-3 text-center text-sm text-[var(--color-on-surface-variant)]">
-                {pair.caption}
-              </figcaption>
-            </figure>
-          ))
-        }
-      </div>
-    </div>
-
-    <h3 class="heading-md reveal mt-16">Lucrări recente</h3>
+    <h3 class="heading-md reveal mt-12">Lucrări recente</h3>
     <div
       class="mt-6 columns-2 md:columns-3 gap-4 [column-fill:_balance]"
     >
@@ -73,6 +30,9 @@ import { site } from "../content/site";
               src={img.src}
               alt={img.alt}
               loading={i < 3 ? "eager" : "lazy"}
+              decoding="async"
+              width="600"
+              height="800"
               class="w-full h-auto block transition-transform duration-500 hover:scale-[1.02]"
             />
           </figure>

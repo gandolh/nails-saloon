@@ -9,7 +9,7 @@ export type FaqItem = {
 export const faq: FaqItem[] = [
   {
     q: "Cum mă programez?",
-    a: "Cel mai simplu pe WhatsApp — apasă butonul „Programează-te”, scrie-mi ziua și intervalul preferat, iar eu îți confirm un loc liber. Poți folosi și formularul de pe site.",
+    a: "Cel mai simplu pe WhatsApp: apasă butonul „Programează-te”, scrie-mi ziua și intervalul preferat, iar eu îți confirm un loc liber. Mă poți suna și la telefon.",
   },
   {
     q: "Cât rezistă manichiura semipermanentă?",
@@ -17,7 +17,7 @@ export const faq: FaqItem[] = [
   },
   {
     q: "Ce produse folosești?",
-    a: "Lucrez doar cu produse premium, profesionale, și pun accent pe igienă impecabilă — instrumentar sterilizat și consumabile de unică folosință acolo unde e cazul.",
+    a: "Lucrez doar cu produse premium, profesionale, și pun accent pe igienă impecabilă: instrumentar sterilizat și consumabile de unică folosință acolo unde e cazul.",
   },
   {
     q: "Cât durează o programare?",
@@ -29,6 +29,6 @@ export const faq: FaqItem[] = [
   },
   {
     q: "Cum pot plăti?",
-    a: "Plata se face la salon, în numerar sau prin transfer/aplicație, după preferință. Confirmăm detaliile când stabilim programarea.",
+    a: "Plata se face la programare, în numerar sau prin transfer/aplicație, după preferință. Confirmăm detaliile când stabilim programarea.",
   },
 ];
