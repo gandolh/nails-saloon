@@ -145,14 +145,19 @@ se face **după** pasul B din pereche, ca parte a activării fiecărui bot.
 
 ### B7. Conținut & date reale
 - [ ] **Prețurile reale** pe serviciu (pentru A1).
-- [ ] **Fotografii reale** ale lucrărilor + ale Anei (înlocuiesc placeholder-ele
-  SVG din `public/images/`) — pentru galerie, hero, înainte/după.
+- [~] **Fotografii reale** ale lucrărilor + ale Anei. *Mecanismul e gata*: switch
+  `IMAGE_SOURCE`/`PUBLIC_IMAGE_SOURCE` în `src/content/images.ts`; fotografiile
+  reale stau git-ignored în `public/images/real/` (deja există hero, portret Ana,
+  gallery-01..06). Rămâne să se completeze restul (galerie, înainte/după) și să se
+  ruleze cu `PUBLIC_IMAGE_SOURCE=real`.
 - [ ] **Recenzii reale** (acum sunt mostre hardcodate în `testimonials.ts`).
 - [ ] **Clipuri/Reels** pentru motorul organic + creative pentru reclame.
 
 ### B8. Infrastructură & legal de operare
-- [ ] **VPS + domeniu** (`anasaloon.ro`), nginx/Caddy, TLS; deploy `dist/` +
-  procesul de bots pe subpath `/bots`.
+- [ ] **VPS + domeniu** (`anasaloon.ro`), TLS. *Tooling-ul de deploy e gata*
+  (`deploy/deploy.ts`: build local cu sub-path `/saloon` + `rsync` pe VPS Hetzner
+  servit de **Caddy**; vezi `deploy/README.md`). Rămâne acțiunea de om: aprovizionarea
+  serverului real + `deploy/.env` (host, `REMOTE_DIR`, domeniu) + procesul de bots pe subpath `/bots`.
 - [ ] **Google Business Profile** creat & verificat (cel mai bun ROI local) —
   cere acces la afacere și verificare.
 - [ ] **Deținerea conturilor** (Ana vs Cristian) pentru Meta Business + TikTok.

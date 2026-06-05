@@ -50,28 +50,28 @@ colors:
   surface-variant: "#f4ded6"
 typography:
   display-wordmark:
-    fontFamily: Playfair Display
+    fontFamily: Fraunces
     fontSize: 32px
     fontWeight: "500"
     lineHeight: "1.2"
   headline-xl:
-    fontFamily: Playfair Display
+    fontFamily: Fraunces
     fontSize: 56px
     fontWeight: "500"
     lineHeight: 64px
     letterSpacing: -0.02em
   headline-xl-mobile:
-    fontFamily: Playfair Display
+    fontFamily: Fraunces
     fontSize: 40px
     fontWeight: "500"
     lineHeight: 48px
   headline-lg:
-    fontFamily: Playfair Display
+    fontFamily: Fraunces
     fontSize: 40px
     fontWeight: "500"
     lineHeight: 48px
   headline-md:
-    fontFamily: Playfair Display
+    fontFamily: Fraunces
     fontSize: 32px
     fontWeight: "600"
     lineHeight: 40px
@@ -130,9 +130,10 @@ The color strategy is rooted in warmth and natural skin tones to reinforce the s
 
 The typography pairing creates an "editorial lookbook" feel.
 
-- **Display & Headings:** Playfair Display provides a classic, high-fashion personality. Large headlines should use a slightly tighter letter-spacing to feel more intentional and composed.
-- **The Wordmark:** The brand name should always be rendered in Playfair Display, Italic, 500 weight, creating a signature-like appearance.
+- **Display & Headings:** **Fraunces** (a variable serif, self-hosted via `@fontsource-variable/fraunces`) provides a warm, hand-made high-fashion personality. It is a variable face: headings let the browser pick the optical-size master (`font-optical-sizing: auto`) and soften the serifs with `font-variation-settings: "SOFT" 30, "opsz" 40` so the type reads artisanal rather than glossy. Large headlines use a slightly tighter letter-spacing (~-0.005em) to feel intentional and composed.
+- **The Wordmark:** The brand name is rendered in Fraunces, creating a signature-like appearance.
 - **Body & Interface:** Manrope provides a clean, modern contrast. It ensures that service menus and booking flows remain highly readable and professional. Use the 600 weight for labels to provide clear hierarchy in dense information areas.
+- **Fonts are self-hosted** (no Google Fonts CDN) — a GDPR decision (see `LEGAL.md`). Fraunces loads via the `opsz` variable axis (+italic); Manrope loads weights 400–700 (latin + latin-ext for Romanian diacritics).
 
 ## Layout & Spacing
 
@@ -164,5 +165,5 @@ The shape language is soft and feminine, avoiding sharp corners to reflect the g
 - **Secondary Buttons:** Use a 1.5px border of Soft Blush Pink with no fill, maintaining the pill shape.
 - **Cards:** White backgrounds with 16px radius. Use generous internal padding (32px) and no border unless the card is placed on a white background, in which case use a 1px stroke of #E8E2DA.
 - **Inputs:** Pill-shaped fields with a Warm Cream background and a subtle 1px border. Focus states should transition the border to Warm Gold.
-- **Service Lists:** Display service names in Playfair Display (Medium) with prices in Manrope (Semi-bold). Use a thin Warm Gold divider between items.
+- **Service Lists:** Display service names in Fraunces (Medium) with prices in Manrope (Semi-bold). Use a thin Warm Gold divider between items.
 - **Chips/Tags:** Small pill-shaped containers with Soft Blush Pink background (20% opacity) and Deep Rose text for indicating availability or categories.

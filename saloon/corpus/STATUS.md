@@ -1,8 +1,12 @@
 # STATUS — unde suntem (citește asta întâi)
 
-> Punct de reluare a lucrului după o pauză. Ultima actualizare: **29 mai 2026**.
+> Punct de reluare a lucrului după o pauză. Ultima actualizare: **3 iunie 2026**.
 > Dacă revii la proiect, citește acest fișier, apoi `corpus/todo/ROADMAP.md`
 > pentru lista exactă de acțiuni.
+>
+> Notă: repo-ul a fost redenumit pe GitHub în **`presentation-sites`**
+> (`github.com/gandolh/presentation-sites`). Tot ce e implementat acum e însă
+> doar pentru Ana Saloon.
 
 ## Pe scurt
 
@@ -24,6 +28,10 @@ Niciun apel real, niciun token, nicio cheltuială până când cineva pune
 |---|---|---|
 | Site Astro | ✅ cod complet (+ secțiuni igienă, FAQ+JSON-LD, înainte/după, voucher) | `npm run build` → exit 0, 4 pagini |
 | Site legal/GDPR | ✅ implementat (vezi `LEGAL.md`) | — |
+| Site — rafinare UI (impeccable) | ✅ mai multe treceri în iunie: Hero/About/Booking/Footer + bară mobilă de programare | vezi `.impeccable/critique/` + commit-urile din 2–3 iun. |
+| Tipografie display | ✅ schimbat pe **Fraunces** (variable, self-hosted) — nu mai e Playfair | `--font-display` în `global.css`; vezi `DESIGN.md` |
+| Imagini reale | ✅ pipeline „mock vs real" prin `src/content/images.ts` (switch `IMAGE_SOURCE` / `PUBLIC_IMAGE_SOURCE`); fotografiile reale stau git-ignored în `public/images/real/` | `HAS_REAL` listează ce nume au foto reală |
+| Deploy | ✅ tool zero-dep (`deploy/deploy.ts`): build local cu sub-path `/saloon` + `rsync` pe VPS Hetzner servit de **Caddy** | `npm run deploy:pre` / `deploy:push` / `deploy:all`; vezi `deploy/README.md` |
 | Bots — scaffold + 4 boți | ✅ `core/` înghețat + whatsapp/responses/scheduler/campaigns | — |
 | Bots — impl real (SQLite, sender-e, server HTTP) | ✅ în spatele interfețelor, doar în afara mock mode | `cd marketing/bots && npm run check` → 66 teste, 0 fail |
 | Bots — live | ⛔ neactivat (mock mode) — necesită pașii de om B1–B5 | boot fără secrete eșuează rapid (corect) |
@@ -67,6 +75,8 @@ Se face **după** ce conturile există, ca să poată fi testat pe ceva real:
 - **Decizii marketing + arhitectura boților**: `corpus/MARKETING.md`
 - **Decizii legale/GDPR**: `corpus/LEGAL.md`
 - **Design system**: `corpus/DESIGN.md`
+- **Deploy (Caddy, sub-path `/saloon`, VPS Hetzner)**: `deploy/README.md`
+- **Sursa imaginilor (mock vs foto reale)**: `src/content/images.ts` + `public/images/real/README.md`
 - **Listă de acțiuni (agent vs om)**: `corpus/todo/ROADMAP.md`
 - **Istoricul a ce s-a rezolvat**: `corpus/todo/TODO.md`
 - **Regulile dure ale boților (ToS/GDPR/bani)**: `marketing/bots/COMPLIANCE.md`
