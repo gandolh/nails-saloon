@@ -1,0 +1,186 @@
+---
+import Base from "../layouts/Base.astro";
+import DemoBanner from "../components/DemoBanner.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import { site } from "../content/site";
+import { img } from "../content/images";
+import { withBase } from "../content/url";
+import { steps } from "../content/zone";
+import { gallery } from "../content/gallery";
+import { amenities } from "../content/tents";
+
+const heroImg = img("hero");
+// Show the three "incluse" amenities as the comfort teaser on the home page.
+const included = amenities.filter((a) => a.kind === "inclus");
+---
+
+<Base path="/">
+  <DemoBanner />
+  <Nav current="/" />
+
+  <main id="main">
+    <!-- ============================ HERO ============================ -->
+    <section class="relative overflow-hidden bg-[var(--color-inverse-surface)] text-[var(--color-inverse-on-surface)]">
+      <!-- backdrop image, dimmed under the canopy green -->
+      <img
+        src={heroImg}
+        alt="Cort de eveniment montat pe un teren, luminat cald la apus"
+        class="absolute inset-0 h-full w-full object-cover opacity-35"
+        loading="eager"
+        decoding="async"
+      />
+      <div
+        class="absolute inset-0"
+        style="background:linear-gradient(180deg, oklch(27% 0.045 155 / 0.55) 0%, oklch(27% 0.045 155 / 0.78) 60%, oklch(27% 0.045 155 / 0.95) 100%)"
+        aria-hidden="true"
+      >
+      </div>
+
+      <div class="container-page relative pt-[calc(var(--nav-h,5rem)+3.5rem)] pb-20 md:pt-[calc(var(--nav-h,5rem)+5.5rem)] md:pb-28">
+        <div class="reveal flex items-center gap-3">
+          <span class="guyline guyline--bright" aria-hidden="true"></span>
+          <span class="eyebrow text-[var(--color-inverse-on-surface-variant)]">
+            {site.county} · {site.region}
+          </span>
+        </div>
+
+        <h1 class="reveal heading-xl mt-5 max-w-3xl text-[var(--color-inverse-on-surface)]">
+          Un spațiu pregătit, oriunde ai nevoie de el.
+        </h1>
+
+        <p class="reveal mt-6 max-w-xl text-lg leading-relaxed text-[var(--color-inverse-on-surface-variant)]">
+          Aducem cortul la tine, îl montăm exact cum vrei și asigurăm încălzire
+          sau răcire, în funcție de sezon. Tu te ocupi de eveniment, noi de
+          spațiul în care are loc.
+        </p>
+
+        <!-- quiet inline facts, NOT a CTA -->
+        <dl class="reveal mt-10 grid grid-cols-2 gap-x-8 gap-y-6 sm:flex sm:flex-wrap sm:gap-x-12 max-w-2xl">
+          <div>
+            <dt class="text-sm text-[var(--color-inverse-on-surface-variant)]">Capacitate</dt>
+            <dd class="mt-1 font-display text-2xl font-bold text-[var(--color-inverse-on-surface)]">40 – 320 invitați</dd>
+          </div>
+          <div>
+            <dt class="text-sm text-[var(--color-inverse-on-surface-variant)]">Montaj complet</dt>
+            <dd class="mt-1 font-display text-2xl font-bold text-[var(--color-inverse-on-surface)]">La tine acasă</dd>
+          </div>
+          <div>
+            <dt class="text-sm text-[var(--color-inverse-on-surface-variant)]">Confort</dt>
+            <dd class="mt-1 font-display text-2xl font-bold text-[var(--color-inverse-on-surface)]">Cald sau răcoros</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ===================== CE FACEM (intro) ====================== -->
+    <section class="section">
+      <div class="container-page grid gap-10 md:grid-cols-[1.1fr_1fr] md:items-center md:gap-16">
+        <div class="reveal">
+          <h2 class="heading-lg">Cortul potrivit, montat cap-coadă</h2>
+          <p class="mt-5 max-w-prose text-[var(--color-on-surface-variant)] leading-relaxed">
+            Subcort este un serviciu de logistică pentru evenimente: venim cu
+            structura, o ridicăm pe terenul tău și o pregătim complet: pardoseală,
+            pereți, iluminat și climatizare. Lăsăm un spațiu gata de folosit,
+            potrivit oricărei ocazii, și revenim după eveniment ca să demontăm.
+          </p>
+          <p class="mt-4 max-w-prose text-[var(--color-on-surface-variant)] leading-relaxed">
+            Nu vindem o atmosferă anume. Pregătim un spațiu solid și confortabil,
+            iar restul rămâne în mâinile tale.
+          </p>
+        </div>
+
+        <ul class="reveal panel p-7 md:p-9 space-y-5">
+          {
+            included.map((a) => (
+              <li class="flex gap-4">
+                <span class="mt-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary-container)] text-[var(--color-on-primary-container)]">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </span>
+                <div>
+                  <h3 class="font-display text-lg font-bold text-[var(--color-on-surface)]">{a.title}</h3>
+                  <p class="mt-1 text-sm text-[var(--color-on-surface-variant)] leading-relaxed">{a.description}</p>
+                </div>
+              </li>
+            ))
+          }
+          <li class="pt-2">
+            <a href={withBase("/corturi/")} class="inline-flex items-center gap-2 text-sm font-bold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)]">
+              Vezi corturile și dotările
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================== CUM FUNCȚIONEAZĂ ====================== -->
+    <section class="section bg-[var(--color-surface-container-low)] border-y border-[var(--color-outline-variant)]">
+      <div class="container-page">
+        <div class="reveal max-w-2xl">
+          <h2 class="heading-lg">Cum funcționează</h2>
+          <p class="mt-4 text-[var(--color-on-surface-variant)] leading-relaxed">
+            Patru pași, de la prima discuție până la demontare. De logistică ne
+            ocupăm noi, cap-coadă.
+          </p>
+        </div>
+
+        <ol class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {
+            steps.map((s) => (
+              <li class="reveal card flex flex-col">
+                <span class="font-display text-3xl font-extrabold text-[var(--color-primary)]">{s.n}</span>
+                <span class="guyline mt-3 !w-10"></span>
+                <h3 class="heading-md mt-4">{s.title}</h3>
+                <p class="mt-2 text-sm text-[var(--color-on-surface-variant)] leading-relaxed">{s.description}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </section>
+
+    <!-- ========================= GALERIE ========================== -->
+    <section class="section">
+      <div class="container-page">
+        <div class="reveal flex flex-wrap items-end justify-between gap-4">
+          <div class="max-w-2xl">
+            <h2 class="heading-lg">Cum arată</h2>
+            <p class="mt-4 text-[var(--color-on-surface-variant)] leading-relaxed">
+              Imagini orientative ale spațiului pregătit și ale montajului.
+              Atmosfera o dai tu; noi pregătim cadrul.
+            </p>
+          </div>
+        </div>
+
+        <div class="reveal mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {
+            gallery.map((g, i) => (
+              <figure
+                class:list={[
+                  "group relative overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-outline-variant)] bg-[var(--color-inverse-surface)]",
+                  i === 0 ? "sm:col-span-2 lg:col-span-1 aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/3]" : "aspect-[4/3]",
+                ]}
+              >
+                <img
+                  src={img(g.name)}
+                  alt={g.alt}
+                  loading="lazy"
+                  decoding="async"
+                  class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+                <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[oklch(27%_0.045_155_/_0.85)] to-transparent p-4 pt-10 text-sm font-semibold text-[var(--color-inverse-on-surface)]">
+                  {g.alt}
+                </figcaption>
+              </figure>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>

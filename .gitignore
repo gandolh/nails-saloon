@@ -73,6 +73,7 @@ web_modules/
 # Real personal/business data — kept out of the repo (see site.local.example.ts)
 saloon/src/content/site.local.ts
 auto-service/src/content/site.local.ts
+subcort/src/content/site.local.ts
 
 # Real photos — kept out of the repo (see public/images/real/README.md).
 # The directory itself stays tracked via .gitkeep + README; everything else is ignored.
@@ -82,6 +83,9 @@ saloon/public/images/real/*
 auto-service/public/images/real/*
 !auto-service/public/images/real/.gitkeep
 !auto-service/public/images/real/README.md
+subcort/public/images/real/*
+!subcort/public/images/real/.gitkeep
+!subcort/public/images/real/README.md
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -162,3 +166,4 @@ vite.config.ts.timestamp-*
 # near the top). The Caddyfile is server-specific config, kept out of the repo.
 saloon/deploy/Caddyfile
 auto-service/deploy/Caddyfile
+subcort/deploy/Caddyfile

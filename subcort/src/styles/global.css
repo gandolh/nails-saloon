@@ -1,0 +1,387 @@
+@import "tailwindcss";
+
+/*
+  Subcort — design tokens.
+
+  Creative North Star: "The lit tent at blue hour." A large canvas structure
+  pitched on a grassy field as the light goes, warm from within. The identity is
+  a COMMITTED deep canopy green carrying real surface (hero, footer, anchors),
+  set on a soft warm off-white — never a heavy cream. One warm clay accent does
+  the work of the lamp glowing through the canvas. Calm, square, dependable.
+
+  This deliberately rejects the festive party-rental skin, the cheap classifieds
+  listing, the generic SaaS landing, and the forest-green-on-cream "natural
+  brand" cliché (a timid sage accent floating on cream). Here green commits.
+
+  Colours authored in OKLCH. Token names mirror the sibling projects
+  (Material-ish roles) so components read the same way across the monorepo.
+*/
+
+@theme {
+  /* ---- Surfaces (soft warm off-white — NOT cream) ------------------------
+     A near-white with the faintest warm tint, low enough chroma that it reads
+     as "quiet paper", not "sand". The greige panels lift the structure. */
+  --color-background: oklch(98.5% 0.006 95); /* page bg, barely-warm off-white */
+  --color-surface: oklch(98.5% 0.006 95);
+  --color-surface-container-lowest: oklch(100% 0 0); /* pure white cards */
+  --color-surface-container-low: oklch(97% 0.007 95);
+  --color-surface-container: oklch(95% 0.009 95); /* greige panel */
+  --color-surface-container-high: oklch(92.5% 0.011 90);
+  --color-surface-container-highest: oklch(89.5% 0.013 88);
+
+  /* ---- Ink ----------------------------------------------------------------
+     Green-leaning near-black: carries the canopy hue without going cold-black.
+     Body clears AA comfortably (≈12:1 on bg). */
+  --color-on-surface: oklch(26% 0.02 152); /* body + headings */
+  --color-on-surface-variant: oklch(44% 0.018 150); /* secondary text, ≥4.5:1 */
+  --color-outline: oklch(64% 0.014 140);
+  --color-outline-variant: oklch(89% 0.01 110); /* hairlines */
+
+  /* ---- Inverse (dark sections: hero, footer) ------------------------------
+     "Deep canopy" — the inside of the green tent at dusk. Near-white ink
+     reverses onto it; the brighter green + clay read as warm light within. */
+  --color-inverse-surface: oklch(27% 0.045 155); /* deep canopy green */
+  --color-inverse-surface-2: oklch(31% 0.05 155); /* lifted canopy panel */
+  --color-inverse-on-surface: oklch(96% 0.008 95); /* warm near-white on dark */
+  --color-inverse-on-surface-variant: oklch(80% 0.018 120);
+
+  /* ---- Primary: canopy green (the committed identity) --------------------
+     The seed (hue 150). Deep and muted, so WHITE text on it clears AA (white
+     on this ≈ 7.4:1). Hover deepens. */
+  --color-primary: oklch(40% 0.085 150); /* deep forest/canopy green */
+  --color-primary-hover: oklch(34% 0.08 150);
+  --color-on-primary: oklch(99% 0.004 95);
+  --color-primary-container: oklch(93% 0.025 150); /* pale wash for chips */
+  --color-on-primary-container: oklch(33% 0.07 150);
+  /* Brighter green for accents/links ON DARK surfaces (AA on canopy). */
+  --color-primary-bright: oklch(74% 0.1 148);
+
+  /* ---- Accent: warm clay (the lamp glow through the canvas) --------------
+     The one companion hue. Distinct from green in BOTH hue (≈55) and
+     lightness. White text on the filled accent clears AA (≈4.6:1). Used for
+     the signature line's warm end, "inclus" markers, hover warmth — sparingly. */
+  --color-accent: oklch(58% 0.12 55); /* warm terracotta/clay */
+  --color-accent-hover: oklch(52% 0.115 52);
+  --color-on-accent: oklch(99% 0.004 95);
+  --color-accent-soft: oklch(92% 0.04 60); /* pale clay wash */
+  --color-on-accent-soft: oklch(40% 0.1 50);
+  /* Brighter clay for accents on DARK surfaces. */
+  --color-accent-bright: oklch(76% 0.11 62);
+
+  /* ---- Status ------------------------------------------------------------- */
+  --color-success: oklch(56% 0.11 150);
+  --color-error: oklch(55% 0.19 27);
+  --color-on-error: oklch(99% 0 0);
+
+  /* ---- Typography ---------------------------------------------------------
+     Contrast pairing: a sturdy warm SLAB serif headline (Bitter) against a
+     calm humanist SANS body (Mulish). The slab reads "grounded, structural,
+     sheltering" — the right register for a tent/logistics brand, and avoids
+     the festive-script and the editorial-italic-serif traps alike. */
+  --font-display: "Bitter Variable", Georgia, "Times New Roman", serif;
+  --font-body: "Mulish Variable", system-ui, sans-serif;
+
+  /* ---- Radius (soft-but-square: grounded, not pill, not sharp) ------------ */
+  --radius-sm: 0.25rem;
+  --radius: 0.5rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.25rem;
+  --radius-full: 9999px;
+
+  /* ---- Container ---------------------------------------------------------- */
+  --container-max-width: 1180px;
+
+  /* ---- Z-index scale ------------------------------------------------------ */
+  --z-sticky: 100;
+  --z-nav: 200;
+  --z-overlay: 300;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem; /* anchor jumps clear the fixed nav */
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-on-surface);
+    background-color: var(--color-background);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+}
+
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: var(--container-max-width);
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
+
+  .section {
+    padding-block: clamp(3.25rem, 7vw, 6.5rem);
+  }
+
+  /* ---- The guy-line (the signature) --------------------------------------
+     A thin two-tone bar evoking a taut tent line catching the last light:
+     canopy green easing into warm clay. Used as a divider, the mark beside the
+     wordmark, and a section edge. A gradient on a BACKGROUND bar (never on
+     text, never a side-border) — deliberate, not decorative scaffolding. */
+  .guyline {
+    display: block;
+    height: 3px;
+    width: 60px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(
+      90deg,
+      var(--color-primary) 0%,
+      var(--color-accent) 100%
+    );
+  }
+  .guyline--full {
+    width: 100%;
+    height: 4px;
+    border-radius: 0;
+  }
+  /* On dark canopy surfaces the line uses the brighter ends so it reads. */
+  .guyline--bright {
+    background: linear-gradient(
+      90deg,
+      var(--color-primary-bright) 0%,
+      var(--color-accent-bright) 100%
+    );
+  }
+
+  /* Eyebrow — used SPARINGLY (hero + at most one key section), paired with the
+     guy-line. Never above every section. */
+  .eyebrow {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--color-on-surface-variant);
+  }
+
+  /* ---- Buttons -----------------------------------------------------------
+     The site has NO calls-to-action by design, so buttons are rare. These
+     exist for the few neutral text-links styled as buttons (e.g. "Înapoi la
+     site" on legal pages) and for any future need; they are NOT promoted. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    transition:
+      background-color 200ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 200ms cubic-bezier(0.22, 1, 0.36, 1),
+      color 200ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .btn:active { transform: translateY(1px); }
+
+  .btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+  .btn-primary:hover { background-color: var(--color-primary-hover); }
+
+  .btn-outline {
+    background-color: transparent;
+    color: var(--color-on-surface);
+    border-color: var(--color-outline);
+  }
+  .btn-outline:hover {
+    border-color: var(--color-on-surface);
+    background-color: var(--color-surface-container);
+  }
+  .btn-outline-inverse {
+    background-color: transparent;
+    color: var(--color-inverse-on-surface);
+    border-color: oklch(100% 0 0 / 0.32);
+  }
+  .btn-outline-inverse:hover {
+    border-color: var(--color-inverse-on-surface);
+    background-color: oklch(100% 0 0 / 0.08);
+  }
+
+  /* ---- Headings ----------------------------------------------------------- */
+  .heading-xl {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2.3rem, 5.5vw, 4rem);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .heading-lg {
+    font-family: var(--font-display);
+    font-weight: 750;
+    font-size: clamp(1.85rem, 3.8vw, 2.8rem);
+    line-height: 1.08;
+    letter-spacing: -0.018em;
+    text-wrap: balance;
+  }
+  .heading-md {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+    line-height: 1.15;
+    letter-spacing: -0.012em;
+  }
+
+  /* ---- Wordmark -----------------------------------------------------------
+     Set in the slab display face, tight and grounded. The lowercase-friendly
+     slab gives Subcort a sturdy, sheltering signature. */
+  .wordmark {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  /* ---- Card --------------------------------------------------------------
+     Used deliberately (tent sizes, services), never nested. Flat at rest:
+     greige-lifting-off-white with a hairline, no resting shadow. */
+  .card {
+    background-color: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+  }
+
+  /* A quiet greige panel for grouping content (alternative to a card grid). */
+  .panel {
+    background-color: var(--color-surface-container);
+    border-radius: var(--radius-xl);
+  }
+
+  /* Small label chip (e.g. "inclus" / "opțional" on amenities). */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-full);
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .chip-included {
+    background-color: var(--color-primary-container);
+    color: var(--color-on-primary-container);
+  }
+  .chip-optional {
+    background-color: var(--color-accent-soft);
+    color: var(--color-on-accent-soft);
+  }
+
+  /* ---- Scroll reveal (visible by default; JS opts into hidden start; the
+     Base.astro failsafe guarantees it never ships blank). ------------------ */
+  .reveal { opacity: 1; transform: none; }
+  .js-reveal .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 750ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 750ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .js-reveal .reveal.is-visible { opacity: 1; transform: translateY(0); }
+  .js-reveal .reveal.reveal-now { transition: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .js-reveal .reveal,
+    .js-reveal .reveal.is-visible {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* ---- Mobile menu overlay (MobileMenu.tsx island) ----------------------- */
+  .mobile-menu {
+    background-color: var(--color-inverse-surface);
+    background-image: radial-gradient(
+      120% 90% at 100% 0%,
+      oklch(58% 0.12 55 / 0.28) 0%,
+      oklch(58% 0.12 55 / 0) 58%
+    );
+    box-shadow: 0 8px 50px -12px oklch(20% 0.04 155 / 0.6);
+    animation: mobile-menu-in 300ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .mobile-menu__link {
+    animation: mobile-menu-link-in 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(70ms + var(--i, 0) * 45ms);
+  }
+  @keyframes mobile-menu-in { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes mobile-menu-link-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-menu, .mobile-menu__link { animation: none; }
+  }
+}
+
+/* Utility: hide visually but keep for screen readers (skip link). */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

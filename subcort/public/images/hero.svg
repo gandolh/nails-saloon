@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000">
+  
+  <defs>
+    <linearGradient id="dusk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1c2f23"/>
+      <stop offset="60%" stop-color="#26412f"/>
+      <stop offset="100%" stop-color="#2c3a2c"/>
+    </linearGradient>
+    <radialGradient id="lamp" cx="50%" cy="62%" r="42%">
+      <stop offset="0%" stop-color="#e6a877" stop-opacity="0.5"/>
+      <stop offset="55%" stop-color="#c87b4a" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#c87b4a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="guyline" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5a8c63"/>
+      <stop offset="100%" stop-color="#e6a877"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#dusk)"/>
+  <rect width="1600" height="1000" fill="url(#lamp)"/>
+  
+  <line x1="0" y1="820" x2="1600" y2="820" stroke="#46604f" stroke-width="2" opacity="0.4"/>
+  <path d="M0,200 Q800,228 1600,200" fill="none" stroke="#46604f" stroke-width="1.5" opacity="0.5"/><circle cx="0.0" cy="200.0" r="3.5" fill="#e6a877" opacity="0.9"/><circle cx="177.8" cy="209.6" r="3.5" fill="#e6a877" opacity="0.9"/><circle cx="355.6" cy="218.0" r="3.5" fill="#e6a877" opacity="0.9"/><circle cx="533.3" cy="224.2" r="3.5" fill="#e6a877" opacity="0.9"/><circle cx="711.1" cy="227.6" r="3.5" fill="#e6a877" opacity="0.9"/><circle cx="888.9" cy="227.6" r="3.5" fill="#e6a877" opacity="0.9"/><circle cx="1066.7" cy="224.2" r="3.5" fill="#e6a877" opacity="0.9"/><circle cx="1244.4" cy="218.0" r="3.5" fill="#e6a877" opacity="0.9"/><circle cx="1422.2" cy="209.6" r="3.5" fill="#e6a877" opacity="0.9"/><circle cx="1600.0" cy="200.0" r="3.5" fill="#e6a877" opacity="0.9"/>
+  <g>
+    <path d="M453.8461538461538,666.1538461538462
+    L675.3846153846154,531.5384615384615
+    L800,583.4615384615385
+    L924.6153846153846,531.5384615384615
+    L1146.1538461538462,666.1538461538462
+    L1146.1538461538462,820
+    L453.8461538461538,820 Z" fill="#eef0e8" opacity="0.95"/>
+    <path d="M453.8461538461538,666.1538461538462
+    L675.3846153846154,531.5384615384615
+    L800,583.4615384615385
+    L924.6153846153846,531.5384615384615
+    L1146.1538461538462,666.1538461538462 L1146.1538461538462,666.1538461538462" fill="none" stroke="#3a6b46" stroke-width="4.8076923076923075" opacity="0.35"/>
+    <line x1="675.3846153846154" y1="531.5384615384615" x2="675.3846153846154" y2="820" stroke="#3a6b46" stroke-width="2.8846153846153846" opacity="0.25"/>
+    <line x1="924.6153846153846" y1="531.5384615384615" x2="924.6153846153846" y2="820" stroke="#3a6b46" stroke-width="2.8846153846153846" opacity="0.25"/>
+    <path d="M711.5384615384615,820
+         L711.5384615384615,678.4615384615385
+         Q800,643.0769230769231 888.4615384615385,678.4615384615385
+         L888.4615384615385,820 Z" fill="#e6a877" opacity="0.9"/>
+       <path d="M742.3076923076923,820
+         L742.3076923076923,700
+         Q800,673.8461538461538 857.6923076923077,700
+         L857.6923076923077,820 Z" fill="#f3f1e8" opacity="0.85"/>
+    <!-- guy ropes -->
+    <line x1="453.8461538461538" y1="666.1538461538462" x2="388.46153846153845" y2="820" stroke="#5a8c63" stroke-width="2.8846153846153846" opacity="0.6"/>
+    <line x1="1146.1538461538462" y1="666.1538461538462" x2="1211.5384615384617" y2="820" stroke="#5a8c63" stroke-width="2.8846153846153846" opacity="0.6"/>
+  </g>
+  <rect x="0" y="0" width="1600" height="5" fill="url(#guyline)"/>
+  <g font-family="Georgia, 'Times New Roman', serif">
+    <text x="50%" y="956" text-anchor="middle" font-size="40" font-weight="700" fill="#f3f1e8" opacity="0.9">Subcort · corturi pentru evenimente</text>
+  </g>
+</svg>

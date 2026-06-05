@@ -17,6 +17,13 @@
     "auto-service:build": "npm --prefix auto-service run build",
     "auto-service:preview": "npm --prefix auto-service run preview",
     "auto-service:deploy": "npm --prefix auto-service run deploy:push",
-    "auto-service:deploy:all": "npm --prefix auto-service run deploy:all"
+    "auto-service:deploy:all": "npm --prefix auto-service run deploy:all",
+    "subcort": "npm --prefix subcort run",
+    "subcort:install": "npm --prefix subcort install",
+    "subcort:dev": "npm --prefix subcort run dev",
+    "subcort:build": "npm --prefix subcort run build",
+    "subcort:preview": "npm --prefix subcort run preview",
+    "subcort:deploy": "npm --prefix subcort run deploy:push",
+    "subcort:deploy:all": "npm --prefix subcort run deploy:all"
   }
 }

@@ -1,0 +1,85 @@
+---
+import Base from "../layouts/Base.astro";
+import DemoBanner from "../components/DemoBanner.astro";
+import Nav from "../components/Nav.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Footer from "../components/Footer.astro";
+import { site } from "../content/site";
+import { steps, coverage } from "../content/zone";
+---
+
+<Base
+  path="/zona/"
+  title={`Zonă acoperită & montaj · ${site.name}`}
+  description={`Acoperim ${coverage.primary} și ne deplasăm în toată ${coverage.region}. Livrăm, montăm la fața locului și demontăm după eveniment.`}
+>
+  <DemoBanner />
+  <Nav current="/zona/" solid />
+
+  <main id="main">
+    <PageHeader
+      eyebrow="Zonă"
+      title={`Acoperim ${coverage.primary} și ${coverage.region}`}
+      lead="Aducem cortul la adresa ta, îl montăm complet și revenim să-l demontăm după eveniment. De partea logistică te scutim cu totul."
+    />
+
+    <!-- ===================== PROCESS ===================== -->
+    <section class="section">
+      <div class="container-page">
+        <div class="reveal max-w-2xl">
+          <h2 class="heading-lg">De la prima discuție la demontare</h2>
+        </div>
+
+        <ol class="mt-12 space-y-px">
+          {
+            steps.map((s, i) => (
+              <li class="reveal grid gap-4 sm:grid-cols-[auto_1fr] sm:gap-8 py-7 border-t border-[var(--color-outline-variant)] last:border-b">
+                <div class="flex items-center gap-4 sm:flex-col sm:items-start sm:gap-2">
+                  <span class="font-display text-4xl font-extrabold text-[var(--color-primary)] tabular-nums">{s.n}</span>
+                  {i < steps.length - 1 && (
+                    <span class="hidden sm:block h-full w-px bg-[var(--color-outline-variant)]" aria-hidden="true" />
+                  )}
+                </div>
+                <div class="max-w-prose">
+                  <h3 class="heading-md">{s.title}</h3>
+                  <p class="mt-2 text-[var(--color-on-surface-variant)] leading-relaxed">{s.description}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================== COVERAGE ===================== -->
+    <section class="section bg-[var(--color-inverse-surface)] text-[var(--color-inverse-on-surface)]">
+      <div class="container-page grid gap-10 md:grid-cols-[1fr_1fr] md:items-center md:gap-16">
+        <div class="reveal">
+          <div class="flex items-center gap-3">
+            <span class="guyline guyline--bright" aria-hidden="true"></span>
+            <span class="eyebrow text-[var(--color-inverse-on-surface-variant)]">Zonă acoperită</span>
+          </div>
+          <h2 class="heading-lg mt-4 text-[var(--color-inverse-on-surface)]">
+            Județul {coverage.primary}, plus toată {coverage.region}
+          </h2>
+          <p class="mt-5 max-w-prose leading-relaxed text-[var(--color-inverse-on-surface-variant)]">
+            {coverage.note}
+          </p>
+        </div>
+
+        <ul class="reveal grid grid-cols-2 gap-3">
+          {
+            coverage.localities.map((loc) => (
+              <li class="flex items-center gap-2.5 rounded-[var(--radius-md)] bg-[var(--color-inverse-surface-2)] px-4 py-3 text-sm font-semibold text-[var(--color-inverse-on-surface)]">
+                <span class="inline-block h-1.5 w-1.5 rounded-full bg-[var(--color-accent-bright)]" aria-hidden="true"></span>
+                {loc}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>

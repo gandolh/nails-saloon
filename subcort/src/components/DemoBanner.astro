@@ -1,0 +1,25 @@
+---
+// A thin top banner marking this as a demonstrative / concept site (fictional
+// contact + company data). Sits above the nav. Flip `site.demo.show` to false
+// (in site.local.ts) if the site is ever made real.
+import { site } from "../content/site";
+
+if (!site.demo.show) {
+  // No banner — render nothing.
+}
+---
+
+{
+  site.demo.show && (
+    <div class="bg-[var(--color-accent-soft)] text-[var(--color-on-accent-soft)]">
+      <div class="container-page py-2 flex items-center justify-center gap-2 text-center text-[0.8rem] font-semibold">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="12" />
+          <line x1="12" y1="16" x2="12.01" y2="16" />
+        </svg>
+        <span>{site.demo.text}</span>
+      </div>
+    </div>
+  )
+}

@@ -1,0 +1,118 @@
+---
+import Base from "../layouts/Base.astro";
+import DemoBanner from "../components/DemoBanner.astro";
+import Nav from "../components/Nav.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Footer from "../components/Footer.astro";
+import { site } from "../content/site";
+import { tents, amenities } from "../content/tents";
+
+const included = amenities.filter((a) => a.kind === "inclus");
+const optional = amenities.filter((a) => a.kind === "optional");
+---
+
+<Base
+  path="/corturi/"
+  title={`Corturi & capacități · ${site.name}`}
+  description="Dimensiuni de corturi de la 8×8 la 15×20 m, cu capacități între 40 și 320 de invitați. Pardoseală, iluminat și pereți incluse; încălzire, răcire și mobilier opționale."
+>
+  <DemoBanner />
+  <Nav current="/corturi/" solid />
+
+  <main id="main">
+    <PageHeader
+      eyebrow="Corturi"
+      title="Dimensiuni și capacități"
+      lead="Patru formate care acoperă de la o reuniune restrânsă în curte până la un eveniment cu peste trei sute de invitați. Capacitatea depinde de aranjarea meselor, pe care o stabilim împreună."
+    />
+
+    <!-- ===================== TENT SIZES ===================== -->
+    <section class="section">
+      <div class="container-page">
+        <div class="grid gap-6 md:grid-cols-2">
+          {
+            tents.map((t) => (
+              <article class="reveal card flex flex-col">
+                <div class="flex items-baseline justify-between gap-4">
+                  <h2 class="heading-md">{t.size}</h2>
+                  <span class="font-display text-sm font-bold text-[var(--color-on-surface-variant)]">{t.area}</span>
+                </div>
+                <span class="guyline mt-3 !w-12"></span>
+
+                <dl class="mt-5 grid grid-cols-2 gap-4">
+                  <div>
+                    <dt class="text-xs font-semibold uppercase tracking-wide text-[var(--color-on-surface-variant)]">Cu mese</dt>
+                    <dd class="mt-1 font-display text-lg font-bold text-[var(--color-on-surface)]">{t.seated}</dd>
+                  </div>
+                  <div>
+                    <dt class="text-xs font-semibold uppercase tracking-wide text-[var(--color-on-surface-variant)]">În picioare</dt>
+                    <dd class="mt-1 font-display text-lg font-bold text-[var(--color-on-surface)]">{t.standing}</dd>
+                  </div>
+                </dl>
+
+                <p class="mt-5 text-sm text-[var(--color-on-surface-variant)] leading-relaxed">{t.note}</p>
+              </article>
+            ))
+          }
+        </div>
+
+        <p class="reveal mt-8 max-w-prose text-sm text-[var(--color-on-surface-variant)] leading-relaxed">
+          Capacitățile sunt orientative și se schimbă în funcție de plan: mese
+          rotunde, mese lungi, bufet sau scaune în rânduri. Pentru un teren cu
+          formă neregulată, găsim împreună varianta care se potrivește.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== DOTĂRI ===================== -->
+    <section class="section bg-[var(--color-surface-container-low)] border-y border-[var(--color-outline-variant)]">
+      <div class="container-page">
+        <div class="reveal max-w-2xl">
+          <h2 class="heading-lg">Dotări</h2>
+          <p class="mt-4 text-[var(--color-on-surface-variant)] leading-relaxed">
+            Ce vine odată cu cortul și ce se adaugă în funcție de sezon și de
+            cum vrei spațiul.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-x-10 gap-y-10 lg:grid-cols-2">
+          <div class="reveal">
+            <div class="flex items-center gap-3">
+              <span class="chip chip-included">Incluse</span>
+              <span class="h-px flex-1 bg-[var(--color-outline-variant)]"></span>
+            </div>
+            <ul class="mt-5 space-y-5">
+              {
+                included.map((a) => (
+                  <li>
+                    <h3 class="font-display text-lg font-bold text-[var(--color-on-surface)]">{a.title}</h3>
+                    <p class="mt-1 text-sm text-[var(--color-on-surface-variant)] leading-relaxed">{a.description}</p>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+
+          <div class="reveal">
+            <div class="flex items-center gap-3">
+              <span class="chip chip-optional">Opționale</span>
+              <span class="h-px flex-1 bg-[var(--color-outline-variant)]"></span>
+            </div>
+            <ul class="mt-5 space-y-5">
+              {
+                optional.map((a) => (
+                  <li>
+                    <h3 class="font-display text-lg font-bold text-[var(--color-on-surface)]">{a.title}</h3>
+                    <p class="mt-1 text-sm text-[var(--color-on-surface-variant)] leading-relaxed">{a.description}</p>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>
