@@ -45,4 +45,11 @@ export const siteOverrides: SiteOverrides = {
     lat: 45.0357,
     lng: 23.2748,
   },
+
+  // --- Banner „site în lucru" --------------------------------------------
+  // Pune `show: false` când site-ul are conținutul real (date, poze).
+  wip: {
+    show: true,
+    text: "Site în lucru. Pentru programări și oferte, sună-ne sau scrie-ne pe WhatsApp.",
+  },
 };

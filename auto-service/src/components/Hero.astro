@@ -12,7 +12,11 @@ const heroImg = img("hero");
       src={heroImg}
       alt=""
       class="h-full w-full object-cover opacity-35"
+      width="1600"
+      height="2400"
+      sizes="100vw"
       loading="eager"
+      fetchpriority="high"
       decoding="async"
     />
     <!-- Graphite gradient so the headline stays readable over any photo. -->
@@ -57,21 +61,51 @@ const heroImg = img("hero");
         </a>
       </div>
 
-      <!-- Inline trust facts, light touch. -->
-      <dl class="reveal mt-10 flex flex-wrap gap-x-8 gap-y-4">
-        <div>
-          <dt class="text-2xl font-display font-extrabold text-[var(--color-inverse-on-surface)]">{site.stats.years}</dt>
-          <dd class="text-sm text-[var(--color-inverse-on-surface-variant)]">ani pe BMW</dd>
-        </div>
-        <div>
-          <dt class="text-2xl font-display font-extrabold text-[var(--color-inverse-on-surface)]">{site.stats.cars}</dt>
-          <dd class="text-sm text-[var(--color-inverse-on-surface-variant)]">mașini reparate</dd>
-        </div>
-        <div>
-          <dt class="text-2xl font-display font-extrabold text-[var(--color-inverse-on-surface)]">Familie</dt>
-          <dd class="text-sm text-[var(--color-inverse-on-surface-variant)]">aceiași oameni, mereu</dd>
-        </div>
-      </dl>
+      <!-- Inline trust facts. One honest measured number (years on BMW) stays in
+           the <dl>; the "atelier de familie" claim is a badge, not a stat, so it
+           lives beside it as an M-red accent (the sanctioned enthusiast accent —
+           see DESIGN.md › The M-Color Rule). We deliberately do NOT show a
+           cars-repaired count for a young shop. -->
+      <div class="reveal mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+        <dl class="flex flex-wrap gap-x-8 gap-y-4">
+          <div>
+            <dt class="text-2xl font-display font-extrabold text-[var(--color-inverse-on-surface)] tabular-nums">{site.stats.years} ani</dt>
+            <dd class="text-sm text-[var(--color-inverse-on-surface-variant)]">numai pe BMW</dd>
+          </div>
+        </dl>
+        <span class="hero-family-badge">
+          <span class="hero-family-badge__dot" aria-hidden="true"></span>
+          Atelier de familie
+        </span>
+      </div>
     </div>
   </div>
+
+  <style>
+    /* "Atelier de familie" badge — an M Racing Red accent on the dark hero.
+       Translucent red fill + thin red edge carry the motorsport energy; the
+       label stays near-white so it clears AA on the graphite-navy surface
+       (white-on-this ≈ 13:1). The red is decoration, never the text colour. */
+    .hero-family-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.85rem;
+      border-radius: var(--radius-full);
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: var(--color-inverse-on-surface);
+      background-color: color-mix(in oklch, var(--color-m-red) 18%, transparent);
+      border: 1px solid color-mix(in oklch, var(--color-m-red) 45%, transparent);
+    }
+    .hero-family-badge__dot {
+      width: 0.45rem;
+      height: 0.45rem;
+      border-radius: var(--radius-full);
+      background-color: var(--color-m-red);
+      flex: none;
+    }
+  </style>
 </section>

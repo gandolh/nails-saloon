@@ -1,25 +1,43 @@
 ---
 import MobileMenu from "./MobileMenu.tsx";
 import { site, telLink } from "../content/site";
+import { withBase } from "../content/url";
 
+interface Props {
+  // The current page's route, e.g. "/", "/servicii/". Drives the active link.
+  current?: string;
+  // On pages without a dark hero behind the nav (every page except home), the
+  // bar must render in its solid light state from the top, not transparent.
+  solid?: boolean;
+}
+
+const { current = "/", solid = false } = Astro.props;
+
+// Top-level routes (≤5 keeps the bar inside working-memory limits). Each is a
+// real page now; "Despre" earns a slot since it's a destination, not a scroll
+// target. "Acasă" is listed explicitly in addition to the wordmark.
 const links = [
-  { href: "#servicii", label: "Servicii" },
-  { href: "#de-ce-noi", label: "De ce noi" },
-  { href: "#proces", label: "Cum lucrăm" },
-  { href: "#despre", label: "Despre" },
-  { href: "#intrebari", label: "Întrebări" },
-  { href: "#contact", label: "Contact" },
+  { href: "/", label: "Acasă" },
+  { href: "/servicii/", label: "Servicii" },
+  { href: "/despre/", label: "Despre" },
+  { href: "/contact/", label: "Contact" },
 ];
+
+function isActive(href: string) {
+  return current === href;
+}
 ---
 
 <header
   id="site-nav"
   class="sticky top-0 inset-x-0 z-[var(--z-nav)] transition-colors duration-300"
-  data-scrolled="false"
+  data-scrolled={solid ? "true" : "false"}
+  data-solid={solid ? "true" : "false"}
+  data-overlay={solid ? undefined : "true"}
 >
   <div class="container-page flex items-center justify-between py-3.5">
-    <a href="#acasa" class="flex items-center gap-2.5 group" aria-label={`${site.name} — acasă`}>
-      <span class="wordmark text-xl md:text-2xl text-[var(--color-on-surface)]">{site.name}</span>
+    <a href={withBase("/")} class="flex items-center gap-2.5 group" aria-label={`${site.name} — acasă`}>
+      <span class="nav-wordmark wordmark text-xl md:text-2xl">{site.name}</span>
       <span class="m-stripe !w-9 !h-[3px]" aria-hidden="true"></span>
     </a>
 
@@ -27,8 +45,10 @@ const links = [
       {
         links.map((link) => (
           <a
-            href={link.href}
-            class="text-sm font-semibold text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors"
+            href={withBase(link.href)}
+            class="nav-link text-sm font-semibold transition-colors"
+            aria-current={isActive(link.href) ? "page" : undefined}
+            data-active={isActive(link.href) ? "true" : undefined}
           >
             {link.label}
           </a>
@@ -47,7 +67,7 @@ const links = [
         </svg>
         <span>Sună acum</span>
       </a>
-      <MobileMenu client:load />
+      <MobileMenu client:load current={current} />
     </div>
   </div>
 </header>
@@ -56,6 +76,19 @@ const links = [
   (function () {
     const nav = document.getElementById("site-nav");
     if (!nav) return;
+
+    // In overlay mode (home), keep --nav-h in sync with the real bar height so
+    // the negative margin that pulls the hero under the nav is always exact.
+    if (nav.dataset.overlay === "true") {
+      var setH = function () {
+        nav.style.setProperty("--nav-h", nav.offsetHeight + "px");
+      };
+      setH();
+      window.addEventListener("resize", setH, { passive: true });
+    }
+
+    // A nav forced solid (subpages, no dark hero) never flips to transparent.
+    if (nav.dataset.solid === "true") return;
     function update() {
       nav.dataset.scrolled = window.scrollY > 8 ? "true" : "false";
     }
@@ -65,10 +98,66 @@ const links = [
 </script>
 
 <style>
+  /* OVERLAY mode (home page): the sticky nav must float OVER the dark hero, not
+     sit in flow above it on the light page bg (which would render its light
+     wordmark white-on-white). We pull the page's first section up under the nav
+     by the nav's own height; the hero's large top padding already clears it. */
+  #site-nav[data-overlay] {
+    margin-bottom: calc(-1 * var(--nav-h, 4.5rem));
+  }
+
+  /* Two states. At the top of the HOME page the nav floats over the DARK hero,
+     so its text is light. Once scrolled (or on any solid subpage) it gets a
+     light glass backdrop and the text flips to dark ink. */
+  .nav-wordmark {
+    color: var(--color-inverse-on-surface);
+    transition: color 300ms ease;
+  }
+  .nav-link {
+    color: oklch(96% 0.006 250 / 0.82);
+  }
+  .nav-link:hover {
+    color: var(--color-inverse-on-surface);
+  }
+  /* Active link over the dark hero: full-strength near-white + M-stripe underline. */
+  .nav-link[data-active] {
+    color: var(--color-inverse-on-surface);
+  }
+  .nav-link[data-active]::after {
+    content: "";
+    display: block;
+    height: 2px;
+    margin-top: 3px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(
+      90deg,
+      var(--color-m-blue) 0 33.33%,
+      var(--color-m-indigo) 33.33% 66.66%,
+      var(--color-m-red) 66.66% 100%
+    );
+  }
+  /* Mobile hamburger follows the same two-state colouring. */
+  :global(.nav-burger) {
+    color: var(--color-inverse-on-surface);
+  }
+  #site-nav[data-scrolled="true"] :global(.nav-burger) {
+    color: var(--color-on-surface);
+  }
+
   #site-nav[data-scrolled="true"] {
     background-color: oklch(98.4% 0.004 250 / 0.82);
     backdrop-filter: saturate(140%) blur(10px);
     -webkit-backdrop-filter: saturate(140%) blur(10px);
     border-bottom: 1px solid var(--color-outline-variant);
+  }
+  #site-nav[data-scrolled="true"] .nav-wordmark {
+    color: var(--color-on-surface);
+  }
+  #site-nav[data-scrolled="true"] .nav-link {
+    color: var(--color-on-surface-variant);
+  }
+  #site-nav[data-scrolled="true"] .nav-link:hover,
+  #site-nav[data-scrolled="true"] .nav-link[data-active] {
+    color: var(--color-on-surface);
   }
 </style>

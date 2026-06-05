@@ -77,10 +77,11 @@ const defaults = {
     instagram: "https://instagram.com/bavauto",
   },
 
-  // Stats (placeholder) — tuned for a small family BMW specialist.
+  // Stats — humble and honest for a young family BMW specialist (~5 ani). We do
+  // NOT advertise a cars-repaired count: an invented figure would undercut the
+  // "trust is shown, not claimed" promise. Years + the family framing carry it.
   stats: {
-    years: "12+", // ani de experiență pe BMW
-    cars: "3000+", // BMW-uri trecute prin atelier
+    years: "5", // ani de experiență pe BMW
     family: "3", // membri ai familiei în atelier
   },
 
@@ -88,6 +89,14 @@ const defaults = {
   geo: {
     lat: 45.0357,
     lng: 23.2748,
+  },
+
+  // Work-in-progress banner. While the site is a soft launch with placeholder
+  // data/photos, a thin top banner invites visitors to call/WhatsApp instead.
+  // Flip `wip.show` to false in site.local.ts once the real content is live.
+  wip: {
+    show: true,
+    text: "Site în lucru. Pentru programări și oferte, sună-ne sau scrie-ne pe WhatsApp.",
   },
 };
 
@@ -136,6 +145,7 @@ export const site = {
   social: { ...defaults.social, ...overrides.social },
   stats: { ...defaults.stats, ...overrides.stats },
   geo: { ...defaults.geo, ...overrides.geo },
+  wip: { ...defaults.wip, ...overrides.wip },
 } as const;
 
 // NOTE: there is no production data guard here — a fake phone / CUI can reach

@@ -1,17 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { site, telLink, waLink } from "../content/site";
+import { withBase } from "../content/url";
 
 const links = [
-  { href: "#acasa", label: "Acasă" },
-  { href: "#servicii", label: "Servicii" },
-  { href: "#de-ce-noi", label: "De ce noi" },
-  { href: "#proces", label: "Cum lucrăm" },
-  { href: "#despre", label: "Despre" },
-  { href: "#intrebari", label: "Întrebări" },
-  { href: "#contact", label: "Contact" },
+  { href: "/", label: "Acasă" },
+  { href: "/servicii/", label: "Servicii" },
+  { href: "/despre/", label: "Despre" },
+  { href: "/contact/", label: "Contact" },
 ];
 
-export default function MobileMenu() {
+export default function MobileMenu({ current = "/" }: { current?: string }) {
   const [open, setOpen] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
 
@@ -68,7 +66,7 @@ export default function MobileMenu() {
         aria-label="Deschide meniul"
         aria-expanded={open}
         onClick={() => setOpen(true)}
-        className="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-md text-[var(--color-on-surface)] hover:bg-[var(--color-surface-container)] transition-colors"
+        className="nav-burger lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-md hover:bg-white/10 transition-colors"
       >
         <svg
           width="22"
@@ -120,9 +118,15 @@ export default function MobileMenu() {
             {links.map((link, i) => (
               <a
                 key={link.href}
-                href={link.href}
+                href={withBase(link.href)}
                 onClick={() => setOpen(false)}
-                className="mobile-menu__link font-display font-bold text-3xl tracking-tight hover:text-[var(--color-primary-bright)] transition-colors"
+                aria-current={current === link.href ? "page" : undefined}
+                className={
+                  "mobile-menu__link font-display font-bold text-3xl tracking-tight transition-colors " +
+                  (current === link.href
+                    ? "text-[var(--color-primary-bright)]"
+                    : "hover:text-[var(--color-primary-bright)]")
+                }
                 style={{ "--i": i } as React.CSSProperties}
               >
                 {link.label}

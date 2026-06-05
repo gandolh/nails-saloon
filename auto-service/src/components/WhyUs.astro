@@ -35,15 +35,15 @@ const reasons = [
 
     <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-8">
       {
-        reasons.map((r, i) => (
+        reasons.map((r) => (
           <li class="reveal">
-            <div class="flex items-baseline gap-3">
-              <span class="font-display text-sm font-extrabold text-[var(--color-primary)] tabular-nums" aria-hidden="true">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3 class="heading-md !text-[1.15rem]">{r.title}</h3>
-            </div>
-            <p class="mt-2 pl-8 text-[0.95rem] leading-relaxed text-[var(--color-on-surface-variant)]">{r.body}</p>
+            {/* M-stripe tick as the lead mark — these are differentiators, not an
+                ordered sequence, so numerals would imply a false order (the
+                numbered markers live only on the real Process flow). The stripe
+                carries the brand's motorsport energy instead. */}
+            <span class="m-stripe !w-8 !h-[3px]" aria-hidden="true" />
+            <h3 class="heading-md mt-3 !text-[1.15rem]">{r.title}</h3>
+            <p class="mt-2 text-[0.95rem] leading-relaxed text-[var(--color-on-surface-variant)]">{r.body}</p>
           </li>
         ))
       }

@@ -29,6 +29,25 @@ Recommended shots for a BMW service: a BMW up on the lift, the diagnosis laptop
 plugged in, an open engine bay, a finished brake/timing job, and the team. One
 strong, well-lit photo beats five mediocre ones.
 
+## Current placeholders (Unsplash)
+
+The files currently here are **temporary stand-ins from Unsplash** (free under the
+Unsplash License) so the site has photographic mock-ups before the real workshop
+photos exist. Replace them with your own shots (same file names) when ready. Credits:
+
+| File | Photographer (Unsplash) |
+| --- | --- |
+| `hero.jpeg` | Petr Urbanek — BMW M4 in a service bay |
+| `gallery-01.jpeg` | Hyundai Motor Group — car on a lift |
+| `gallery-02.jpeg` | Mehmet Talha Onuk — OBD diagnosis laptop |
+| `gallery-03.jpeg` | Hoyoun Lee — open BMW M engine bay |
+| `gallery-04.jpeg` | Toby Hall — brake disc & caliper |
+| `gallery-05.jpeg` | Nazariy Kovalov — turbo engine detail |
+| `gallery-06.jpeg` | Bharat Vishawakarma — mechanics team |
+
+They are downloaded and served from our own origin (not hot-linked) so no visitor
+IP is sent to Unsplash's CDN — same privacy reasoning as self-hosting fonts.
+
 ## Notes
 
 - Prefer `.webp`/`.avif` for photos (smaller); if you do, change `EXT.real` in

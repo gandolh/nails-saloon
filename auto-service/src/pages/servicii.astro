@@ -1,0 +1,31 @@
+---
+import Base from "../layouts/Base.astro";
+import WipBanner from "../components/WipBanner.astro";
+import Nav from "../components/Nav.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Services from "../components/Services.astro";
+import Process from "../components/Process.astro";
+import Footer from "../components/Footer.astro";
+import MobileCallBar from "../components/MobileCallBar.astro";
+import { site } from "../content/site";
+---
+
+<Base
+  path="/servicii/"
+  title={`Servicii BMW · ${site.name}`}
+  description="Ce facem pe BMW: diagnoză dedicată, revizii, distribuție și lanț, frânare, suspensie, răcire și VANOS, electrică, climatizare și pre-ITP. Deviz clar înainte de lucrare."
+>
+  <WipBanner />
+  <Nav current="/servicii/" solid />
+  <main id="main">
+    <PageHeader
+      eyebrow="Servicii"
+      title="Ce facem pe BMW"
+      lead="De la revizia de rutină la lucrările pe care nu le face oricine. Dacă nu găsești aici ce-ți trebuie, sună-ne, probabil o rezolvăm."
+    />
+    <Services bare />
+    <Process />
+  </main>
+  <Footer />
+  <MobileCallBar />
+</Base>

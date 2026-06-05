@@ -1,0 +1,27 @@
+---
+import Base from "../layouts/Base.astro";
+import WipBanner from "../components/WipBanner.astro";
+import Nav from "../components/Nav.astro";
+import Contact from "../components/Contact.astro";
+import Faq from "../components/Faq.astro";
+import Footer from "../components/Footer.astro";
+import MobileCallBar from "../components/MobileCallBar.astro";
+import { site } from "../content/site";
+---
+
+<Base
+  path="/contact/"
+  title={`Contact · ${site.name}`}
+  description={`Sună sau scrie-ne pe WhatsApp. ${site.name}, atelier BMW în Târgu-Jiu. Adresă, program și hartă.`}
+>
+  <WipBanner />
+  <Nav current="/contact/" solid />
+  <main id="main">
+    {/* The Contact section is dark and carries its own h1-level heading here,
+        so the page needs no separate PageHeader (two stacked dark blocks). */}
+    <Contact heading="h1" />
+    <Faq />
+  </main>
+  <Footer />
+  <MobileCallBar />
+</Base>

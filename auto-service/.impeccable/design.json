@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-05T00:00:00Z",
+  "title": "Design System: BavAuto Gorj",
+  "extensions": {
+    "colorMeta": {
+      "primary": { "role": "primary", "displayName": "BavAuto Blue", "canonical": "oklch(52% 0.16 252)", "tonalRamp": ["oklch(20% 0.09 252)", "oklch(28% 0.12 252)", "oklch(38% 0.15 252)", "oklch(46% 0.155 252)", "oklch(52% 0.16 252)", "oklch(62% 0.15 250)", "oklch(78% 0.09 250)", "oklch(93% 0.04 250)"] },
+      "primary-bright": { "role": "primary", "displayName": "Sky Blue", "canonical": "oklch(72% 0.13 245)", "tonalRamp": ["oklch(30% 0.1 245)", "oklch(40% 0.13 245)", "oklch(50% 0.14 245)", "oklch(60% 0.14 245)", "oklch(72% 0.13 245)", "oklch(82% 0.09 245)", "oklch(90% 0.05 245)", "oklch(96% 0.02 245)"] },
+      "m-blue": { "role": "secondary", "displayName": "M Light Blue", "canonical": "oklch(62% 0.16 245)", "tonalRamp": ["oklch(28% 0.1 245)", "oklch(38% 0.13 245)", "oklch(48% 0.15 245)", "oklch(55% 0.16 245)", "oklch(62% 0.16 245)", "oklch(74% 0.12 245)", "oklch(86% 0.07 245)", "oklch(95% 0.03 245)"] },
+      "m-indigo": { "role": "secondary", "displayName": "M Indigo", "canonical": "oklch(36% 0.13 285)", "tonalRamp": ["oklch(18% 0.09 285)", "oklch(26% 0.11 285)", "oklch(36% 0.13 285)", "oklch(46% 0.13 285)", "oklch(56% 0.12 285)", "oklch(70% 0.09 285)", "oklch(84% 0.05 285)", "oklch(94% 0.02 285)"] },
+      "m-red": { "role": "secondary", "displayName": "M Racing Red", "canonical": "oklch(55% 0.21 27)", "tonalRamp": ["oklch(25% 0.12 27)", "oklch(35% 0.16 27)", "oklch(45% 0.2 27)", "oklch(55% 0.21 27)", "oklch(64% 0.19 27)", "oklch(76% 0.14 27)", "oklch(87% 0.08 27)", "oklch(95% 0.03 27)"] },
+      "whatsapp": { "role": "tertiary", "displayName": "WhatsApp Green", "canonical": "oklch(57% 0.14 153)", "tonalRamp": ["oklch(28% 0.08 153)", "oklch(38% 0.11 153)", "oklch(47% 0.13 153)", "oklch(51% 0.13 153)", "oklch(57% 0.14 153)", "oklch(70% 0.12 153)", "oklch(84% 0.08 153)", "oklch(95% 0.03 153)"] },
+      "background": { "role": "neutral", "displayName": "Daylit Base", "canonical": "oklch(98.4% 0.004 250)", "tonalRamp": ["oklch(24% 0.035 257)", "oklch(40% 0.02 255)", "oklch(62% 0.02 255)", "oklch(89% 0.012 255)", "oklch(93% 0.01 250)", "oklch(95.3% 0.008 250)", "oklch(98.4% 0.004 250)", "oklch(100% 0 0)"] },
+      "on-surface": { "role": "neutral", "displayName": "Graphite Ink", "canonical": "oklch(24% 0.03 255)", "tonalRamp": ["oklch(16% 0.03 255)", "oklch(24% 0.03 255)", "oklch(33% 0.028 255)", "oklch(43% 0.025 255)", "oklch(55% 0.022 255)", "oklch(62% 0.02 255)", "oklch(78% 0.015 255)", "oklch(89% 0.012 255)"] },
+      "inverse-surface": { "role": "neutral", "displayName": "Graphite Navy", "canonical": "oklch(24% 0.035 257)", "tonalRamp": ["oklch(16% 0.03 257)", "oklch(20% 0.035 257)", "oklch(24% 0.035 257)", "oklch(28% 0.04 257)", "oklch(36% 0.04 257)", "oklch(50% 0.03 257)", "oklch(70% 0.02 257)", "oklch(90% 0.01 257)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headline only. Archivo, weight 800, tracked tight (-0.03em). One per page." },
+      "headline": { "displayName": "Headline", "purpose": "Section headings. Archivo weight 750." },
+      "title": { "displayName": "Title", "purpose": "Card and sub-section titles. Archivo weight 700." },
+      "body": { "displayName": "Body", "purpose": "All running copy. Hanken Grotesk, 16px / 1.55, measure 65-75ch." },
+      "label": { "displayName": "Label / Eyebrow", "purpose": "Sparing uppercase kicker, tracked 0.14em, paired with the M stripe." }
+    },
+    "shadows": [
+      { "name": "cta-lift", "value": "0 10px 28px -14px oklch(52% 0.16 252 / 0.7)", "purpose": "Soft blue glow under the primary CTA button; lifts the phone call toward the visitor." },
+      { "name": "focus-ring", "value": "0 0 0 3px oklch(52% 0.16 252 / 0.15)", "purpose": "Blue halo on focused inputs, paired with a blue border. Replaces the browser outline." },
+      { "name": "menu-lift", "value": "0 8px 50px -12px oklch(20% 0.03 257 / 0.6)", "purpose": "Deep graphite drop under the dark mobile-menu overlay." }
+    ],
+    "motion": [
+      { "name": "ease-out-quart", "value": "cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "Button state transitions and press (180ms)." },
+      { "name": "ease-out-expo", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Scroll-reveal and mobile-menu entrance (300-700ms)." },
+      { "name": "reveal-duration", "value": "700ms", "purpose": "Scroll-reveal opacity + translateY fade-in." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "container-max", "value": "1180px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button (Call)",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The phone call: the single most important action on the site. Blue fill, soft blue lift glow.",
+      "html": "<a href=\"tel:+40700000000\" class=\"ds-btn-primary\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z\"/></svg><span>Sună: 07XX XXX XXX</span></a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.9rem 1.6rem; border-radius: var(--radius-md, 0.5rem); font-family: var(--font-body, 'Hanken Grotesk Variable', system-ui, sans-serif); font-size: 0.95rem; font-weight: 700; line-height: 1; letter-spacing: 0.01em; text-decoration: none; cursor: pointer; border: 1.5px solid transparent; background-color: var(--color-primary, oklch(52% 0.16 252)); color: var(--color-on-primary, oklch(99% 0 0)); box-shadow: 0 10px 28px -14px oklch(52% 0.16 252 / 0.7); transition: background-color 180ms cubic-bezier(0.22,1,0.36,1), transform 180ms cubic-bezier(0.22,1,0.36,1); } .ds-btn-primary:hover { background-color: var(--color-primary-hover, oklch(46% 0.155 252)); } .ds-btn-primary:active { transform: translateY(1px); } .ds-btn-primary:focus-visible { outline: 2px solid var(--color-primary, oklch(52% 0.16 252)); outline-offset: 2px; }"
+    },
+    {
+      "name": "WhatsApp Button",
+      "kind": "button",
+      "refersTo": "button-whatsapp",
+      "description": "Secondary contact CTA. Deepened WhatsApp green so the white label clears AA.",
+      "html": "<a href=\"#\" class=\"ds-btn-whatsapp\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z\"/></svg><span>Scrie pe WhatsApp</span></a>",
+      "css": ".ds-btn-whatsapp { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.9rem 1.6rem; border-radius: var(--radius-md, 0.5rem); font-family: var(--font-body, 'Hanken Grotesk Variable', system-ui, sans-serif); font-size: 0.95rem; font-weight: 700; line-height: 1; text-decoration: none; cursor: pointer; border: 1.5px solid transparent; background-color: var(--color-whatsapp, oklch(57% 0.14 153)); color: #fff; transition: background-color 180ms cubic-bezier(0.22,1,0.36,1), transform 180ms cubic-bezier(0.22,1,0.36,1); } .ds-btn-whatsapp:hover { background-color: var(--color-whatsapp-hover, oklch(51% 0.13 153)); } .ds-btn-whatsapp:active { transform: translateY(1px); }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary action. Transparent with graphite text; hover firms the border to ink.",
+      "html": "<a href=\"#\" class=\"ds-btn-outline\"><span>Vezi serviciile</span></a>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.9rem 1.6rem; border-radius: var(--radius-md, 0.5rem); font-family: var(--font-body, 'Hanken Grotesk Variable', system-ui, sans-serif); font-size: 0.95rem; font-weight: 700; line-height: 1; text-decoration: none; cursor: pointer; background-color: transparent; color: var(--color-on-surface, oklch(24% 0.03 255)); border: 1.5px solid var(--color-outline, oklch(62% 0.02 255)); transition: border-color 180ms cubic-bezier(0.22,1,0.36,1), background-color 180ms cubic-bezier(0.22,1,0.36,1); } .ds-btn-outline:hover { border-color: var(--color-on-surface, oklch(24% 0.03 255)); background-color: var(--color-surface-container, oklch(95.3% 0.008 250)); }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Flat-at-rest container: pure white lifting off the tinted base, hairline border, no resting shadow.",
+      "html": "<div class=\"ds-card\"><h3 class=\"ds-card__title\">Diagnoză dedicată</h3><p class=\"ds-card__body\">Citim codurile de eroare și vă explicăm exact ce are mașina, înainte de orice deviz.</p></div>",
+      "css": ".ds-card { background-color: var(--color-surface-container-lowest, oklch(100% 0 0)); border: 1px solid var(--color-outline-variant, oklch(89% 0.012 255)); border-radius: var(--radius-lg, 0.75rem); padding: 1.75rem; } .ds-card__title { font-family: var(--font-display, 'Archivo Variable', sans-serif); font-weight: 700; font-size: 1.35rem; line-height: 1.12; letter-spacing: -0.015em; color: var(--color-on-surface, oklch(24% 0.03 255)); margin: 0 0 0.5rem; } .ds-card__body { font-family: var(--font-body, 'Hanken Grotesk Variable', sans-serif); font-size: 1rem; line-height: 1.55; color: var(--color-on-surface-variant, oklch(43% 0.025 255)); margin: 0; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "White fill, hairline border; focus shifts the border to blue with a soft blue halo.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Model și an (ex. 320d, 2016)\" />",
+      "css": ".ds-input { width: 100%; padding: 0.8rem 1rem; border-radius: var(--radius-md, 0.5rem); background-color: var(--color-surface-container-lowest, oklch(100% 0 0)); border: 1.5px solid var(--color-outline-variant, oklch(89% 0.012 255)); font-family: var(--font-body, 'Hanken Grotesk Variable', sans-serif); font-size: 1rem; color: var(--color-on-surface, oklch(24% 0.03 255)); transition: border-color 160ms ease-out, box-shadow 160ms ease-out; } .ds-input::placeholder { color: var(--color-on-surface-variant, oklch(43% 0.025 255)); opacity: 0.85; } .ds-input:focus { outline: none; border-color: var(--color-primary, oklch(52% 0.16 252)); box-shadow: 0 0 0 3px oklch(52% 0.16 252 / 0.15); }"
+    },
+    {
+      "name": "M Stripe (signature)",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "The thin three-band motorsport mark, light blue to indigo to red. The brand's only heritage flourish.",
+      "html": "<span class=\"ds-m-stripe\" aria-hidden=\"true\"></span>",
+      "css": ".ds-m-stripe { display: block; height: 4px; width: 64px; border-radius: 9999px; background: linear-gradient(90deg, var(--color-m-blue, oklch(62% 0.16 245)) 0 33.33%, var(--color-m-indigo, oklch(36% 0.13 285)) 33.33% 66.66%, var(--color-m-red, oklch(55% 0.21 27)) 66.66% 100%); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Daylit Workshop",
+    "overview": "This is the clean, well-lit bay run by people who genuinely love these cars, with the doors up and an M-stripe across the wall. The palette is the light of that bay: true off-whites with the faintest cool tint, graphite-blue ink the colour of cured metal, and one confident BavAuto blue that does the work of the welding spark. The M motorsport tri-color is no longer kept under glass: it carries real energy across the page, the enthusiast heart worn openly. Depth comes from how surfaces stack in that light, sharpened by confident accent. The system is built to make a BMW owner think 'these are my people, and they won't take me for a ride': the passion is visible, the estimate is on the table, and the work happens where you can see it. BavAuto is an independent specialist, so the visual language is enthusiast, never dealer: the blue and the stripe carry the heritage nominatively, the BMW roundel never appears.",
+    "keyCharacteristics": [
+      "One committed brand blue on a clean daylit-neutral base; the M tri-color as a confident, motorsport-energy accent (not a single hairline).",
+      "Graphite-blue near-black ink carrying the brand hue, clearing WCAG AA on every surface.",
+      "Display type set tight and confident (Archivo); body set open and legible (Hanken Grotesk).",
+      "Flat at rest, sharpened by colored accent and glow on interactive elements; depth via the surface tonal ramp.",
+      "Mechanical radii (0.25-1rem), never pill-soft. Mobile-first, phone-call-first."
+    ],
+    "rules": [
+      { "name": "The M-Color Rule", "body": "The M tri-color is the brand's motorsport signature and carries real energy. The full stripe (light blue, indigo, red, in that fixed order) remains the headline mark: dividers, the wordmark tick, hero and section edges. Beyond the stripe, M Racing Red may be used as a deliberate single-element accent where the page wants enthusiast lift: rating stars, a highlighted stat, an active/hot indicator, a hover edge. The discipline is intent, not scarcity: red is for genuine motorsport energy, never a fake-carbon texture, a tuner decal, or a body-copy colour. Never reorder the stripe's bands, and never let red drop below AA where it carries text.", "section": "colors" },
+      { "name": "The One Blue Rule", "body": "A single committed blue carries the structural identity (CTAs, links, focus, primary surfaces). On light surfaces use BavAuto Blue; on dark surfaces switch to Sky Blue for contrast. The M tri-color is the one sanctioned companion to the blue; introduce no other accent hue to balance them. Blue carries the structure, the M-color carries the passion, neutrals carry everything else.", "section": "colors" },
+      { "name": "The Tight-Head, Open-Body Rule", "body": "Headings are tracked negative (down to -0.03em) and set heavy for machined confidence; body stays at normal tracking and 1.55 line-height for calm legibility. Never tighten body tracking to match the headline, and never loosen heading tracking past -0.015em.", "section": "typography" },
+      { "name": "The Sparing Eyebrow Rule", "body": "The uppercase tracked eyebrow is reserved for the hero and at most one or two key sections, always paired with the M stripe. An eyebrow above every section is forbidden; it is AI scaffolding, not voice.", "section": "typography" },
+      { "name": "The Flat-By-Default, Lit-By-State Rule", "body": "A card or panel at rest has a border and a tonal background, never a resting shadow. If a surface has a drop shadow, it must be earning it through state (hover, focus) or through being the primary CTA, and the shadow must be tinted to that element's own hue. A gray ambient shadow on a flat card is forbidden; it reads as a 2014 app.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do make the phone call the visual priority. The primary blue button with its CTA Lift glow is the single loudest element; every section should funnel toward it.",
+      "Do keep the M tri-color stripe in its fixed band order (light blue, indigo, red), and do let M Racing Red carry enthusiast energy as a single-element accent (rating stars, hot/active indicators, a highlighted stat) per the M-Color Rule.",
+      "Do carry brand energy through the blue, the M-color, the graphite ink, and real BMW imagery, never through a warm/cream background. The base is a cool-tinted off-white.",
+      "Do keep surfaces flat at rest with hairline borders and the tonal ramp for depth; reserve shadows for state and the CTA (the Flat-By-Default Rule).",
+      "Do set headings tight and heavy (Archivo, tracking to -0.03em) against open calm body (Hanken, 1.55), and cap body measure at 65-75ch.",
+      "Do keep all contact actions (call, WhatsApp) one tap away on mobile, and hold WCAG 2.2 AA: body 4.5:1, large text 3:1, visible focus rings."
+    ],
+    "donts": [
+      "Don't look like a cold corporate dealership: no glossy showroom gloss, no distant stock photography, no BMW roundel. BavAuto is an independent family workshop.",
+      "Don't look like a cheap roadside garage: no clutter, clip-art, neon, or all-caps OFERTE. Restraint is the trust signal.",
+      "Don't look like a generic SaaS landing: no hero-metric template (giant number + label + gradient accent), no identical icon-card grids repeated endlessly, no gradient blobs, no buzzword copy (seamless, world-class, transform).",
+      "Don't reorder the M stripe's bands, turn it into a fake-carbon texture or tuner decal, or use M Racing Red for body copy or large fills; energy comes from intent, not volume.",
+      "Don't introduce a third accent hue beyond the blue and the M-color (the One Blue Rule), and never use the base blue as text on a dark surface (use Sky Blue).",
+      "Don't put a gray ambient drop shadow on a flat card, and don't add an uppercase tracked eyebrow above every section.",
+      "Don't use light-gray body text for elegance; the graphite ink and AA-deepened CTAs are chosen so nothing falls below contrast."
+    ]
+  }
+}

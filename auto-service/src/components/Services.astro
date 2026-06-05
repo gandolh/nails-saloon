@@ -2,6 +2,13 @@
 import { services } from "../content/services";
 import { telLink } from "../content/site";
 
+// `bare` drops the section's own heading block — used when the page already
+// carries the title in its PageHeader, so the h1/h2 don't echo each other.
+interface Props {
+  bare?: boolean;
+}
+const { bare = false } = Astro.props;
+
 // Distinct line-art icon per service id, drawn inline so there's no icon-font
 // dependency. Stroke inherits currentColor (the brand blue).
 const icons: Record<string, string> = {
@@ -19,16 +26,25 @@ const icons: Record<string, string> = {
 
 <section id="servicii" class="section bg-[var(--color-surface)]">
   <div class="container-page">
-    <div class="reveal max-w-2xl">
-      <span class="m-stripe" aria-hidden="true"></span>
-      <h2 class="heading-lg mt-4">Ce facem pe BMW</h2>
-      <p class="mt-4 text-lg text-[var(--color-on-surface-variant)]">
-        De la revizia de rutină la lucrările pe care nu le face oricine. Dacă nu
-        găsești aici ce ai nevoie, sună-ne, probabil o rezolvăm.
-      </p>
-    </div>
+    {
+      !bare && (
+        <div class="reveal max-w-2xl">
+          <span class="m-stripe" aria-hidden="true" />
+          <h2 class="heading-lg mt-4">Ce facem pe BMW</h2>
+          <p class="mt-4 text-lg text-[var(--color-on-surface-variant)]">
+            De la revizia de rutină la lucrările pe care nu le face oricine. Dacă
+            nu găsești aici ce ai nevoie, sună-ne, probabil o rezolvăm.
+          </p>
+        </div>
+      )
+    }
 
-    <ul class="mt-10 grid gap-px bg-[var(--color-outline-variant)] sm:grid-cols-2 lg:grid-cols-3 rounded-xl overflow-hidden border border-[var(--color-outline-variant)]">
+    <ul
+      class:list={[
+        "grid gap-px bg-[var(--color-outline-variant)] sm:grid-cols-2 lg:grid-cols-3 rounded-xl overflow-hidden border border-[var(--color-outline-variant)]",
+        bare ? "mt-0" : "mt-10",
+      ]}
+    >
       {
         services.map((s) => (
           <li class="reveal group bg-[var(--color-surface-container-lowest)] p-6 md:p-7 transition-colors hover:bg-[var(--color-primary-container)]">
@@ -38,9 +54,6 @@ const icons: Record<string, string> = {
             <h3 class="heading-md mt-4 !text-[1.2rem]">{s.title}</h3>
             <p class="mt-0.5 text-sm font-semibold text-[var(--color-primary)]">{s.subtitle}</p>
             <p class="mt-2.5 text-[0.95rem] leading-relaxed text-[var(--color-on-surface-variant)]">{s.description}</p>
-            {s.price && (
-              <p class="mt-3 text-sm font-semibold text-[var(--color-on-surface)]">{s.price}</p>
-            )}
           </li>
         ))
       }

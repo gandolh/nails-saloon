@@ -2,14 +2,33 @@
 import { site } from "../content/site";
 import { img } from "../content/images";
 
-const portrait = img("gallery-06"); // team / family shot
+// Until a real BavAuto team photo exists, we do NOT show a stock photo of
+// strangers under an "our family" claim — that would break the trust the section
+// is built on. We lead instead with the verified BMW engine shot (real marque,
+// real work) and keep the alt honest. Swap to a true BavAuto team photo when one
+// is shot, then restore a team-framed alt.
+const portrait = img("gallery-03");
+
+// `bare` drops the in-section <h2> + intro paragraphs' duplicate framing when
+// the page's PageHeader already carries the title. The body copy stays; only
+// the heading is suppressed so h1/h2 don't echo.
+interface Props {
+  bare?: boolean;
+}
+const { bare = false } = Astro.props;
 ---
 
 <section id="despre" class="section bg-[var(--color-surface-container-lowest)] border-y border-[var(--color-outline-variant)]">
   <div class="container-page grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
     <div class="reveal order-2 lg:order-1">
-      <span class="m-stripe" aria-hidden="true"></span>
-      <h2 class="heading-lg mt-4">O familie, o pasiune: BMW</h2>
+      {
+        !bare && (
+          <>
+            <span class="m-stripe" aria-hidden="true" />
+            <h2 class="heading-lg mt-4">O familie, o pasiune: BMW</h2>
+          </>
+        )
+      }
       <div class="mt-4 space-y-4 text-[1.02rem] leading-relaxed text-[var(--color-on-surface-variant)]">
         <p>
           {site.name} e un atelier mic, de familie, din {site.city}. Suntem
@@ -30,12 +49,12 @@ const portrait = img("gallery-06"); // team / family shot
 
       <dl class="mt-8 flex flex-wrap gap-x-10 gap-y-5">
         <div>
-          <dt class="font-display text-3xl font-extrabold text-[var(--color-primary)]">{site.stats.years}</dt>
-          <dd class="text-sm text-[var(--color-on-surface-variant)] mt-1">ani de experiență pe BMW</dd>
+          <dt class="font-display text-3xl font-extrabold text-[var(--color-primary)]">{site.stats.years} ani</dt>
+          <dd class="text-sm text-[var(--color-on-surface-variant)] mt-1">de experiență, numai pe BMW</dd>
         </div>
         <div>
-          <dt class="font-display text-3xl font-extrabold text-[var(--color-primary)]">{site.stats.cars}</dt>
-          <dd class="text-sm text-[var(--color-on-surface-variant)] mt-1">mașini trecute prin atelier</dd>
+          <dt class="font-display text-3xl font-extrabold text-[var(--color-primary)]">{site.stats.family} oameni</dt>
+          <dd class="text-sm text-[var(--color-on-surface-variant)] mt-1">aceeași familie, aceleași mâini</dd>
         </div>
       </dl>
     </div>
@@ -44,7 +63,7 @@ const portrait = img("gallery-06"); // team / family shot
       <div class="relative">
         <img
           src={portrait}
-          alt="Echipa atelierului BavAuto Gorj lângă un BMW în service"
+          alt="Motor BMW M deschis în atelierul BavAuto Gorj"
           class="w-full rounded-xl border border-[var(--color-outline-variant)] object-cover aspect-[4/3]"
           loading="lazy"
           decoding="async"

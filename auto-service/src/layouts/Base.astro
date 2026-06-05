@@ -14,18 +14,23 @@ import { withBase } from "../content/url";
 interface Props {
   title?: string;
   description?: string;
+  // Root-relative path of this page (e.g. "/servicii/"). Used to build the
+  // per-page canonical + og:url. Defaults to the home page.
+  path?: string;
 }
 
 const {
   title = `${site.name} · Service BMW în ${site.city}`,
   description = site.description,
+  path = "/",
 } = Astro.props;
 
-// Public canonical — overwritten by the owner if the real domain differs.
-const canonical = "https://bavauto.ro/";
+// Public site origin — overwritten by the owner if the real domain differs.
+const siteOrigin = "https://bavauto.ro";
+const canonical = `${siteOrigin}${path}`;
 
 const ogImage = img("og-image");
-const ogImageAbsolute = `${canonical}${ogImage.replace(/^\//, "")}`;
+const ogImageAbsolute = `${siteOrigin}/${ogImage.replace(/^\//, "")}`;
 
 // Map RO opening hours to schema.org day codes. Keeps the JSON-LD in sync with
 // the single source of truth in site.ts without duplicating the strings.
@@ -84,7 +89,7 @@ const openingHours = [
         name: site.name,
         description: site.description,
         image: ogImageAbsolute,
-        url: canonical,
+        url: `${siteOrigin}/`,
         telephone: `+${site.phoneE164}`,
         priceRange: "$$",
         address: {
@@ -107,7 +112,7 @@ const openingHours = [
   </head>
   <body>
     <a
-      href="#acasa"
+      href="#main"
       class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[300] focus:bg-[var(--color-primary)] focus:text-[var(--color-on-primary)] focus:px-4 focus:py-2 focus:rounded-md"
     >
       Sari la conținut
