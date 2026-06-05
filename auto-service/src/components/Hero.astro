@@ -1,0 +1,77 @@
+---
+import { site, telLink, waLink } from "../content/site";
+import { img } from "../content/images";
+
+const heroImg = img("hero");
+---
+
+<section id="acasa" class="relative overflow-hidden bg-[var(--color-inverse-surface)] text-[var(--color-inverse-on-surface)]">
+  <!-- Workshop photo, dimmed behind the content. -->
+  <div class="absolute inset-0" aria-hidden="true">
+    <img
+      src={heroImg}
+      alt=""
+      class="h-full w-full object-cover opacity-35"
+      loading="eager"
+      decoding="async"
+    />
+    <!-- Graphite gradient so the headline stays readable over any photo. -->
+    <div
+      class="absolute inset-0"
+      style="background: linear-gradient(105deg, oklch(20% 0.035 257 / 0.96) 0%, oklch(22% 0.04 257 / 0.82) 48%, oklch(24% 0.04 257 / 0.55) 100%);"
+    >
+    </div>
+  </div>
+
+  <div class="container-page relative">
+    <div class="max-w-2xl pt-28 pb-16 md:pt-36 md:pb-28">
+      <div class="reveal flex items-center gap-3">
+        <span class="m-stripe" aria-hidden="true"></span>
+        <span class="eyebrow text-[var(--color-inverse-on-surface-variant)]"
+          >Specialiști BMW · {site.city}</span
+        >
+      </div>
+
+      <h1 class="reveal heading-xl mt-5 text-[var(--color-inverse-on-surface)]">
+        Atelierul de BMW în care lași mașina liniștit.
+      </h1>
+
+      <p class="reveal mt-5 text-lg leading-relaxed text-[var(--color-inverse-on-surface-variant)] max-w-xl">
+        Suntem o familie de mecanici pasionați de BMW, în {site.city}. Diagnoză
+        dedicată, lucrări făcute ca la carte și un deviz clar înainte să punem
+        mâna pe mașină.
+      </p>
+
+      <div class="reveal mt-8 flex flex-col sm:flex-row gap-3">
+        <a href={telLink()} class="btn btn-primary btn-lg" data-cta="hero-call">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          <span>Sună: {site.phone}</span>
+        </a>
+        <a href={waLink()} target="_blank" rel="noopener" class="btn btn-outline-inverse btn-lg" data-cta="hero-whatsapp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.004c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.13c-.24.68-1.42 1.32-1.95 1.36-.5.05-1.13.26-3.8-.8-3.2-1.26-5.26-4.5-5.42-4.71-.16-.21-1.3-1.73-1.3-3.3 0-1.57.82-2.34 1.11-2.66.29-.32.64-.4.85-.4.21 0 .43 0 .61.01.2.01.46-.07.72.55.27.64.92 2.2 1 2.36.08.16.13.35.03.56-.1.21-.16.34-.31.53-.16.18-.33.41-.47.55-.16.16-.32.33-.14.64.18.32.8 1.32 1.72 2.14 1.18 1.05 2.18 1.38 2.49 1.54.31.16.49.13.67-.08.18-.21.77-.9.98-1.21.21-.32.42-.26.71-.16.29.11 1.84.87 2.16 1.03.31.16.52.24.6.37.08.13.08.74-.16 1.42z"/>
+          </svg>
+          <span>Scrie pe WhatsApp</span>
+        </a>
+      </div>
+
+      <!-- Inline trust facts, light touch. -->
+      <dl class="reveal mt-10 flex flex-wrap gap-x-8 gap-y-4">
+        <div>
+          <dt class="text-2xl font-display font-extrabold text-[var(--color-inverse-on-surface)]">{site.stats.years}</dt>
+          <dd class="text-sm text-[var(--color-inverse-on-surface-variant)]">ani pe BMW</dd>
+        </div>
+        <div>
+          <dt class="text-2xl font-display font-extrabold text-[var(--color-inverse-on-surface)]">{site.stats.cars}</dt>
+          <dd class="text-sm text-[var(--color-inverse-on-surface-variant)]">mașini reparate</dd>
+        </div>
+        <div>
+          <dt class="text-2xl font-display font-extrabold text-[var(--color-inverse-on-surface)]">Familie</dt>
+          <dd class="text-sm text-[var(--color-inverse-on-surface-variant)]">aceiași oameni, mereu</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</section>

@@ -13,7 +13,7 @@
 | Cerință | Statut legal | Implementat |
 |---|---|---|
 | Identificare firmă în footer (denumire, CUI, Reg. Com., capital, sediu) | **OBLIGATORIU** (Legea 365/2002 art. 5) | ✅ footer + pagini legale (date mock) |
-| Pictogramă/link ANPC SAL | **OBLIGATORIU** (Ordin ANPC 449/2022) | ✅ footer → anpc.ro/ce-este-sal/ |
+| Pictogramă/link ANPC SAL | **OBLIGATORIU** (Ordin ANPC 449/2022, **mod. 270/2026**) | ✅ footer → reclamatiisal.anpc.ro |
 | Link ANPC SOL / platforma ODR UE | **A FOST ELIMINAT** | ✅ șters (platforma ODR închisă 20.07.2025) |
 | Politică de confidențialitate (GDPR art. 13) | **OBLIGATORIU** | ✅ `/confidentialitate/` |
 | Temei juridic corect pe formular: art. 6(1)(b), NU consimțământ | **OBLIGATORIU** (GDPR art. 6) | ✅ bifa de consimțământ obligatorie eliminată, înlocuită cu notă informativă |
@@ -36,7 +36,9 @@ date din `src/content/site.ts › legal`.
 
 ### 2. ANPC — SAL obligatoriu, SOL eliminat
 - **SAL** (Soluționarea Alternativă a Litigiilor) — obligatoriu prin Ordinul ANPC
-  449/2022 pentru site-uri care prezintă servicii. Link: https://anpc.ro/ce-este-sal/
+  449/2022 pentru site-uri care prezintă servicii. **Actualizat prin Ordinul ANPC
+  270/2026** (în vigoare 19 mai 2026): link-ul trimite acum la noua platformă
+  națională https://reclamatiisal.anpc.ro/ (nu vechiul anpc.ro/ce-este-sal/).
 - **SOL / ODR** — **eliminat**. Platforma europeană ODR (ec.europa.eu/consumers/odr)
   a fost **închisă definitiv la 20 iulie 2025** (Regulamentul UE 2024/3228). Păstrarea
   link-ului ar fi o practică potențial înșelătoare, de aceea a fost șters din footer.

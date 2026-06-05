@@ -1,0 +1,53 @@
+---
+import { services } from "../content/services";
+import { telLink } from "../content/site";
+
+// Distinct line-art icon per service id, drawn inline so there's no icon-font
+// dependency. Stroke inherits currentColor (the brand blue).
+const icons: Record<string, string> = {
+  diagnoza: `<path d="M3 12h3l2-5 4 10 2-5h7"/><circle cx="19" cy="6" r="2"/>`,
+  revizii: `<path d="M14 4.5 18 8m-9.5 9.5a3 3 0 1 0 4.24-4.24"/><path d="M16.5 6.5 8 15"/><path d="M5 21l3-3"/><path d="M19 3l2 2-3 3-2-2z"/>`,
+  distributie: `<circle cx="8" cy="8" r="4"/><circle cx="16" cy="16" r="4"/><path d="M8 4v1M8 11v1M4 8h1M11 8h1"/><path d="M11 11l2 2"/>`,
+  franare: `<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3"/>`,
+  suspensie: `<path d="M6 3v4M6 17v4M6 7c2 0 2 2 0 2s-2 2 0 2 2 2 0 2 2 2 0 2"/><path d="M18 3v18"/><path d="M14 3h8M14 21h8"/>`,
+  "racire-vanos": `<path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4"/><circle cx="12" cy="12" r="3"/>`,
+  electrica: `<path d="M13 2 4 14h6l-1 8 9-12h-6z"/>`,
+  climatizare: `<path d="M4 7a4 4 0 0 1 8 0 4 4 0 0 1 8 0"/><path d="M4 13a4 4 0 0 1 8 0 4 4 0 0 1 8 0"/><path d="M4 19a4 4 0 0 1 8 0 4 4 0 0 1 8 0"/>`,
+  "pre-itp": `<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>`,
+};
+---
+
+<section id="servicii" class="section bg-[var(--color-surface)]">
+  <div class="container-page">
+    <div class="reveal max-w-2xl">
+      <span class="m-stripe" aria-hidden="true"></span>
+      <h2 class="heading-lg mt-4">Ce facem pe BMW</h2>
+      <p class="mt-4 text-lg text-[var(--color-on-surface-variant)]">
+        De la revizia de rutină la lucrările pe care nu le face oricine. Dacă nu
+        găsești aici ce ai nevoie, sună-ne, probabil o rezolvăm.
+      </p>
+    </div>
+
+    <ul class="mt-10 grid gap-px bg-[var(--color-outline-variant)] sm:grid-cols-2 lg:grid-cols-3 rounded-xl overflow-hidden border border-[var(--color-outline-variant)]">
+      {
+        services.map((s) => (
+          <li class="reveal group bg-[var(--color-surface-container-lowest)] p-6 md:p-7 transition-colors hover:bg-[var(--color-primary-container)]">
+            <span class="inline-flex h-11 w-11 items-center justify-center rounded-md bg-[var(--color-primary-container)] text-[var(--color-primary)] transition-colors group-hover:bg-[var(--color-surface-container-lowest)]" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" set:html={icons[s.id] ?? ""} />
+            </span>
+            <h3 class="heading-md mt-4 !text-[1.2rem]">{s.title}</h3>
+            <p class="mt-0.5 text-sm font-semibold text-[var(--color-primary)]">{s.subtitle}</p>
+            <p class="mt-2.5 text-[0.95rem] leading-relaxed text-[var(--color-on-surface-variant)]">{s.description}</p>
+            {s.price && (
+              <p class="mt-3 text-sm font-semibold text-[var(--color-on-surface)]">{s.price}</p>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="reveal mt-8 text-[var(--color-on-surface-variant)]">
+      Nu ești sigur ce are mașina? <a href={telLink()} class="font-semibold text-[var(--color-primary)] underline underline-offset-2 hover:text-[var(--color-primary-hover)]">Sună-ne</a> și îți spunem din vorbă, fără obligații.
+    </p>
+  </div>
+</section>

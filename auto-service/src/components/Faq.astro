@@ -1,0 +1,48 @@
+---
+import { faq } from "../content/faq";
+
+// FAQPage JSON-LD for SEO — built from the same source as the on-page accordion.
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+---
+
+<section id="intrebari" class="section bg-[var(--color-surface-container-lowest)] border-y border-[var(--color-outline-variant)]">
+  <div class="container-page grid lg:grid-cols-[0.7fr_1.3fr] gap-8 lg:gap-16">
+    <div class="reveal">
+      <span class="m-stripe" aria-hidden="true"></span>
+      <h2 class="heading-lg mt-4">Întrebări frecvente</h2>
+      <p class="mt-4 text-[var(--color-on-surface-variant)]">
+        Dacă nu găsești răspunsul aici, sună-ne, îți răspundem cu drag.
+      </p>
+    </div>
+
+    <div class="reveal divide-y divide-[var(--color-outline-variant)] border-t border-[var(--color-outline-variant)]">
+      {
+        faq.map((f) => (
+          <details class="faq-item group">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5">
+              <span class="heading-md !text-[1.08rem] text-[var(--color-on-surface)]">{f.q}</span>
+              <span class="shrink-0 text-[var(--color-primary)] transition-transform duration-300 group-open:rotate-45" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </span>
+            </summary>
+            <p class="pb-5 pr-8 text-[0.97rem] leading-relaxed text-[var(--color-on-surface-variant)]">{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(faqJsonLd)}
+  />
+</section>

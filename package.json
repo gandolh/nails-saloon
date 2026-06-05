@@ -10,6 +10,13 @@
     "saloon:preview": "npm --prefix saloon run preview",
     "saloon:deploy": "npm --prefix saloon run deploy:push",
     "saloon:deploy:all": "npm --prefix saloon run deploy:all",
-    "saloon:bots": "npm --prefix saloon/marketing/bots run check"
+    "saloon:bots": "npm --prefix saloon/marketing/bots run check",
+    "auto-service": "npm --prefix auto-service run",
+    "auto-service:install": "npm --prefix auto-service install",
+    "auto-service:dev": "npm --prefix auto-service run dev",
+    "auto-service:build": "npm --prefix auto-service run build",
+    "auto-service:preview": "npm --prefix auto-service run preview",
+    "auto-service:deploy": "npm --prefix auto-service run deploy:push",
+    "auto-service:deploy:all": "npm --prefix auto-service run deploy:all"
   }
 }

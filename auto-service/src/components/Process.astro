@@ -1,0 +1,59 @@
+---
+// The 5-step flow. A genuine ordered sequence, so numbered markers carry real
+// information (the order the customer experiences). Directly attacks the trust
+// deficit: the customer always knows what happens next and approves the cost.
+const steps = [
+  {
+    title: "Ne suni sau ne scrii",
+    body: "Spune-ne modelul, anul și ce simptome are mașina. Stabilim când o aduci.",
+  },
+  {
+    title: "Diagnoză",
+    body: "Verificăm mașina cu diagnoza dedicată BMW și găsim cauza, nu doar simptomul.",
+  },
+  {
+    title: "Primești devizul",
+    body: "Îți spunem clar ce e de făcut, ce piese și cât costă, totul înainte de lucrare.",
+  },
+  {
+    title: "Aprobi și reparăm",
+    body: "Lucrăm doar ce ai aprobat. Dacă apare ceva pe parcurs, te sunăm întâi.",
+  },
+  {
+    title: "Ridici mașina",
+    body: "Cu factură și certificat de garanție pentru piese și manoperă.",
+  },
+];
+---
+
+<section id="proces" class="section bg-[var(--color-surface)]">
+  <div class="container-page">
+    <div class="reveal max-w-2xl">
+      <span class="m-stripe" aria-hidden="true"></span>
+      <h2 class="heading-lg mt-4">Cum lucrăm, de la telefon la cheie</h2>
+      <p class="mt-4 text-lg text-[var(--color-on-surface-variant)]">
+        Fără bătăi de cap și fără costuri care apar din senin. Știi tot timpul la
+        ce pas ești.
+      </p>
+    </div>
+
+    <ol class="mt-12 grid gap-y-10 md:grid-cols-5 md:gap-x-6">
+      {
+        steps.map((s, i) => (
+          <li class="reveal relative">
+            <div class="flex items-center gap-3 md:block">
+              <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-[var(--color-primary)] font-display text-lg font-extrabold text-[var(--color-on-primary)] tabular-nums">
+                {i + 1}
+              </span>
+              {i < steps.length - 1 && (
+                <span class="hidden md:block absolute top-[22px] left-12 right-[-12px] h-px bg-[var(--color-outline-variant)]" aria-hidden="true" />
+              )}
+            </div>
+            <h3 class="heading-md mt-4 !text-[1.1rem] md:!text-[1.15rem]">{s.title}</h3>
+            <p class="mt-2 text-[0.95rem] leading-relaxed text-[var(--color-on-surface-variant)]">{s.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

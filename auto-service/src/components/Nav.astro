@@ -1,0 +1,74 @@
+---
+import MobileMenu from "./MobileMenu.tsx";
+import { site, telLink } from "../content/site";
+
+const links = [
+  { href: "#servicii", label: "Servicii" },
+  { href: "#de-ce-noi", label: "De ce noi" },
+  { href: "#proces", label: "Cum lucrăm" },
+  { href: "#despre", label: "Despre" },
+  { href: "#intrebari", label: "Întrebări" },
+  { href: "#contact", label: "Contact" },
+];
+---
+
+<header
+  id="site-nav"
+  class="sticky top-0 inset-x-0 z-[var(--z-nav)] transition-colors duration-300"
+  data-scrolled="false"
+>
+  <div class="container-page flex items-center justify-between py-3.5">
+    <a href="#acasa" class="flex items-center gap-2.5 group" aria-label={`${site.name} — acasă`}>
+      <span class="wordmark text-xl md:text-2xl text-[var(--color-on-surface)]">{site.name}</span>
+      <span class="m-stripe !w-9 !h-[3px]" aria-hidden="true"></span>
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-7" aria-label="Navigare principală">
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class="text-sm font-semibold text-[var(--color-on-surface-variant)] hover:text-[var(--color-on-surface)] transition-colors"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a
+        href={telLink()}
+        class="hidden sm:inline-flex btn btn-primary"
+        data-cta="nav-call"
+      >
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        <span>Sună acum</span>
+      </a>
+      <MobileMenu client:load />
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  (function () {
+    const nav = document.getElementById("site-nav");
+    if (!nav) return;
+    function update() {
+      nav.dataset.scrolled = window.scrollY > 8 ? "true" : "false";
+    }
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+  })();
+</script>
+
+<style>
+  #site-nav[data-scrolled="true"] {
+    background-color: oklch(98.4% 0.004 250 / 0.82);
+    backdrop-filter: saturate(140%) blur(10px);
+    -webkit-backdrop-filter: saturate(140%) blur(10px);
+    border-bottom: 1px solid var(--color-outline-variant);
+  }
+</style>

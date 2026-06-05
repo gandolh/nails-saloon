@@ -1,0 +1,57 @@
+---
+// A compact strip of trust signals right under the hero. For an auto service
+// this is where neutralising the "will they rip me off?" anxiety begins.
+const items = [
+  {
+    label: "Specialiști BMW",
+    detail: "Diagnoză dedicată, nu generalistă",
+    icon: "bmw",
+  },
+  {
+    label: "Deviz clar, în avans",
+    detail: "Niciun cost neaprobat de tine",
+    icon: "doc",
+  },
+  {
+    label: "Garanție la lucrări",
+    detail: "Piese și manoperă, în scris",
+    icon: "shield",
+  },
+  {
+    label: "Autorizat RAR",
+    detail: "Lucrări conforme, cu factură",
+    icon: "check",
+  },
+];
+---
+
+<section class="border-b border-[var(--color-outline-variant)] bg-[var(--color-surface-container-lowest)]">
+  <div class="container-page">
+    <ul class="grid grid-cols-2 lg:grid-cols-4 divide-y divide-[var(--color-outline-variant)] lg:divide-y-0 lg:divide-x">
+      {
+        items.map((it) => (
+          <li class="flex items-start gap-3 py-5 lg:py-7 lg:px-7 first:lg:pl-0 last:lg:pr-0">
+            <span class="mt-0.5 shrink-0 text-[var(--color-primary)]" aria-hidden="true">
+              {it.icon === "bmw" && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6.4 6.4M12 12l-6.4 6.4"/></svg>
+              )}
+              {it.icon === "doc" && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg>
+              )}
+              {it.icon === "shield" && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              )}
+              {it.icon === "check" && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+              )}
+            </span>
+            <div>
+              <p class="font-semibold text-[var(--color-on-surface)] leading-snug">{it.label}</p>
+              <p class="text-sm text-[var(--color-on-surface-variant)] mt-0.5">{it.detail}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

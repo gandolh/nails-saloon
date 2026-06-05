@@ -1,0 +1,36 @@
+---
+import { gallery } from "../content/gallery";
+---
+
+<section id="galerie" class="section bg-[var(--color-surface)]">
+  <div class="container-page">
+    <div class="reveal max-w-2xl">
+      <span class="m-stripe" aria-hidden="true"></span>
+      <h2 class="heading-lg mt-4">Din atelier</h2>
+      <p class="mt-4 text-lg text-[var(--color-on-surface-variant)]">
+        Lucrări reale, mașini reale. Așa arată locul în care îți lași mașina.
+      </p>
+    </div>
+
+    <div class="mt-10 grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+      {
+        gallery.map((g, i) => (
+          <figure
+            class:list={[
+              "reveal overflow-hidden rounded-lg border border-[var(--color-outline-variant)] bg-[var(--color-surface-container)]",
+              i === 0 && "col-span-2 lg:row-span-2",
+            ]}
+          >
+            <img
+              src={g.src}
+              alt={g.alt}
+              class="h-full w-full object-cover aspect-[4/3] transition-transform duration-500 hover:scale-[1.03]"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>

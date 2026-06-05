@@ -1,0 +1,56 @@
+---
+import { site } from "../content/site";
+import { img } from "../content/images";
+
+const portrait = img("gallery-06"); // team / family shot
+---
+
+<section id="despre" class="section bg-[var(--color-surface-container-lowest)] border-y border-[var(--color-outline-variant)]">
+  <div class="container-page grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+    <div class="reveal order-2 lg:order-1">
+      <span class="m-stripe" aria-hidden="true"></span>
+      <h2 class="heading-lg mt-4">O familie, o pasiune: BMW</h2>
+      <div class="mt-4 space-y-4 text-[1.02rem] leading-relaxed text-[var(--color-on-surface-variant)]">
+        <p>
+          {site.name} e un atelier mic, de familie, din {site.city}. Suntem
+          câțiva oameni care reparăm BMW-uri de ani buni, pentru că asta ne place
+          cu adevărat să facem, nu pentru că „a ieșit așa”.
+        </p>
+        <p>
+          Tocmai pentru că suntem puțini, fiecare mașină trece prin mâini pe care
+          le cunoști. Îți explicăm pe înțeles ce are, îți dăm un deviz corect și
+          îți spunem sincer când o lucrare nu merită banii.
+        </p>
+        <p>
+          Suntem un atelier <strong class="text-[var(--color-on-surface)] font-semibold">independent</strong>:
+          nu suntem dealer și nu avem nicio legătură cu BMW AG. Suntem doar niște
+          pasionați care îți tratează mașina ca pe a noastră.
+        </p>
+      </div>
+
+      <dl class="mt-8 flex flex-wrap gap-x-10 gap-y-5">
+        <div>
+          <dt class="font-display text-3xl font-extrabold text-[var(--color-primary)]">{site.stats.years}</dt>
+          <dd class="text-sm text-[var(--color-on-surface-variant)] mt-1">ani de experiență pe BMW</dd>
+        </div>
+        <div>
+          <dt class="font-display text-3xl font-extrabold text-[var(--color-primary)]">{site.stats.cars}</dt>
+          <dd class="text-sm text-[var(--color-on-surface-variant)] mt-1">mașini trecute prin atelier</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="reveal order-1 lg:order-2">
+      <div class="relative">
+        <img
+          src={portrait}
+          alt="Echipa atelierului BavAuto Gorj lângă un BMW în service"
+          class="w-full rounded-xl border border-[var(--color-outline-variant)] object-cover aspect-[4/3]"
+          loading="lazy"
+          decoding="async"
+        />
+        <span class="m-stripe m-stripe--full absolute bottom-0 left-0 rounded-b-xl" aria-hidden="true"></span>
+      </div>
+    </div>
+  </div>
+</section>

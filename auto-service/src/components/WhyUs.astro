@@ -1,0 +1,52 @@
+---
+// "De ce noi" — the differentiators that matter for a small BMW family shop vs
+// a dealer or a generalist garage. Asymmetric: a lead statement on the left,
+// reasons on the right (avoids the identical-card-grid trope).
+const reasons = [
+  {
+    title: "Doar BMW, zi de zi",
+    body: "Lucrăm aceleași motoare și aceeași electronică în fiecare zi. Cunoaștem bolile de model (lanț N47, VANOS, răcire) și știm unde să ne uităm întâi.",
+  },
+  {
+    title: "Vorbești cu omul care repară",
+    body: "Fără call-center și fără consilier care pasează mai departe. Discuți direct cu mecanicul care îți ia mașina în primire.",
+  },
+  {
+    title: "Deviz înainte, fără surprize",
+    body: "Întâi diagnoza, apoi devizul. Nu începem nicio lucrare neaprobată de tine și îți explicăm pe înțeles ce și de ce.",
+  },
+  {
+    title: "Scule și diagnoză potrivite",
+    body: "Diagnoză dedicată BMW pentru erori, codări și adaptări, plus sculele specifice de care au nevoie lucrările pe marca asta.",
+  },
+];
+---
+
+<section id="de-ce-noi" class="section bg-[var(--color-surface-container-lowest)] border-y border-[var(--color-outline-variant)]">
+  <div class="container-page grid lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16">
+    <div class="reveal">
+      <span class="m-stripe" aria-hidden="true"></span>
+      <h2 class="heading-lg mt-4">De ce să ne lași tocmai nouă mașina</h2>
+      <p class="mt-4 text-lg text-[var(--color-on-surface-variant)]">
+        Un atelier de familie nu poate concura cu un dealer la dimensiune. Poate,
+        în schimb, să te trateze ca pe un vecin, nu ca pe un număr de bon.
+      </p>
+    </div>
+
+    <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-8">
+      {
+        reasons.map((r, i) => (
+          <li class="reveal">
+            <div class="flex items-baseline gap-3">
+              <span class="font-display text-sm font-extrabold text-[var(--color-primary)] tabular-nums" aria-hidden="true">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3 class="heading-md !text-[1.15rem]">{r.title}</h3>
+            </div>
+            <p class="mt-2 pl-8 text-[0.95rem] leading-relaxed text-[var(--color-on-surface-variant)]">{r.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
