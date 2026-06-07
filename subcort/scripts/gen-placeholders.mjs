@@ -16,18 +16,22 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const outDir = join(__dirname, "..", "public", "images");
 
 // Brand palette (matches src/styles/global.css; hex approximations of the OKLCH).
+// Lifted a notch from the on-page canopy green so the scenes read as IMAGES
+// against the dark hero/cards instead of dissolving into them. The dusk sky now
+// climbs from a deep canopy base into a warmer blue-hour band near the horizon.
 const C = {
-  sky0: "#1c2f23", // deepest canopy (top of dusk sky / tent shadow)
-  sky1: "#26412f", // deep canopy green (inverse-surface)
-  sky2: "#33523e", // lifted canopy
-  field: "#2c3a2c", // dark grassy field at dusk
-  line: "#46604f", // structural lines
-  canvasL: "#eef0e8", // warm off-white canvas highlight
-  ink: "#f3f1e8", // warm near-white
-  green: "#5a8c63", // brighter green
+  sky0: "#16271d", // deepest canopy (top of sky)
+  sky1: "#274635", // deep canopy green (inverse-surface, lifted)
+  sky2: "#3a5b44", // lifted canopy
+  horizon: "#7a6e4e", // warm blue-hour band just above the field
+  field: "#223024", // dark grassy field at dusk
+  line: "#5d7a64", // structural lines (brighter, reads as edges)
+  canvasL: "#f3f4ec", // warm off-white canvas highlight
+  ink: "#f6f4ea", // warm near-white
+  green: "#6fa178", // brighter green
   greenD: "#3a6b46",
-  clay: "#c87b4a", // warm clay (lamp glow)
-  clayL: "#e6a877", // brighter clay glow
+  clay: "#d2864f", // warm clay (lamp glow)
+  clayL: "#f0b985", // brighter clay glow
 };
 
 // Shared building blocks ----------------------------------------------------
@@ -37,12 +41,14 @@ function defs() {
   <defs>
     <linearGradient id="dusk" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="${C.sky0}"/>
-      <stop offset="60%" stop-color="${C.sky1}"/>
+      <stop offset="45%" stop-color="${C.sky1}"/>
+      <stop offset="74%" stop-color="${C.horizon}"/>
+      <stop offset="82%" stop-color="${C.sky2}"/>
       <stop offset="100%" stop-color="${C.field}"/>
     </linearGradient>
-    <radialGradient id="lamp" cx="50%" cy="62%" r="42%">
-      <stop offset="0%" stop-color="${C.clayL}" stop-opacity="0.5"/>
-      <stop offset="55%" stop-color="${C.clay}" stop-opacity="0.12"/>
+    <radialGradient id="lamp" cx="50%" cy="64%" r="46%">
+      <stop offset="0%" stop-color="${C.clayL}" stop-opacity="0.62"/>
+      <stop offset="50%" stop-color="${C.clay}" stop-opacity="0.18"/>
       <stop offset="100%" stop-color="${C.clay}" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="guyline" x1="0" y1="0" x2="1" y2="0">
@@ -208,7 +214,9 @@ function sceneLights(w, h, label) {
 async function main() {
   await mkdir(outDir, { recursive: true });
 
-  await writeFile(join(outDir, "hero.svg"), sceneHero(1600, 1000, "Subcort · corturi pentru evenimente"));
+  // Hero carries no baked-in caption (the page supplies the headline). The OG
+  // card keeps its label since it travels standalone in link previews.
+  await writeFile(join(outDir, "hero.svg"), sceneHero(1600, 1000, ""));
   await writeFile(join(outDir, "og-image.svg"), sceneHero(1200, 630, "Subcort · corturi pentru evenimente"));
 
   await writeFile(join(outDir, "gallery-01.svg"), sceneInterior(1000, 750, "Interior pregătit"));

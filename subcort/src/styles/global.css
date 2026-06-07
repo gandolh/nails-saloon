@@ -192,6 +192,23 @@
     );
   }
 
+  /* ---- Hero atmosphere -----------------------------------------------------
+     A whisper of film grain over the dark hero so the flat canopy fill reads
+     as photographed dusk, not a solid swatch. Pure inline SVG noise — no extra
+     request — at very low opacity, sitting above the art but below the text. */
+  .hero-grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  /* the .container-page content sits above the grain; the art layer stays below */
+  .hero-grain > .container-page { position: relative; z-index: 2; }
+
   /* Eyebrow — used SPARINGLY (hero + at most one key section), paired with the
      guy-line. Never above every section. */
   .eyebrow {
@@ -201,6 +218,130 @@
     letter-spacing: 0.13em;
     text-transform: uppercase;
     color: var(--color-on-surface-variant);
+  }
+
+  /* ---- Editorial section index --------------------------------------------
+     A sequenced overline (01 / 02 / 03 …) that makes sections read as an
+     authored set rather than a stack of equal blocks. The slab numeral sits
+     against the guy-line; the label is the quiet eyebrow. Tabular figures keep
+     the numerals aligned. */
+  .section-index {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+  .section-index__num {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.95rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    color: var(--color-accent);
+    line-height: 1;
+  }
+  .section-index .guyline {
+    width: 2.25rem;
+    flex: none;
+  }
+
+  /* Numerals that must not jiggle (stats, step numbers, the section index). */
+  .tnum { font-variant-numeric: tabular-nums; }
+
+  /* ---- Display highlight --------------------------------------------------
+     A single keyword in a headline gets a hand-drawn clay underline — the
+     lamp-glow warmth applied as emphasis, not a heavy marker highlight. Used
+     ONCE per heading, on the word that carries the meaning. */
+  .ink-mark {
+    position: relative;
+    white-space: nowrap;
+  }
+  .ink-mark::after {
+    content: "";
+    position: absolute;
+    left: -0.04em;
+    right: -0.04em;
+    bottom: 0.04em;
+    height: 0.5em;
+    background: linear-gradient(
+      90deg,
+      var(--color-accent) 0%,
+      var(--color-accent-bright) 100%
+    );
+    opacity: 0.32;
+    border-radius: 2px;
+    z-index: -1;
+  }
+  .ink-mark--bright::after {
+    opacity: 0.42;
+    background: linear-gradient(
+      90deg,
+      var(--color-accent-bright) 0%,
+      var(--color-primary-bright) 120%
+    );
+  }
+
+  /* ---- Process timeline (Cum funcționează) --------------------------------
+     Replaces the grid of four identical boxes with a connected sequence keyed
+     to the guy-line: a continuous taut line threads the four numbered nodes,
+     expressing the cap-coadă flow. Horizontal on desktop, vertical on mobile. */
+  .timeline {
+    position: relative;
+    display: grid;
+    gap: 2rem;
+  }
+  /* the connecting line */
+  .timeline::before {
+    content: "";
+    position: absolute;
+    background: linear-gradient(
+      var(--tl-dir, 90deg),
+      var(--color-primary) 0%,
+      var(--color-accent) 100%
+    );
+    opacity: 0.55;
+  }
+  /* mobile: vertical line down the left gutter */
+  .timeline::before {
+    left: 1rem;
+    top: 0.6rem;
+    bottom: 0.6rem;
+    width: 2px;
+    --tl-dir: 180deg;
+  }
+  .timeline__step { position: relative; padding-left: 3.5rem; }
+  .timeline__node {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: var(--radius-full);
+    background: var(--color-surface);
+    border: 2px solid var(--color-primary);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: var(--color-primary);
+    font-variant-numeric: tabular-nums;
+  }
+  @media (min-width: 1024px) {
+    .timeline {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2.25rem;
+    }
+    .timeline::before {
+      left: 1.05rem;
+      right: 1.05rem;
+      top: 1.05rem;
+      bottom: auto;
+      width: auto;
+      height: 2px;
+      --tl-dir: 90deg;
+    }
+    .timeline__step { padding-left: 0; padding-top: 3.25rem; }
   }
 
   /* ---- Buttons -----------------------------------------------------------
